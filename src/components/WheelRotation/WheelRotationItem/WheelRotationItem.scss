@@ -1,0 +1,31 @@
+@import '../../../assets/styles/global';
+
+.WheelRotationItem {
+  &-item-wheel {
+    position: absolute;
+    left: -100%;
+    width: 200%;
+    height: 200%;
+    display: block;
+    text-align: center;
+    padding-top: 1.7rem;
+    font-weight: 600;
+    color: $white;
+    font-size: 1.4rem;
+
+    &.item-wheel-1 {
+      background-color: $silver;
+      color: $black;
+    }
+
+    &.item-wheel-2 {
+      background-color: $black;
+    }
+
+    b {
+      display: inline-block;
+      word-break: break-word;
+      max-width: 15%;
+    }
+  }
+}

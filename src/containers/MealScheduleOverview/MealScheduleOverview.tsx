@@ -123,7 +123,7 @@ const MealScheduleOverview: React.FC<TMealScheduleOverviewProps> = ({ onBack, on
 
       <div className="MealScheduleOverview-tabs flex justify-between">
         {dataTabsMealSchedule.map((item) => (
-          <div className="MealScheduleOverview-tabs-item">
+          <div key={item.value} className="MealScheduleOverview-tabs-item">
             <Button
               size="small"
               title={item.label}

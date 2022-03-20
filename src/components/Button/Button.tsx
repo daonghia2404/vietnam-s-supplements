@@ -20,6 +20,7 @@ const Button: React.FC<TButtonProps> = ({
   danger,
   reverse,
   link,
+  disabled,
   onClick,
 }) => {
   const handleClickButton = (): void => {
@@ -28,7 +29,14 @@ const Button: React.FC<TButtonProps> = ({
   };
   return (
     <div className={classNames('Button', className, { shadow, 'only-icon': !title && iconName, reverse })}>
-      <AntdButton size={size} type={type} htmlType={htmlType} onClick={handleClickButton} danger={danger}>
+      <AntdButton
+        size={size}
+        type={type}
+        htmlType={htmlType}
+        onClick={handleClickButton}
+        danger={danger}
+        disabled={disabled}
+      >
         {iconName && (
           <div className="Button-icon">
             <Icon name={iconName} color={iconColor} />

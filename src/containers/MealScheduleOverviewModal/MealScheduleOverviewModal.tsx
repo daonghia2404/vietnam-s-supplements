@@ -115,7 +115,7 @@ const MealScheduleOverviewModal: React.FC<TMealScheduleOverviewModalProps> = ({ 
 
       <div className="MealScheduleOverviewModal-tabs flex justify-between">
         {dataTabsMealSchedule.map((item) => (
-          <div className="MealScheduleOverviewModal-tabs-item">
+          <div key={item.value} className="MealScheduleOverviewModal-tabs-item">
             <Button
               size="small"
               title={item.label}

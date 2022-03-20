@@ -1,5 +1,38 @@
 @import '../../assets/styles/global';
 
 .Calendar {
-  
+  .styles_calendar__3dikT {
+    padding-top: .5rem;
+  }
+
+  .styles_item__2Aavf {
+    font-size: 1.6rem;
+    border-right: 1px solid $white;
+    border-left: 1px solid $white;
+  }
+
+  .styles_calendar-container__3nN6q {
+    width: 100% !important;
+  }
+
+  .styles_calendar__3dikT {
+    border-radius: 1rem;
+    border: none !important;
+    box-shadow: $avatar-shadow !important;
+  }
+
+  .styles_calendar-inner-1__FZOnv {
+    font-size: 1.6rem;
+  }
+
+  .styles_item__2Aavf {
+    height: 3.4rem !important;
+  }
+
+  .styles_calendar-header-item__qxrU- {
+    background: $white !important;
+    font-size: 1.6rem;
+    border-top: 1px solid $iron;
+    border-bottom: 1px solid $iron;
+  }
 }

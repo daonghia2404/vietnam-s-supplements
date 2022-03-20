@@ -12967,6 +12967,11 @@ react-popper@^2.2.4:
     react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
+react-range-calendar@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-range-calendar/-/react-range-calendar-1.0.3.tgz#0fba7a1e7fdca7153d70e18726a8f7e1a1a90f40"
+  integrity sha512-vjePbUbsKCH5Y8RMfCqkYRmdKBldVWYy/IYKvzGbGC90e+/4YHx1BuwepI4hgBnyXkkWC2k6eIxb/Y0XQPT3IQ==
+
 react-redux@^7.2.3:
   version "7.2.6"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.2.6.tgz#49633a24fe552b5f9caf58feb8a138936ddfe9aa"
