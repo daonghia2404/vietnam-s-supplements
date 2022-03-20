@@ -3,10 +3,10 @@ import Slider from 'react-slick';
 import classNames from 'classnames';
 
 import Button from '@/components/Button';
+import { EIconName } from '@/components/Icon';
 
 import { TCarouselsProps } from './Carousels.types';
 import './Carousels.scss';
-import Icon, { EIconName } from '@/components/Icon';
 
 export const Carousels: React.FC<TCarouselsProps> = ({
   dots = true,

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu } from 'antd';
-import { Link, useLocation, useMatch } from '@reach/router';
+import { Link, globalHistory } from '@reach/router';
 
 import ImageFavicon from '@/assets/images/favicon.png';
 import ImageLogo from '@/assets/images/logo.png';
@@ -12,8 +12,8 @@ import { dataMenu, dataProfileMenu } from '@/containers/Sidebar/Sidebar.data';
 import './Sidebar.scss';
 
 const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
-  const { pathname } = window.location || {};
-  const pathNameArray = pathname.split('/');
+  const [pathName, setPathName] = useState<string>('');
+  const pathNameArray = pathName.split('/');
 
   const isShowProfileMenu = pathNameArray.includes(LayoutPaths.Profile.substring(1));
   const isShowNormalMenu = !isShowProfileMenu;
@@ -22,7 +22,25 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
     if (isShowProfileMenu) return dataProfileMenu;
     if (isShowNormalMenu) return dataMenu;
     return [];
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
+
+  const handleChangeRouter = (pathname: string): void => {
+    setPathName(pathname);
+  };
+
+  useEffect(() => {
+    const { pathname: mountedPathName } = window.location;
+    handleChangeRouter(mountedPathName);
+
+    globalHistory.listen(({ location }) => {
+      const { pathname } = location;
+      handleChangeRouter(pathname);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="Sidebar flex">
       <div className="Sidebar-item">
