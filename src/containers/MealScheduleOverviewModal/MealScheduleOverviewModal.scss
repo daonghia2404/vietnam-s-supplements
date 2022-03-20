@@ -1,0 +1,86 @@
+@import '../../assets/styles/global';
+
+.MealScheduleOverviewModal {
+  &-wrap {
+    .Modal {
+      max-width: 117rem;
+      width: 100% !important;
+
+      &-footer {
+        max-width: 50rem;
+        margin: 5rem auto 2rem;
+      }
+    }
+
+    .MealScheduleOverviewModal {
+      &-header {
+        border-bottom: 1px solid $iron;
+        padding-bottom: 2.5rem;
+      }
+
+      &-tabs {
+        margin: 1rem 0 1.5rem;
+
+        &-item {
+          flex: 0 0 calc(50% - 2rem);
+          max-width: calc(50% - 2rem);
+
+          .Button .ant-btn {
+            border-radius: 1rem;
+          }
+        }
+      }
+
+      &-subtitle {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin-bottom: 2.2rem;
+      }
+
+      &-description {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+      }
+
+      &-list {
+        padding: 0;
+        margin-bottom: 1rem;
+
+        &-item {
+          flex: 0 0 50%;
+          max-width: 50%;
+          margin-bottom: 1rem;
+          font-size: 1.6rem;
+          position: relative;
+          padding-left: 1.5rem;
+          cursor: pointer;
+
+          &:hover {
+            color: $electric-violet;
+
+            .Icon path {
+              fill: $electric-violet;
+            }
+          }
+
+          &::before {
+            position: absolute;
+            width: .5rem;
+            height: .5rem;
+            content: '';
+            border-radius: 50%;
+            background: $international-klein-blue;
+            left: 0;
+            top: 1rem;
+          }
+
+          .Icon {
+            flex: 0 0 1.4rem;
+            max-width: 1.4rem;
+            margin-left: 1rem;
+          }
+        }
+      }
+    }
+  }
+}

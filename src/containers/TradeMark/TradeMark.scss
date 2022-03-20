@@ -1,0 +1,59 @@
+@import '../../assets/styles/global';
+
+.TradeMark {
+  margin-bottom: 6rem;
+
+  &-wrapper {
+    &-item {
+      padding: 4rem 2.5rem;
+      flex: 0 0 calc(100% / 4 - .5rem);
+      max-width: calc(100% / 4 - .5rem);
+      background: $white;
+
+      &-title {
+        font-size: 2.8rem;
+        margin-bottom: 3rem;
+        line-height: 1.3;
+        font-style: italic;
+        text-transform: uppercase;
+
+        span {
+          font-weight: 600;
+        }
+      }
+
+      &-icon {
+        margin: 2rem auto 8rem;
+        text-align: center;
+
+        img {
+          height: 10.8rem;
+        }
+      }
+
+      &-description {
+        font-size: 1.6rem;
+        color: $big-stone;
+        margin-bottom: 3rem;
+        font-weight: lighter;
+      }
+
+      &-subtitle {
+        font-size: 1.8rem;
+        color: $big-stone;
+        font-weight: 600;
+        text-align: center;
+
+        span {
+          font-weight: lighter;
+        }
+      }
+
+      &-cta {
+        @include style-skew-btn();
+        width: fit-content;
+        padding: 0.7rem 2.5rem;
+      }
+    }
+  }
+}

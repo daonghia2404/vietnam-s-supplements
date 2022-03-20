@@ -1,0 +1,54 @@
+@import '../../assets/styles/global';
+
+.HistoryRotation {
+  &-tabs {
+    margin: 1rem 0 1.5rem;
+
+    &-item {
+      flex: 0 0 calc(50% - 2rem);
+      max-width: calc(50% - 2rem);
+
+      .Button .ant-btn {
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  &-main {
+    &-list {
+      &-item {
+        padding: 1.5rem 0;
+        border-bottom: 1px solid $iron;
+
+        &-text {
+          font-size: 1.6rem;
+          font-weight: 400;
+          line-height: 2;
+
+          &.bold {
+            font-weight: 600;
+            font-size: 1.8rem;
+          }
+
+          &.warning,
+          &.error,
+          &.success {
+            font-weight: 600;
+          }
+
+          &.warning {
+            color: $buddha-gold;
+          }
+
+          &.error {
+            color: $red;
+          }
+
+          &.success {
+            color: $japanese-laurel;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@import '../../../assets/styles/global';
+
+.RankPointsHistory {
+  &-item {
+    padding: 2rem 0;
+    border-bottom: 1px solid $iron;
+
+    &:first-child {
+      border-top: 1px solid $iron;
+    }
+  }
+  &-text {
+    font-size: 1.6rem;
+    line-height: 2;
+
+    &.bold {
+      font-weight: 600;
+    }
+
+    &.error {
+      font-weight: 500;
+      color: $red;
+    }
+
+    &.success {
+      font-weight: 500;
+      color: $japanese-laurel;
+    }
+  }
+}

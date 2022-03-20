@@ -1,0 +1,58 @@
+@import '../../assets/styles/global';
+
+.WalletRecharge {
+  &-back {
+    cursor: pointer;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: $electric-violet;
+    margin-bottom: 1rem;
+    position: relative;
+    width: fit-content;
+
+    .Icon {
+      transform: rotate(180deg);
+      margin-right: .5rem;
+    }
+  }
+  &-badge {
+    background: $boulder;
+    padding: 1rem 1.6rem;
+    color: $white;
+    font-size: 1.6rem;
+
+    .Icon {
+      margin: 0.5rem 1rem 0 0;
+    }
+  }
+
+  &-group {
+    padding: 2rem 0 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $iron;
+    }
+  }
+
+  &-text {
+    font-size: 1.6rem;
+    line-height: 2;
+
+    &.bold {
+      font-weight: 600;
+    }
+
+    &.gray {
+      color: $boulder;
+    }
+  }
+
+  &-submit {
+    margin-top: 6.4rem;
+
+    .Button {
+      max-width: 50rem;
+      width: 100%;
+    }
+  }
+}

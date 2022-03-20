@@ -1,0 +1,101 @@
+@import '../../assets/styles/global';
+
+.ProductBox {
+  padding: 3rem 2rem;
+  cursor: pointer;
+  background: $white;
+  position: relative;
+
+  &.background {
+    background: url('../../assets/images/bg-card-product.png');
+    background-size: cover;
+    background-position: center;
+
+    .ProductBox {
+      &-info {
+        &-title,
+        &-price-current {
+          color: $white;
+        }
+
+        &-cta {
+          color: $black;
+          background: $white;
+          &::before,
+          &::after {
+            background: $white;
+          }
+        }
+      }
+    }
+  }
+
+  &-badge {
+    width: 5rem;
+    height: 5rem;
+    background: url('../../assets/images/bg-badge.png');
+    background-size: cover;
+    background-position: center;
+    transform: rotate(-20deg);
+    font-size: 1.6rem;
+    color: $white;
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  &-image {
+    flex: 0 0 14rem;
+    max-width: 14rem;
+    height: 14rem;
+    overflow: hidden;
+    display: flex;
+    margin: 0 auto 5rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  &-info {
+    &-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+
+    &-price {
+      max-width: 20rem;
+      margin: 0 auto 3.5rem;
+
+      &-current {
+        font-size: 1.6rem;
+        color: $red;
+        font-weight: 600;
+      }
+
+      &-old {
+        text-decoration: line-through;
+        font-size: 1.4rem;
+        font-weight: 500;
+      }
+    }
+
+    &-cta {
+      @include style-skew-btn();
+      max-width: 15rem;
+    }
+  }
+}

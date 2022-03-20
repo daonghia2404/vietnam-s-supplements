@@ -1,0 +1,43 @@
+@import '../../assets/styles/global';
+
+.Select {
+
+  .ant-select-focused .ant-select-selector {
+    border-color: $electric-violet !important;
+  }
+
+  .ant-select {
+    .ant-select-selection-search-input {
+      height: 100% !important;
+
+    }
+
+    .ant-select-selection-placeholder {
+      color: $boulder !important;
+      display: flex;
+      align-items: center;
+    }
+
+
+    .ant-select-selector {
+      font-size: 1.6rem;
+      padding: 1rem 1.8rem;
+      background: $athens-gray;
+      border-color: $silver;
+      border-radius: 1rem;
+      height: 5.2rem;
+
+      .ant-select-selection-search {
+        left: 1.8rem;
+      }
+
+      &:hover {
+        border-color: $electric-violet;
+      }
+
+      &::placeholder {
+        color: $boulder;
+      }
+    }
+  }
+}

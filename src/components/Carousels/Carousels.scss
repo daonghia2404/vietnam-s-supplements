@@ -1,0 +1,34 @@
+@import '../../assets/styles/global';
+
+.Carousels {
+  position: relative;
+
+  .slick-arrow {
+    width: 4rem;
+    height: 4rem;
+    z-index: 3;
+    transform: translateY(calc(-50% + .5rem));
+
+    &.slick-prev {
+      .ant-btn {
+        .Icon {
+          transform: rotate(180deg) scale(1.6);
+        }
+      }
+    }
+
+    .ant-btn {
+      padding: 0;
+      border-radius: 50%;
+
+      .Icon {
+        transform: scale(1.6);
+      }
+    }
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+}

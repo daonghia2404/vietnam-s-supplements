@@ -1,0 +1,147 @@
+@import '../../assets/styles/global';
+
+.AuthForm {
+  width: 100%;
+  max-width: 117rem;
+  margin: auto;
+  padding: 9rem 0;
+
+  &-card {
+    box-shadow: $common-shadow;
+    background: $white;
+  }
+
+  &-header {
+    margin: 2rem 0 4rem;
+
+    &-title {
+      font-size: 2rem;
+      font-weight: bold;
+      font-style: italic;
+      margin-bottom: 2.4rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &-description {
+      font-size: 1.4rem;
+      font-weight: 500;
+      text-align: center;
+      max-width: 37.5rem;
+      margin: auto;
+
+      span {
+        color: $electric-violet;
+        font-weight: 600;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &-item {
+    flex: 0 0 50%;
+    max-width: 50%;
+
+    &-image {
+      overflow: hidden;
+      display: flex;
+      height: 100%;
+
+      img {
+        transform: scale(1.1);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    &-navs {
+      &-item {
+        flex: 0 0 50%;
+        max-width: 50%;
+        height: 6.2rem;
+        text-align: center;
+        transition: $common-transition;
+
+        &:first-child {
+          border-top-right-radius: 3rem;
+          border-bottom-right-radius: 3rem;
+        }
+
+        &:last-child {
+          border-top-left-radius: 3rem;
+          border-bottom-left-radius: 3rem;
+        }
+
+        &:hover {
+          a {
+            color: $electric-violet;
+          }
+        }
+
+        &.active {
+          background: $electric-violet;
+
+          a {
+            color: $white;
+          }
+        }
+
+        a {
+          width: 100%;
+          font-size: 2rem;
+          display: block;
+          font-weight: bold;
+          font-style: italic;
+          color: $black;
+          transition: $common-transition;
+        }
+      }
+    }
+  }
+
+  &-main {
+    height: calc(100% - 6.2rem);
+    padding: 4.2rem;
+
+    &-register {
+      margin-top: auto;
+      font-size: 1.6rem;
+      font-weight: 400;
+      text-align: center;
+      color: $black;
+
+      a {
+        font-weight: 600;
+        color: $black;
+        text-decoration: underline;
+      }
+    }
+
+    .ant-row {
+      margin-bottom: 1.5rem;
+    }
+
+    &-form {
+      &-item {
+        margin: 2rem 0 14rem;
+
+        .ant-row {
+          margin-bottom: 0;
+
+          .Checkbox {
+            .ant-checkbox-wrapper span {
+              color: $electric-violet;
+            }
+          }
+        }
+
+        &-forgot-password {
+          font-size: 1.6rem;
+          color: $electric-violet;
+        }
+      }
+    }
+  }
+}

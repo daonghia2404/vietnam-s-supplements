@@ -1,0 +1,42 @@
+@import '../../assets/styles/global';
+
+.UploadFilesList {
+  &-item {
+    &-label {
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+  }
+
+  &-images {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-top: 1rem;
+    margin-bottom: -1rem;
+
+    &-item {
+      position: relative;
+      flex: 0 0 14.5rem;
+      max-width: 14.5rem;
+      margin: 0 1rem 1rem 0;
+
+      &-remove {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 2;
+        cursor: pointer;
+        padding: .8rem;
+
+        .Icon {
+          width: 1.6rem;
+          height: 1.6rem;
+        }
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

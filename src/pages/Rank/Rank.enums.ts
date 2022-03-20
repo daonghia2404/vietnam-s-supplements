@@ -1,0 +1,5 @@
+export enum EKeyTabRank {
+  REWARD = 'REWARD',
+  EXCHANGE_POINTS = 'EXCHANGE_POINTS',
+  HISTORY_POINT = 'HISTORY_POINT',
+}

@@ -1,0 +1,44 @@
+@import '../../assets/styles/global';
+
+.ReferralCode {
+  &-description {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+  &-card {
+    padding: 2rem;
+    background: url('../../assets/images/bg-card.png');
+    background-size: cover;
+    background-position: center;
+    margin: 3rem 0 3.5rem;
+
+    &-title {
+      font-size: 1.6rem;
+      color: $white;
+    }
+
+    &-code {
+      font-weight: 600;
+      color: $white;
+      font-size: 2.8rem;
+    }
+
+    &-main {
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid $white;
+    }
+  }
+
+  &-copy {
+    .Button {
+      max-width: 17rem;
+      width: 100%;
+
+      .ant-btn {
+        border-color: $black !important;
+        border-radius: 2rem;
+      }
+    }
+  }
+}

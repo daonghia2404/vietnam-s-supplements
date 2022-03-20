@@ -1,0 +1,30 @@
+@import '../../assets/styles/global';
+
+.DatePicker {
+
+  .ant-picker:hover,
+  .ant-picker-focused,
+  .ant-picker-input>input:focus,
+  .ant-picker-input>input-focused {
+    border-color: $electric-violet !important;
+  }
+
+  .ant-picker {
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 1rem 1.8rem;
+    background: $athens-gray;
+    border-color: $silver;
+    border-radius: 1rem;
+    height: 5.2rem;
+
+    .ant-picker-input {
+      input {
+        font-size: 1.6rem;
+        &::placeholder {
+          color: $boulder;
+        }
+      }
+    }
+  }
+}

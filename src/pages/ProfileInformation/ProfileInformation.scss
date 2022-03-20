@@ -1,0 +1,25 @@
+@import '../../assets/styles/global';
+
+.ProfileInformation {
+  &-main {
+    &-form {
+      &-row {
+        &.two {
+          .ant-row {
+            flex: 0 0 calc(50% - 2rem);
+            max-width: calc(50% - 2rem);
+          }
+        }
+      }
+
+      &-submit {
+        margin-top: 6rem;
+
+        .Button {
+          max-width: 50rem;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

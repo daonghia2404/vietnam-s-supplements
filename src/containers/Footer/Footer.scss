@@ -1,0 +1,75 @@
+@import '../../assets/styles/global';
+
+.Footer {
+  padding: 6rem 0;
+  background: url('../../assets/images/bg-footer.png');
+  background-size: cover;
+  background-position: center;
+
+  &-wrapper {
+    &-item {
+      flex: 0 0 calc(100% / 3 - 1rem);
+      max-width: calc(100% / 3 - 1rem);
+    }
+  }
+
+  &-logo {
+    max-width: 24.5rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: $white;
+    padding: 2rem 0 1rem;
+    text-transform: uppercase;
+
+    &.italic {
+      font-style: italic;
+    }
+  }
+
+  &-list {
+    .Footer-text {
+      margin-bottom: 2rem;
+    }
+  }
+
+  &-text {
+    display: flex;
+    font-size: 1.2rem;
+    color: $boulder;
+    margin-bottom: 1rem;
+
+    .Icon {
+      flex: 0 0 1.2rem;
+      max-width: 1.2rem;
+      margin-right: .5rem;
+      margin-top: -.2rem;
+    }
+  }
+
+  &-socials {
+    &-item {
+      margin-right: 1rem;
+      margin-bottom: 1rem;
+
+      .Icon {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+
+  &-gov {
+    max-width: 30rem;
+
+    img {
+      width: 100%;
+    }
+  }
+}

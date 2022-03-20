@@ -1,0 +1,105 @@
+@import '../../assets/styles/global';
+
+.Rank {
+  &-subtitle {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+
+  &-card {
+    background: url('../../assets/images/bg-card.png');
+    background-size: cover;
+    background-position: center;
+    padding: 2.5rem 1.5rem;
+
+    &-header {
+      margin-bottom: 2rem;
+
+      &-item {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: $white;
+
+        .Icon {
+          flex: 0 0 3rem;
+          max-width: 3rem;
+          margin-right: 1rem;
+        }
+
+        span {
+          margin-left: .5rem;
+          font-weight: 400;
+        }
+      }
+    }
+
+    &-description {
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: $white;
+    }
+
+    &-footer {
+      margin-top: 3rem;
+
+      &-item {
+        color: $white;
+        font-size: 1.6rem;
+      }
+
+      &-process {
+        margin-top: 1rem;
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-radius: 1rem;
+        position: relative;
+        background: $silver;
+        height: .5rem;
+
+        &-bar {
+          position: absolute;
+          width: 40%;
+          background: $buddha-gold;
+          height: 100%;
+          border-radius: 1rem;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  &-tabs {
+    margin: 2rem 0;
+
+    &-item {
+      flex: 0 0 calc(100% / 3 - 2rem);
+      max-width: calc(100% / 3 - 2rem);
+
+      .Button .ant-btn {
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  &-group {
+    padding: 2rem 0;
+    border-top: 1px solid $iron;
+  }
+
+  &-gift {
+    font-size: 1.6rem;
+    font-weight: 400;
+
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+
+    .Icon {
+      flex: 0 0 1.6rem;
+      max-width: 1.6rem;
+      margin-right: .6rem;
+    }
+  }
+}

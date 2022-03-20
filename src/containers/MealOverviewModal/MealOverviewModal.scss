@@ -1,0 +1,34 @@
+@import '../../assets/styles/global';
+
+.MealOverviewModal {
+  &-wrap {
+    .Modal {
+      max-width: 117rem;
+      width: 100% !important;
+
+      &-footer {
+        max-width: 50rem;
+        margin: 5rem auto 2rem;
+      }
+    }
+
+    .MealOverviewModal {
+      &-header {
+        border-bottom: 1px solid $iron;
+        padding-bottom: 2.5rem;
+        margin-bottom: 3rem;
+      }
+    
+      &-subtitle {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+    
+      &-description {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}

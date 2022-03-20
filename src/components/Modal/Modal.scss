@@ -1,0 +1,75 @@
+@import '../../assets/styles/global';
+
+.Modal {
+  &-wrap {
+    .ant-modal-content {
+      border-radius: 1.5rem;
+    }
+
+    .ant-modal-body {
+      padding: 1.5rem;
+    }
+  }
+
+  &-close {
+    position: absolute;
+    padding: .6rem;
+    cursor: pointer;
+    top: 1rem;
+    right: .7rem;
+
+    .Icon {
+      width: 2.2rem; 
+      height: 2.2rem;
+    }
+  }
+
+  &-body {
+
+    &-title,
+    &-subtitle,
+    &-link,
+    &-description {
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    &-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    &-subtitle {
+      font-size: 1.8rem;
+
+      strong {
+        font-weight: 600;
+      }
+    }
+
+    &-link {
+      color: $electric-violet;
+      font-size: 1.6rem;
+    }
+
+    &-description {
+      font-size: 1.6rem;
+      font-weight: 400;
+    }
+  }
+
+  &-footer {
+    margin-top: 3rem;
+
+    &:not(.single) {
+      .Button {
+        flex: 0 0 17rem;
+        max-width: 17rem;
+      }
+    }
+
+    .Button {
+      flex: 1;
+    }
+  }
+}

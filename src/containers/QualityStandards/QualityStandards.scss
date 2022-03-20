@@ -1,0 +1,24 @@
+@import '../../assets/styles/global';
+
+.QualityStandards {
+  margin-bottom: 5rem;
+
+  &-carousel {
+    &-item {
+      padding: 0 .3rem;
+
+      &-image {
+        width: 100%;
+        padding: 4rem 2rem;
+        background: $white;
+
+        img {
+          width: 100%;
+          max-width: 12.5rem;
+          display: block;
+          margin: auto;
+        }
+      }
+    }
+  }
+}

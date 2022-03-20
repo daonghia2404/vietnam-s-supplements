@@ -1,0 +1,44 @@
+@mixin style-skew-btn() {
+  padding: 0.7rem 1rem;
+  font-weight: 500;
+  position: relative;
+  text-transform: none;
+  color: $white;
+  background: $black;
+  text-align: center;
+  width: calc(100% - 2rem * 2);
+  margin: auto;
+  font-style: normal;
+  transform: skew(-15deg);
+  font-size: 2rem;
+  transition: $common-transition;
+  cursor: pointer;
+
+  &::after,
+  &::before {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: .4rem;
+    background: $black;
+    content: '';
+    transition: $common-transition;
+  }
+
+  &::before {
+    left: -1rem;
+  }
+
+  &::after {
+    right: -1rem;
+  }
+
+  &:hover {
+    background: $electric-violet;
+
+    &::before,
+    &::after {
+      background: $electric-violet;
+    }
+  }
+}

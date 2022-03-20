@@ -1,0 +1,79 @@
+@import '../../assets/styles/global';
+
+.Button {
+  &.shadow {
+    .ant-btn {
+      box-shadow: $button-shadow;
+    }
+  }
+
+  .ant-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: .5rem;
+    min-height: 5rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    width: 100%;
+    color: $black;
+
+    &.ant-btn-sm {
+      min-height: 4rem;
+      font-size: 1.6rem;
+    }
+
+    &.ant-btn-primary {
+      background: $black;
+      border-color: $black;
+      color: $white;
+    }
+
+    &.ant-btn-link {
+      border: none;
+      background: rgba($international-klein-blue, 0.05);
+      color: $electric-violet;
+    }
+
+    &.ant-btn-default {
+      border-color: $athens-gray;
+      background: $athens-gray;
+    }
+
+    &.ant-btn-ghost {
+      border-color: $black;
+      background: $white;
+    }
+
+    &.ant-btn-dangerous {
+      border-color: $red;
+      background: $red;
+      color: $white;
+    }
+  }
+
+  &:not(.only-icon) {
+    &.reverse {
+      .ant-btn {
+        flex-direction: row-reverse;
+      }
+
+      .Button-icon {
+        margin-left: .5rem;
+        margin-right: 0;
+      }
+    }
+
+    .Button-icon {
+      margin-right: .5rem;
+    }
+  }
+
+  &.only-icon {
+    .ant-btn-sm {
+      min-height: 4rem;
+      width: 4rem;
+      padding: 0;
+    }
+  }
+}

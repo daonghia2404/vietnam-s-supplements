@@ -1,0 +1,94 @@
+@import '../../assets/styles/global';
+
+.Wallet {
+  &-card {
+    padding: 4rem 2rem;
+    background: url('../../assets/images/bg-card.png');
+    background-size: cover;
+    background-position: center;
+
+    &-item {
+      font-size: 1.6rem;
+      color: $white;
+      font-weight: 400;
+
+      &-value {
+        font-size: 2.8rem;
+        font-weight: 600;
+        color: $white;
+
+        span {
+          display: block;
+          font-size: 1.4rem;
+          font-weight: 500;
+          color: $white;
+          padding: .2rem .5rem;
+          border-radius: .5rem;
+          background: rgba($white, 0.5);
+          margin-right: 1rem;
+        }
+      }
+
+      .Button {
+        width: 13rem;
+
+        .ant-btn {
+          border-radius: 2rem;
+        }
+      }
+
+    }
+  }
+
+  &-history {
+    &-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid $iron;
+
+      &-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+      }
+    }
+
+    &-body {
+      
+      &-item {
+        padding: 1.5rem;
+        border-bottom: 1px solid $iron;
+        transition: $common-transition;
+        cursor: pointer;
+
+        &:hover {
+          background: rgba($black, 0.05);
+        }
+
+        &-row {
+          &-text {
+            line-height: 2;
+            font-size: 1.6rem;
+
+            &.warning {
+              color: $buddha-gold;
+            }
+
+            &.error {
+              color: $red;
+            }
+
+            &.success {
+              color: $japanese-laurel;
+            }
+
+            &.bold {
+              font-weight: 600;
+            }
+          }
+        }
+
+
+      }
+    }
+  }
+
+}

@@ -1,0 +1,21 @@
+@import '../../assets/styles/global';
+
+.ExercisePackage {
+  &-title {
+    font-size: 2.6rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  &-main {
+    .ExercisePackageBox {
+      flex: 0 0 calc(100% / 2 - 2rem);
+      max-width: calc(100% / 2 - 2rem);
+      background: transparent;
+      padding: 2rem 0;
+      border: none;
+      border-radius: 0;
+      border-bottom: 1px solid $iron;
+    }
+  }
+}

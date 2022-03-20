@@ -1,0 +1,41 @@
+
+@import './assets/styles/global';
+
+.App {
+  &.hide {
+    .Sidebar {
+      &-item {
+        &:last-child {
+          transform: translateX(-100%);
+        }
+      }
+    }
+
+    .App {
+      &-sidebar {
+        width: 7rem;
+      }
+
+      &-body {
+        margin-left: 7rem;
+        width: calc(100% - 7rem);
+      }
+    }
+  }
+  &-sidebar {
+    position: fixed;
+    width: 37.5rem;
+    height: 100vh;
+    overflow: hidden auto;
+    z-index: 9;
+    transition: $common-transition;
+  }
+
+  &-body {
+    width: calc(100% - 37.5rem);
+    margin-left: 37.5rem;
+    min-height: 100vh;
+    background: $alabaster;
+    transition: $common-transition;
+  }
+}

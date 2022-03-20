@@ -1,0 +1,54 @@
+@import '../../assets/styles/global';
+
+.WheelBox {
+  background: $white;
+  overflow: hidden;
+  cursor: pointer;
+  transition: $common-transition;
+
+  &:hover {
+    transform: translateY(-1rem);
+  }
+
+  &-image {
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-content {
+    padding: 1.8rem 2.4rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    border: 1px solid $silver;
+    border-top: none;
+
+    &-item {
+      &-icon {
+        flex: 0 0 4rem;
+        max-width: 4rem;
+        margin-right: .5rem;
+
+        .Button .ant-btn {
+          border-radius: 1rem;
+        }
+      }
+
+      &-info {
+        &-title {
+          font-size: 1.6rem;
+          font-weight: 400;
+        }
+
+        &-description {
+          font-size: 1.4rem;
+          color: $boulder;
+        }
+      }
+    }
+  }
+}

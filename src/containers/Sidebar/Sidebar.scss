@@ -1,0 +1,186 @@
+@import '../../assets/styles/global';
+
+.Sidebar {
+  height: 100%;
+
+  &-item {
+    height: 100%;
+
+    background: $white;
+    transition: $common-transition;
+
+    &:first-child {
+      padding: 1rem 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    &:last-child {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      flex: 1;
+    }
+
+    &-favicon {
+      display: block;
+      width: 4rem;
+      margin-bottom: 1rem;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-icon {
+      width: 3rem;
+      margin: auto;
+      padding: 1rem 0;
+      cursor: pointer;
+    }
+
+    &-logo {
+      display: block;
+      width: 100%;
+      max-width: 15rem;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    &-subcrible {
+      &-title {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+      }
+
+      &-link {
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: $black;
+        transition: $common-transition;
+
+        &:hover {
+          color: $electric-violet;
+
+          svg {
+            fill: $electric-violet;
+            stroke: $electric-violet;
+          }
+        }
+
+        &:not(:last-child) {
+          margin-bottom: 1.5rem;
+        }
+
+        .Icon {
+          flex: 0 0 1.6rem;
+          max-width: 1.6rem;
+          margin-right: 1rem;
+
+          svg {
+            transition: $common-transition;
+          }
+        }
+      }
+    }
+  }
+
+  &-menu {
+    margin-bottom: 2.5rem;
+
+    .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-expand-icon,
+    .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow,
+    .ant-menu-light .ant-menu-item:hover,
+    .ant-menu-light .ant-menu-item-active,
+    .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
+    .ant-menu-light .ant-menu-submenu-active,
+    .ant-menu-light .ant-menu-submenu-title:hover {
+      color: $electric-violet;
+    }
+
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+      background: transparent;
+    }
+
+    .ant-menu {
+      border-right: none;
+
+      .ant-menu-submenu-expand-icon, .ant-menu-submenu-arrow {
+        color: $big-stone;
+      }
+
+      &.ant-menu-sub.ant-menu-inline {
+        background-color: transparent;
+        padding: 1.5rem 0 0 1.5rem;
+
+        .Sidebar-menu-item {
+          &:last-child {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+
+    &-item {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: $big-stone;
+      text-transform: uppercase;
+      font-style: italic;
+      padding: 1.5rem 0 !important;
+      margin: 0 !important;
+      height: auto !important;
+      border-bottom: 1px solid $gallery;
+      white-space: pre-wrap;
+
+      .Icon {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+
+      &::after {
+        display: none;
+      }
+
+      &-suffix {
+        font-size: 1.6rem;
+        color: $electric-violet;
+        padding: .3rem .3rem 0 0;
+      }
+
+      .ant-menu-submenu-title {
+        padding-left: 0 !important;
+        height: auto !important;
+        margin: 0;
+      }
+
+      &:hover {
+        .Sidebar-menu-item-skew {
+          background: $electric-violet;
+
+          &::before,
+          &::after {
+            background: $electric-violet;
+          }
+        }
+      }
+
+      &-skew {
+        @include style-skew-btn();
+      }
+
+      .ant-menu-title-content {
+        line-height: 1.5;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &:hover {
+        color: $electric-violet !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+@import '../../assets/styles/global';
+
+.MealPackageBox {
+  padding: 2rem 0;
+  border-bottom: 1px solid $iron;
+  cursor: pointer;
+
+  &-image {
+    flex: 0 0 14.5rem;
+    max-width: 14.5rem;
+    margin-right: 1.5rem;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-info {
+    flex: 1;
+    &-title {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: .5rem;
+    }
+
+    &-description {
+      font-size: 1.6rem;
+
+      span {
+        font-weight: 500;
+        color: $electric-violet;
+      }
+    }
+
+    &-cta {
+      @include style-skew-btn();
+      max-width: 23rem;
+      margin: 1.5rem 0 0 1rem;
+    }
+  }
+}

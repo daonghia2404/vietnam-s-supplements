@@ -1,0 +1,11 @@
+@import '../../assets/styles/global';
+
+.Wheels {
+  &-main {
+    &-item {
+      margin-bottom: 3rem;
+      flex: 0 0 calc(100% / 2 - 1.5rem);
+      max-width: calc(100% / 2 - 1.5rem);
+    }
+  }
+}

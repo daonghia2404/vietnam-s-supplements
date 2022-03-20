@@ -1,0 +1,9 @@
+.FavoriteProduct {
+  &-main {
+    &-item {
+      flex: 0 0 calc(100% / 4 - 1rem);
+      max-width: calc(100% / 4 - 1rem);
+      margin-bottom: 2rem;
+    }
+  }
+}
