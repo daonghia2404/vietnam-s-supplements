@@ -23,6 +23,7 @@
         width: 100%;
         padding: 0;
         box-shadow: $button-shadow;
+        height: 7rem;
 
         .Sidebar {
           &-item {
@@ -102,14 +103,6 @@
       margin: auto;
       padding: 1rem 0;
       cursor: pointer;
-
-      .Icon {
-        @media (max-width: 991px) {
-          svg {
-            height: 3rem;
-          }
-        }
-      }
     }
 
     &-logo {
