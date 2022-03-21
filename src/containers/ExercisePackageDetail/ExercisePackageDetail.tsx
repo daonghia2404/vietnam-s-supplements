@@ -83,7 +83,7 @@ const ExercisePackageDetail: React.FC<TExercisePackageDetailProps> = ({ onBack, 
         a type specimen book.
       </div>
 
-      <div className="ExercisePackageDetail-action flex items-center">
+      <div className="ExercisePackageDetail-action flex items-center flex-wrap">
         <div className="ExercisePackageDetail-action-item flex justify-between items-center">
           <span>Mức giá</span>
           <span>

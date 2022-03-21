@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect, Router } from '@reach/router';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { AuthRoute, LayoutPaths, Pages, Paths, ProtectedRoute, PublicRoute } from '@/pages/routers';
 import Guest from '@/layouts/Guest';
@@ -8,16 +9,44 @@ import Auth from '@/layouts/Auth';
 import Admin from '@/layouts/Admin';
 import Sidebar from '@/containers/Sidebar/Sidebar';
 import Profile from '@/layouts/Profile';
+import { uiActions } from '@/redux/actions';
+import { TRootState } from '@/redux/reducers';
+import { EDeviceType } from '@/redux/reducers/ui';
 
 import './App.scss';
+import Header from '@/containers/Header/Header';
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
   const [visibleSidebar, setVisibleSidebar] = useState<boolean>(true);
+  const deviceType = useSelector((state: TRootState) => state.uiReducer.device.type);
+
   const handleToggleVisibleSidebar = (): void => {
     setVisibleSidebar(!visibleSidebar);
   };
+
+  useEffect(() => {
+    setVisibleSidebar(deviceType === EDeviceType.DESKTOP);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deviceType]);
+
+  useEffect(() => {
+    const updateSize = (): void => {
+      dispatch(uiActions.setDevice(window.innerWidth));
+    };
+    window.addEventListener('resize', updateSize);
+    return (): void => window.removeEventListener('resize', updateSize);
+  }, [dispatch]);
+
   return (
-    <div className={classNames('App', { 'hide': !visibleSidebar })}>
+    <div className={classNames('App', { 'hide': !visibleSidebar }, deviceType)}>
+      {deviceType === EDeviceType.MOBILE && (
+        <div className="App-header">
+          <Header />
+        </div>
+      )}
+
       <div className="App-sidebar">
         <Sidebar onClickMenuBars={handleToggleVisibleSidebar} />
       </div>
@@ -31,7 +60,7 @@ const App: React.FC = () => {
           </Guest>
 
           <Auth path={LayoutPaths.Auth}>
-            <AuthRoute path={Paths.Login} component={Pages.Login} />
+            <PublicRoute path={Paths.Login} component={Pages.Login} />
             <PublicRoute path={Paths.Register} component={Pages.Register} />
             <PublicRoute path={Paths.AccountVerification} component={Pages.AccountVerification} />
             <PublicRoute path={Paths.ForgotPassword} component={Pages.ForgotPassword} />

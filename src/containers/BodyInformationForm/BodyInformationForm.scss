@@ -38,6 +38,11 @@
       .ant-row {
         flex: 0 0 calc(100% / 3 - 1rem);
         max-width: calc(100% / 3 - 1rem);
+
+        @media (max-width: 575px) {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
       }
     }
 

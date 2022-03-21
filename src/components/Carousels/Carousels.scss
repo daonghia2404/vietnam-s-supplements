@@ -2,12 +2,16 @@
 
 .Carousels {
   position: relative;
-
+  
   .slick-arrow {
     width: 4rem;
     height: 4rem;
     z-index: 3;
     transform: translateY(calc(-50% + .5rem));
+
+    @media (max-width: 991px) {
+      display: none;
+    }
 
     &.slick-prev {
       .ant-btn {

@@ -20,6 +20,10 @@
         padding: 1.5rem 0;
         border-bottom: 1px solid $iron;
 
+        @media (max-width: 575px) {
+          flex-direction: column;
+        }
+
         &-text {
           font-size: 1.6rem;
           font-weight: 400;

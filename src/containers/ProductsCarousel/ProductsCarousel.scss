@@ -16,6 +16,13 @@
         max-width: calc(100% / 4);
       }
 
+      @media (max-width: 1024px) {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        width: 100%;
+        border: none !important
+      }
+
       .ProductBox {
         height: calc(100% - 0.6rem);
       }
@@ -29,6 +36,11 @@
       &-info {
         flex: 0 0 50%;
         max-width: 50%;
+
+        @media (max-width: 575px) {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
       }
 
       &-image {
@@ -46,6 +58,10 @@
       &-info {
         padding: 4rem 2rem;
         background: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
 
         &-title,
         &-subtitle,

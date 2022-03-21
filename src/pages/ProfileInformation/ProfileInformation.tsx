@@ -32,7 +32,7 @@ const ProfileInformation: React.FC = () => {
           <Form.Item name="birthDay" rules={[validationRules.required()]}>
             <DatePicker placeholder="Sinh nhật" />
           </Form.Item>
-          <div className="ProfileInformation-main-form-row flex justify-between two">
+          <div className="ProfileInformation-main-form-row flex justify-between two flex-wrap">
             <Form.Item name="city" rules={[validationRules.required()]}>
               <Select placeholder="Tỉnh / thành phố" />
             </Form.Item>

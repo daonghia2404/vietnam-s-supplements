@@ -22,7 +22,7 @@ const BodyInformationForm: React.FC<TBodyInformationFormProps> = ({ onBack, onNe
       )}
       <Form form={form}>
         <div className="BodyInformationForm-title">Nhập thông tin cơ thể của bạn</div>
-        <div className="BodyInformationForm-row three flex justify-between">
+        <div className="BodyInformationForm-row three flex flex-wrap justify-between">
           <Form.Item name="height">
             <Input placeholder="Chiều cao" />
           </Form.Item>
@@ -35,7 +35,7 @@ const BodyInformationForm: React.FC<TBodyInformationFormProps> = ({ onBack, onNe
         </div>
         <div className="BodyInformationForm-subtitle">Mức độ vận động (Nhẹ (1) - nặng(5))</div>
         <Form.Item name="level">
-          <div className="BodyInformationForm-row level flex">
+          <div className="BodyInformationForm-row level flex flex-wrap">
             {[1, 2, 3, 4, 5].map((item) => (
               <Button key={item} title={String(item)} shadow={false} size="small" />
             ))}

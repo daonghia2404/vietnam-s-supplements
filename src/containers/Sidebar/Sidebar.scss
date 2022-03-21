@@ -5,21 +5,86 @@
 
   &-item {
     height: 100%;
-
     background: $white;
     transition: $common-transition;
 
-    &:first-child {
+    &:nth-child(1) {
       padding: 1rem 1.5rem;
       position: relative;
-      z-index: 2;
+      z-index: 3;
+
+      &.mobile {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        display: flex;
+        height: auto;
+        width: 100%;
+        padding: 0;
+        box-shadow: $button-shadow;
+
+        .Sidebar {
+          &-item {
+            &-icon,
+            &-favicon {
+              flex: 0 0 calc(100% / 5);
+              max-width: calc(100% / 5);
+              margin: 0;
+              display: flex;
+              text-align: center;
+              justify-content: center;
+              padding: 2rem;
+              transition: $common-transition;
+
+              img, svg {
+                transition: $common-transition;
+                max-width: 3rem;
+                margin: auto;
+                pointer-events: none;
+              }
+            }
+
+            &-icon {
+              &:nth-of-type(1) {
+                order: 1;
+              }
+              &:nth-of-type(2) {
+                order: 2;
+              }
+              &:nth-of-type(3) {
+                order: 4;
+              }
+              &:nth-of-type(4) {
+                order: 5;
+              }
+
+              &:hover {
+                background: $athens-gray;
+              }
+            }
+
+            &-favicon {
+              order: 3;
+
+              &:hover img {
+                transform: scale(2) rotate(360deg);
+              }
+
+              img {
+                transform: scale(1.8);
+              }
+            }
+          }
+        }
+      }
     }
 
-    &:last-child {
+    &:nth-child(2) {
       position: relative;
-      z-index: 1;
       padding: 2rem;
       flex: 1;
+      z-index: 2;
     }
 
     &-favicon {
@@ -108,7 +173,8 @@
     .ant-menu {
       border-right: none;
 
-      .ant-menu-submenu-expand-icon, .ant-menu-submenu-arrow {
+      .ant-menu-submenu-expand-icon,
+      .ant-menu-submenu-arrow {
         color: $big-stone;
       }
 
@@ -182,5 +248,27 @@
         color: $electric-violet !important;
       }
     }
+  }
+
+  &-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba($black, 0.3);
+    transition: $common-transition;
+  }
+
+  &-close {
+    position: absolute;
+    width: 4rem;
+    height: 4rem;
+    padding: 1rem;
+    cursor: pointer;
+    z-index: 2;
+    top: 0;
+    right: 0;
   }
 }

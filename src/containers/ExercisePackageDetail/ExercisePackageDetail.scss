@@ -63,21 +63,28 @@
   }
 
   &-action {
+    margin: 8rem 0 -10rem;
     background: $white;
     box-shadow: $box-cta-shadow;
-    position: fixed;
-    bottom: 0;
-    left: calc(100vh / 2 + 37.35rem * 2);
-    transform: translateX(-50%);
-    max-width: 117rem;
-    width: 100%;
-    z-index: 2;
+
+    @media (max-width: 991px) {
+      margin: 8rem 0 0rem;
+    }
 
     &-item {
       flex: 0 0 50%;
       max-width: 50%;
       padding: 1.2rem 1.5rem;
       font-size: 1.4rem;
+
+      @media (max-width: 575px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+
+        &:first-child {
+          padding-bottom: 0;
+        }
+      }
 
       strong {
         font-size: 1.6rem;

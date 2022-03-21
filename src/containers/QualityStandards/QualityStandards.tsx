@@ -14,7 +14,25 @@ const QualityStandards: React.FC = () => {
           <HeaderSkew title="Tiêu chuẩn chất lượng" center />
 
           <div className="QualityStandards-main">
-            <Carousels autoplay dots={false} slidesToShow={4}>
+            <Carousels
+              autoplay
+              dots={false}
+              slidesToShow={4}
+              responsive={[
+                {
+                  breakpoint: 1024,
+                  settings: {
+                    slidesToShow: 2,
+                  },
+                },
+                {
+                  breakpoint: 575,
+                  settings: {
+                    slidesToShow: 2,
+                  },
+                },
+              ]}
+            >
               {[1, 2, 3, 4, 5, 6].map((item) => (
                 <div key={item}>
                   <div className="QualityStandards-carousel-item flex justify-center items-center">

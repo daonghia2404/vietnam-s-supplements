@@ -1,0 +1,16 @@
+@import '../../assets/styles/global';
+
+.Header {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  box-shadow: $button-shadow;
+  background: $white;
+
+  img {
+    width: 12rem;
+  }
+}

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Menu } from 'antd';
 import { Link, globalHistory } from '@reach/router';
+import { useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 import ImageFavicon from '@/assets/images/favicon.png';
 import ImageLogo from '@/assets/images/logo.png';
@@ -8,12 +10,16 @@ import { TSidebarData, TSidebarProps } from '@/containers/Sidebar/Sidebar.types'
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { LayoutPaths } from '@/pages/routers';
 import { dataMenu, dataProfileMenu } from '@/containers/Sidebar/Sidebar.data';
+import { TRootState } from '@/redux/reducers';
+import { EDeviceType } from '@/redux/reducers/ui';
 
 import './Sidebar.scss';
 
 const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
   const [pathName, setPathName] = useState<string>('');
   const pathNameArray = pathName.split('/');
+  const deviceType = useSelector((state: TRootState) => state.uiReducer.device.type);
+  const isDesktop = deviceType === EDeviceType.DESKTOP;
 
   const isShowProfileMenu = pathNameArray.includes(LayoutPaths.Profile.substring(1));
   const isShowNormalMenu = !isShowProfileMenu;
@@ -43,7 +49,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
 
   return (
     <div className="Sidebar flex">
-      <div className="Sidebar-item">
+      <div className={classNames('Sidebar-item', deviceType)}>
         <Link to={LayoutPaths.Guest} className="Sidebar-item-favicon">
           <img src={ImageFavicon} alt="" />
         </Link>
@@ -60,10 +66,17 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
           <Icon name={EIconName.UserSquare} color={EIconColor.SCARPA_FLOW} />
         </div>
       </div>
+
       <div className="Sidebar-item">
-        <Link to={LayoutPaths.Guest} className="Sidebar-item-logo">
-          <img src={ImageLogo} alt="" />
-        </Link>
+        {isDesktop ? (
+          <Link to={LayoutPaths.Guest} className="Sidebar-item-logo">
+            <img src={ImageLogo} alt="" />
+          </Link>
+        ) : (
+          <div className="Sidebar-close" onClick={onClickMenuBars}>
+            <Icon name={EIconName.Close} color={EIconColor.BOULDER} />
+          </div>
+        )}
 
         <div className="Sidebar-menu">
           <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']}>
@@ -135,6 +148,8 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
           </div>
         )}
       </div>
+
+      {!isDesktop && <div className="Sidebar-overlay" onClick={onClickMenuBars} />}
     </div>
   );
 };

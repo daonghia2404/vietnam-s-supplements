@@ -6,4 +6,5 @@ export type TCarouselsProps = {
   slidesToScroll?: number;
   autoplay?: boolean;
   slidesPerRow?: number;
+  responsive?: Array<any>;
 };

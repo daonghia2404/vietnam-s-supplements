@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 117rem;
   margin: auto;
-  padding: 9rem 0;
+  padding: 9rem 3rem;
 
   &-card {
     box-shadow: $common-shadow;
@@ -13,6 +13,10 @@
 
   &-header {
     margin: 2rem 0 4rem;
+
+    @media (max-width: 991px) {
+      padding: 0 2rem;
+    }
 
     &-title {
       font-size: 2rem;
@@ -41,6 +45,15 @@
   &-item {
     flex: 0 0 50%;
     max-width: 50%;
+
+    @media (max-width: 991px) {
+      flex: 0 0 100%;
+      max-width: 100%;
+
+      &:first-child {
+        display: none;
+      }
+    }
 
     &-image {
       overflow: hidden;
@@ -104,6 +117,10 @@
   &-main {
     height: calc(100% - 6.2rem);
     padding: 4.2rem;
+
+    @media (max-width: 991px) {
+      padding: 2rem;
+    }
 
     &-register {
       margin-top: auto;

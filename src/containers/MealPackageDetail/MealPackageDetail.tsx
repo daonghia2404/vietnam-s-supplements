@@ -82,7 +82,7 @@ const MealPackageDetail: React.FC<TMealPackageDetailProps> = ({ onBack, onNext }
         a type specimen book.
       </div>
 
-      <div className="MealPackageDetail-action flex items-center">
+      <div className="MealPackageDetail-action flex items-center flex-wrap">
         <div className="MealPackageDetail-action-item flex justify-between items-center">
           <span>Mức giá</span>
           <span>

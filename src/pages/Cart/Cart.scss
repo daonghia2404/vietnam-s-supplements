@@ -9,6 +9,12 @@
         flex: 0 0 calc(100% / 5 - .75rem);
         max-width: calc(100% / 5 - .75rem);
 
+        @media (max-width: 575px) {
+          flex: auto;
+          max-width: unset;
+          margin: 0 1rem 1rem 0;
+        }
+
         &:hover,
         &.active {
           .ant-btn {

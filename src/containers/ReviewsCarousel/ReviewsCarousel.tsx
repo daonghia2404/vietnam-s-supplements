@@ -17,7 +17,7 @@ const ReviewsCarousel: React.FC = () => {
             <Carousels autoplay dots={false}>
               {[1, 2].map((item) => (
                 <div key={item}>
-                  <div className="ReviewsCarousel-carousel flex justify-between">
+                  <div className="ReviewsCarousel-carousel flex justify-between flex-wrap">
                     <div className="ReviewsCarousel-carousel-item">
                       <div className="ReviewsCarousel-carousel-item-image">
                         <img src={ImageReview} alt="" />

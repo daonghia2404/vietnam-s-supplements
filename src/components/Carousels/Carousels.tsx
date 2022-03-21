@@ -15,6 +15,7 @@ export const Carousels: React.FC<TCarouselsProps> = ({
   slidesToShow = 1,
   slidesToScroll = 1,
   slidesPerRow = 1,
+  responsive = [],
   autoplay,
   children,
 }) => {
@@ -37,6 +38,7 @@ export const Carousels: React.FC<TCarouselsProps> = ({
     slidesToScroll,
     nextArrow: renderNextArrow(),
     prevArrow: renderPrevArrow(),
+    responsive,
   };
   return (
     <div className={classNames('Carousels')}>

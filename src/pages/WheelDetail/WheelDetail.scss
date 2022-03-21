@@ -3,8 +3,10 @@
 .WheelDetail {
   &-main {
     &-rotation {
+      overflow: hidden;
+      padding-top: 4rem;
       max-width: 37rem;
-      margin: 0 auto 6rem;
+      margin: -4rem auto 6rem;
     }
     &-description {
       text-align: center;

@@ -31,7 +31,7 @@ const HistoryRotation: React.FC = () => {
                 </div>
               </div>
               <div className="HistoryRotation-main-list-item-col">
-                <div className="HistoryRotation-main-list-item-text warning">Chưa nhận thưởng</div>
+                <div className="HistoryRotation-main-list-item-text warning nowrap">Chưa nhận thưởng</div>
               </div>
             </div>
             <div className="HistoryRotation-main-list-item flex justify-between">
@@ -44,7 +44,7 @@ const HistoryRotation: React.FC = () => {
                 </div>
               </div>
               <div className="HistoryRotation-main-list-item-col">
-                <div className="HistoryRotation-main-list-item-text success">Đã nhận thưởng</div>
+                <div className="HistoryRotation-main-list-item-text success nowrap">Đã nhận thưởng</div>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@ const HistoryRotation: React.FC = () => {
                 </div>
               </div>
               <div className="HistoryRotation-main-list-item-col">
-                <div className="HistoryRotation-main-list-item-text error">Đã hết hạn</div>
+                <div className="HistoryRotation-main-list-item-text error nowrap">Đã hết hạn</div>
               </div>
             </div>
           </div>

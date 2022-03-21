@@ -77,6 +77,11 @@
       flex: 0 0 calc(100% / 3 - 2rem);
       max-width: calc(100% / 3 - 2rem);
 
+      @media (max-width: 575px) {
+        flex: 0 0 calc(100% / 3 - 1rem);
+        max-width: calc(100% / 3 - 1rem);
+      }
+
       .Button .ant-btn {
         border-radius: 1rem;
       }

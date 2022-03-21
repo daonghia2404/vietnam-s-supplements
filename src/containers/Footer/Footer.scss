@@ -6,10 +6,19 @@
   background-size: cover;
   background-position: center;
 
+  @media (max-width: 991px) {
+    padding-bottom: 9rem;
+  }
+
   &-wrapper {
     &-item {
       flex: 0 0 calc(100% / 3 - 1rem);
       max-width: calc(100% / 3 - 1rem);
+
+      @media (max-width: 1024px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
     }
   }
 

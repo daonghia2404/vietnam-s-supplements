@@ -11,7 +11,7 @@ const Cart: React.FC = () => {
       <HeaderSkew title="Lịch sử đơn hàng" />
 
       <div className="Cart-main">
-        <div className="Cart-main-header flex justify-between">
+        <div className="Cart-main-header flex justify-between flex-wrap">
           {['Tất cả', 'Chờ xác nhận', 'Đang giao', 'Hoàn thành', 'Đã huỷ'].map((item) => (
             <Button size="small" title={item} key={item} shadow={false} />
           ))}

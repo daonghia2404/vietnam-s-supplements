@@ -8,7 +8,7 @@ import './AuthForm.scss';
 const AuthForm: React.FC<TAuthFormProps> = ({ children }) => {
   return (
     <div className="AuthForm">
-      <div className="AuthForm-card flex">
+      <div className="AuthForm-card flex flex-wrap">
         <div className="AuthForm-item">
           <div className="AuthForm-item-image">
             <img src={ImageAuthBanner} alt="" />
