@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Redirect, RouteComponentProps } from '@reach/router';
 
 import authHelpers from '@/services/helpers';
+import PageLoading from '@/components/PageLoading';
 
 const retryLoadComponent = (fn: () => Promise<unknown>, retriesLeft = 5, interval = 1000): any =>
   new Promise((resolve, reject) => {
@@ -171,7 +172,7 @@ export const AuthRoute: React.FC<IRouteProps> = ({ component: Component, ...rest
   return loggedIn ? (
     <Redirect noThrow from={Paths.Rest} to={LayoutPaths.Admin} />
   ) : (
-    <Suspense fallback={<div className="DOM-loading" />}>
+    <Suspense fallback={<PageLoading isFullPage showSpin={false} />}>
       <Component {...rest} />
     </Suspense>
   );
@@ -181,7 +182,7 @@ export const ProtectedRoute: React.FC<IRouteProps> = ({ component: Component, ..
   const loggedIn: string | any = authHelpers.getAccessToken();
 
   return loggedIn ? (
-    <Suspense fallback={<div className="DOM-loading" />}>
+    <Suspense fallback={<PageLoading isFullPage showSpin={false} />}>
       <Component {...rest} />
     </Suspense>
   ) : (
@@ -190,7 +191,7 @@ export const ProtectedRoute: React.FC<IRouteProps> = ({ component: Component, ..
 };
 
 export const PublicRoute: React.FC<IRouteProps> = ({ component: Component, ...rest }) => (
-  <Suspense fallback={<div className="DOM-loading" />}>
+  <Suspense fallback={<PageLoading isFullPage showSpin={false} />}>
     <Component {...rest} />
   </Suspense>
 );

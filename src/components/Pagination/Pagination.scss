@@ -1,0 +1,55 @@
+@import '../../assets/styles/global';
+
+.Pagination {
+
+  .ant-pagination-prev:not(.ant-pagination-disabled):focus-visible .ant-pagination-item-link,
+  .ant-pagination-next:not(.ant-pagination-disabled):focus-visible .ant-pagination-item-link,
+  .ant-pagination-prev:not(.ant-pagination-disabled):hover .ant-pagination-item-link,
+  .ant-pagination-next:not(.ant-pagination-disabled):hover .ant-pagination-item-link {
+    border-color: $electric-violet;
+    background: $electric-violet;
+  }
+
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    .ant-pagination-item-link {
+      border-color: $big-stone;
+      background: $big-stone;
+
+      svg {
+        fill: $white;
+        transform: scale(1.1) translateY(-1px);
+      }
+    }
+  }
+
+  .ant-pagination-item {
+    border-color: $big-stone;
+    background: $big-stone;
+
+    a {
+      color: $white;
+    }
+
+    &:focus-visible,
+    &:hover {
+      border-color: $electric-violet;
+      background: $electric-violet;
+    }
+
+    &:hover(:not(.ant-pagination-item-active)) {
+      a {
+        color: $electric-violet
+      }
+    }
+
+    &-active {
+      background: $electric-violet;
+      border-color: $electric-violet;
+
+      a {
+        color: $white;
+      }
+    }
+  }
+}

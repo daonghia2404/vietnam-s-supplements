@@ -3,4 +3,5 @@ export type TWheelBoxProps = {
   image: string;
   title: string;
   description: string;
+  onClick?: () => void;
 };

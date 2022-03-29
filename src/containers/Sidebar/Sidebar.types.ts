@@ -13,4 +13,5 @@ export type TSidebarData = {
   isSkew?: boolean;
   suffix?: string;
   icon?: React.ReactNode;
+  disabled?: boolean;
 };

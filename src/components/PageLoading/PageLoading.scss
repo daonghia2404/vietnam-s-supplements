@@ -1,0 +1,45 @@
+@import '../../assets/styles/global';
+
+.PageLoading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  height: 100vh;
+  background: $alabaster;
+
+  &-image {
+    animation: loading 0.8s linear infinite;
+
+    @keyframes loading {
+      0% {
+        opacity: 0.3;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    &-favicon {
+      width: 60px;
+      margin-right: 5px;
+    }
+
+    &-logo {
+      width: 150px;
+    }
+  }
+
+  &.fullPage {
+    position: fixed;
+    background: $white;
+  }
+
+  &-spin {
+    img {
+      width: 60px;
+    }
+  }
+}

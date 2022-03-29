@@ -63,6 +63,7 @@
   }
 
   &-body {
+    position: relative;
     width: calc(100% - 37.5rem);
     margin-left: 37.5rem;
     min-height: 100vh;

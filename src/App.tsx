@@ -12,9 +12,9 @@ import Profile from '@/layouts/Profile';
 import { uiActions } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
+import Header from '@/containers/Header/Header';
 
 import './App.scss';
-import Header from '@/containers/Header/Header';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -60,7 +60,7 @@ const App: React.FC = () => {
           </Guest>
 
           <Auth path={LayoutPaths.Auth}>
-            <PublicRoute path={Paths.Login} component={Pages.Login} />
+            <AuthRoute path={Paths.Login} component={Pages.Login} />
             <PublicRoute path={Paths.Register} component={Pages.Register} />
             <PublicRoute path={Paths.AccountVerification} component={Pages.AccountVerification} />
             <PublicRoute path={Paths.ForgotPassword} component={Pages.ForgotPassword} />
@@ -69,23 +69,23 @@ const App: React.FC = () => {
           </Auth>
 
           <Admin path={LayoutPaths.Admin}>
-            <PublicRoute path={Paths.UpdateProfile} component={Pages.UpdateProfile} />
+            {/* <PublicRoute path={Paths.UpdateProfile} component={Pages.UpdateProfile} /> */}
 
-            <PublicRoute path={Paths.Wheels} component={Pages.Wheels} />
-            <PublicRoute path={Paths.WheelDetail()} component={Pages.WheelDetail} />
+            <ProtectedRoute path={Paths.Wheels} component={Pages.Wheels} />
+            <ProtectedRoute path={Paths.WheelDetail()} component={Pages.WheelDetail} />
 
-            <PublicRoute path={Paths.MealSchedule} component={Pages.MealSchedule} />
+            {/* <PublicRoute path={Paths.MealSchedule} component={Pages.MealSchedule} />
             <PublicRoute path={Paths.MealScheduleConfig} component={Pages.MealScheduleConfig} />
 
             <PublicRoute path={Paths.Exercise} component={Pages.Exercise} />
-            <PublicRoute path={Paths.ExerciseDetail()} component={Pages.ExerciseDetail} />
+            <PublicRoute path={Paths.ExerciseDetail()} component={Pages.ExerciseDetail} /> */}
 
             <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} />
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Dashboard}`} />
           </Admin>
 
           <Profile path={LayoutPaths.Profile}>
-            <PublicRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
+            {/* <PublicRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
             <PublicRoute path={Paths.Cart} component={Pages.Cart} />
             <PublicRoute path={Paths.CartDetail()} component={Pages.CartDetail} />
             <PublicRoute path={Paths.Rank} component={Pages.Rank} />
@@ -95,7 +95,7 @@ const App: React.FC = () => {
             <PublicRoute path={Paths.HistoryRotation} component={Pages.HistoryRotation} />
             <PublicRoute path={Paths.Wallet} component={Pages.Wallet} />
             <PublicRoute path={Paths.WalletRecharge} component={Pages.WalletRecharge} />
-            <PublicRoute path={Paths.WalletDetail()} component={Pages.WalletDetail} />
+            <PublicRoute path={Paths.WalletDetail()} component={Pages.WalletDetail} /> */}
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Dashboard}`} />
           </Profile>
         </Router>

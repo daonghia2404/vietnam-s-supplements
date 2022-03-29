@@ -141,6 +141,12 @@ export const validationRules = {
       return Promise.reject(message || 'Mật khẩu nhập lại không trùng khớp');
     },
   }),
+  phone: (message?: string): Rule => ({
+    validator: (rule: any, value: string): Promise<void> => {
+      if (!value || regex.phone.test(value)) return Promise.resolve();
+      return Promise.reject(message || 'Vui lòng nhập số điện thoại hợp lệ');
+    },
+  }),
 };
 
 export const copyText = (text: string): void => {

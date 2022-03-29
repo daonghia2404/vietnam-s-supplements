@@ -17,5 +17,6 @@ export type TButtonProps = {
   iconColor?: EIconColor;
   reverse?: boolean;
   disabled?: boolean;
+  loading?: boolean;
   onClick?: () => void;
 };

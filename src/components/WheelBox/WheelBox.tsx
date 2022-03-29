@@ -7,9 +7,9 @@ import Icon, { EIconName } from '@/components/Icon';
 
 import './WheelBox.scss';
 
-const WheelBox: React.FC<TWheelBoxProps> = ({ className, title, description, image }) => {
+const WheelBox: React.FC<TWheelBoxProps> = ({ className, title, description, image, onClick }) => {
   return (
-    <div className={classNames('WheelBox', className)}>
+    <div className={classNames('WheelBox', className)} onClick={onClick}>
       <div className="WheelBox-image">
         <img src={image} alt="" />
       </div>

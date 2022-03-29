@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Menu } from 'antd';
-import { Link, globalHistory } from '@reach/router';
+import { Link, globalHistory, navigate } from '@reach/router';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
 
@@ -36,6 +36,10 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
     setPathName(pathname);
   };
 
+  const handleClickMenu = (data: TSidebarData): void => {
+    navigate(data.link);
+  };
+
   useEffect(() => {
     const { pathname: mountedPathName } = window.location;
     handleChangeRouter(mountedPathName);
@@ -56,13 +60,13 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
         <div className="Sidebar-item-icon" onClick={onClickMenuBars}>
           <Icon name={EIconName.Bars} />
         </div>
-        <div className="Sidebar-item-icon">
+        <div className="Sidebar-item-icon disabled">
           <Icon name={EIconName.Search} />
         </div>
-        <div className="Sidebar-item-icon">
+        <div className="Sidebar-item-icon disabled">
           <Icon name={EIconName.Cart} />
         </div>
-        <div className="Sidebar-item-icon">
+        <div className="Sidebar-item-icon disabled">
           <Icon name={EIconName.UserSquare} color={EIconColor.SCARPA_FLOW} />
         </div>
       </div>
@@ -86,9 +90,19 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
 
               if (isSubMenu && item.subItems) {
                 return (
-                  <Menu.SubMenu className="Sidebar-menu-item" key={item.key} title={item.title}>
+                  <Menu.SubMenu
+                    className="Sidebar-menu-item"
+                    key={item.key}
+                    title={item.title}
+                    disabled={item.disabled}
+                  >
                     {item.subItems.map((subItem) => (
-                      <Menu.Item className="Sidebar-menu-item" key={subItem.key}>
+                      <Menu.Item
+                        className="Sidebar-menu-item"
+                        key={subItem.key}
+                        disabled={subItem.disabled}
+                        onClick={(): void => handleClickMenu(subItem)}
+                      >
                         {subItem.title}
                       </Menu.Item>
                     ))}
@@ -98,14 +112,25 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
 
               if (isSkewItem) {
                 return (
-                  <Menu.Item className="Sidebar-menu-item" key={item.key}>
+                  <Menu.Item
+                    className="Sidebar-menu-item"
+                    key={item.key}
+                    disabled={item.disabled}
+                    onClick={(): void => handleClickMenu(item)}
+                  >
                     <div className="Sidebar-menu-item-skew">{item.title}</div>
                   </Menu.Item>
                 );
               }
 
               return (
-                <Menu.Item icon={item.icon} className="Sidebar-menu-item" key={item.key}>
+                <Menu.Item
+                  icon={item.icon}
+                  className="Sidebar-menu-item"
+                  key={item.key}
+                  disabled={item.disabled}
+                  onClick={(): void => handleClickMenu(item)}
+                >
                   {item.title}
 
                   {item.suffix && <div className="Sidebar-menu-item-suffix">{item.suffix}</div>}
@@ -121,8 +146,9 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
             <a
               href="https://google.com.vn"
               target="_blank"
-              className="Sidebar-item-subcrible-link flex items-center"
+              className="Sidebar-item-subcrible-link flex items-center disabled"
               rel="noreferrer"
+              onClick={(e): void => e.preventDefault()}
             >
               <Icon name={EIconName.Facebook} />
               Facebook
@@ -130,8 +156,9 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
             <a
               href="https://google.com.vn"
               target="_blank"
-              className="Sidebar-item-subcrible-link flex items-center"
+              className="Sidebar-item-subcrible-link flex items-center disabled"
               rel="noreferrer"
+              onClick={(e): void => e.preventDefault()}
             >
               <Icon name={EIconName.Instagram} />
               Instagram
@@ -139,8 +166,9 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
             <a
               href="https://google.com.vn"
               target="_blank"
-              className="Sidebar-item-subcrible-link flex items-center"
+              className="Sidebar-item-subcrible-link flex items-center disabled"
               rel="noreferrer"
+              onClick={(e): void => e.preventDefault()}
             >
               <Icon name={EIconName.Edit} />
               Đăng ký tư vấn

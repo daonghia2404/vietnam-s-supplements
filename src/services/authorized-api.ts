@@ -22,12 +22,13 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
 
     if (!existingRefreshToken) {
       navigate(LayoutPaths.Auth);
+      return '';
     }
 
-    const response = await AuthControllerInstance.refreshToken({});
+    const response = await AuthControllerInstance.refreshToken({ token: existingRefreshToken });
 
-    authHelpers.storeAccessToken('');
-    authHelpers.storeRefreshToken('');
+    authHelpers.storeAccessToken(response.token);
+    // authHelpers.storeRefreshToken('');
 
     return authHelpers.getAccessToken();
   };

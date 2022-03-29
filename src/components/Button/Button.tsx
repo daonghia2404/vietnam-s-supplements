@@ -21,6 +21,7 @@ const Button: React.FC<TButtonProps> = ({
   reverse,
   link,
   disabled,
+  loading,
   onClick,
 }) => {
   const handleClickButton = (): void => {
@@ -36,6 +37,7 @@ const Button: React.FC<TButtonProps> = ({
         onClick={handleClickButton}
         danger={danger}
         disabled={disabled}
+        loading={loading}
       >
         {iconName && (
           <div className="Button-icon">
