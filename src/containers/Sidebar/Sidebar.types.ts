@@ -2,6 +2,7 @@ import React from 'react';
 
 export type TSidebarProps = {
   className?: string;
+  isMobile?: boolean;
   onClickMenuBars?: () => void;
 };
 

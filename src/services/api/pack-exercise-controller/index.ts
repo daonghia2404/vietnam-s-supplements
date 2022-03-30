@@ -3,6 +3,8 @@ import {
   TParamsGetPackExercises,
   TGetPackExercisesResponse,
   TGetPackExerciseResponse,
+  TGetPackExercisesBoughtResponse,
+  TParamsGetPackExercisesBought,
 } from '@/services/api/pack-exercise-controller/types';
 
 class Controller {
@@ -13,6 +15,11 @@ class Controller {
 
   getPackExercise = async (id: string): Promise<TGetPackExerciseResponse> => {
     const response = await Service.get(`/pack-exercise/${id}`);
+    return response.data;
+  };
+
+  getPackExercisesBought = async (params: TParamsGetPackExercisesBought): Promise<TGetPackExercisesBoughtResponse> => {
+    const response = await Service.get('/pack-exercise/list-bought', { params });
     return response.data;
   };
 }

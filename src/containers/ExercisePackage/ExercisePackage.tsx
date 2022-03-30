@@ -8,8 +8,9 @@ import Modal from '@/components/Modal';
 import { LayoutPaths, Paths } from '@/pages/routers';
 
 import './ExercisePackage.scss';
+import EmptyBox from '@/components/EmptyBox';
 
-const ExercisePackage: React.FC<TExercisePackageProps> = () => {
+const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, dataSource = [] }) => {
   const [confirmExercisePackageModalState, setConfirmExercisePackageModalState] = useState<{
     visible: boolean;
   }>({
@@ -21,6 +22,8 @@ const ExercisePackage: React.FC<TExercisePackageProps> = () => {
   }>({
     visible: false,
   });
+
+  const isEmpty = !dataSource || dataSource.length === 0;
 
   const handleOpenConfirmExercisePackageModal = (): void => {
     setConfirmExercisePackageModalState({
@@ -61,19 +64,23 @@ const ExercisePackage: React.FC<TExercisePackageProps> = () => {
 
   return (
     <div className="ExercisePackage">
-      <div className="ExercisePackage-title">Đăng ký gói tập</div>
-      <div className="ExercisePackage-main flex flex-wrap justify-between">
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <ExercisePackageBox
-            key={item}
-            image={ImageExercisePackage}
-            title="Gói PT bổ trợ thể thao"
-            description="Lorem Ipsum is simply dummy text of the printing."
-            onBuy={handleOpenConfirmExercisePackageModal}
-            onClickDetail={(): void => handleNavigateExercisePackageDetail(String(item))}
-          />
-        ))}
-      </div>
+      <div className="ExercisePackage-title">{title}</div>
+      {isEmpty ? (
+        <EmptyBox title="Bạn chưa mua gói tập nào" />
+      ) : (
+        <div className="ExercisePackage-main flex flex-wrap justify-between">
+          {[1, 2, 3, 4, 5, 6].map((item) => (
+            <ExercisePackageBox
+              key={item}
+              image={ImageExercisePackage}
+              title="Gói PT bổ trợ thể thao"
+              description="Lorem Ipsum is simply dummy text of the printing."
+              onBuy={handleOpenConfirmExercisePackageModal}
+              onClickDetail={(): void => handleNavigateExercisePackageDetail(String(item))}
+            />
+          ))}
+        </div>
+      )}
 
       <Modal
         {...confirmExercisePackageModalState}

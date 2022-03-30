@@ -36,6 +36,7 @@ const MealSchedule = lazy(() => retryLoadComponent(() => import('@/pages/MealSch
 const MealScheduleConfig = lazy(() => retryLoadComponent(() => import('@/pages/MealScheduleConfig')));
 
 const Exercise = lazy(() => retryLoadComponent(() => import('@/pages/Exercise')));
+const ExerciseBought = lazy(() => retryLoadComponent(() => import('@/pages/ExerciseBought')));
 const ExerciseDetail = lazy(() => retryLoadComponent(() => import('@/pages/ExerciseDetail')));
 
 const ProfileInformation = lazy(() => retryLoadComponent(() => import('@/pages/ProfileInformation')));
@@ -93,6 +94,7 @@ export const Paths = {
   MealScheduleConfig: `${ModulePaths.MealSchedule}/thiet-lap`,
 
   Exercise: ModulePaths.Exercise,
+  ExerciseBought: `${ModulePaths.Exercise}/da-mua`,
   ExerciseDetail: (id?: string): string => `${ModulePaths.Exercise}/chi-tiet/${id || ':id'}`,
 
   ProfileInformation: '/ca-nhan',
@@ -137,6 +139,7 @@ export const Pages = {
   MealScheduleConfig,
 
   Exercise,
+  ExerciseBought,
   ExerciseDetail,
 
   ProfileInformation,

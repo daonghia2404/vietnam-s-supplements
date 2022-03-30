@@ -30,7 +30,7 @@ export const dataMenu = [
     disabled: true,
   },
   { key: 'contact', title: 'Liên Hệ', link: '/', subItems: [], disabled: true },
-  { key: 'calendar', title: 'Lịch Ăn Uống', link: '/', subItems: [], disabled: true },
+  { key: 'calendar', title: 'Lịch Ăn Uống', link: `${LayoutPaths.Admin}${Paths.MealSchedule}`, subItems: [] },
   { key: 'rotation', title: 'Vòng Quay', link: `${LayoutPaths.Admin}${Paths.Wheels}`, subItems: [] },
   {
     key: 'auth',
@@ -75,10 +75,9 @@ export const dataProfileMenu = (authInfo?: TGetInfoResponse): TSidebarData[] => 
   {
     key: 'exercise-package',
     title: 'Bài tập đã mua',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.ExerciseBought}`,
     subItems: [],
     icon: <Icon name={EIconName.Gym} />,
-    disabled: true,
   },
   {
     key: 'history-rotation',

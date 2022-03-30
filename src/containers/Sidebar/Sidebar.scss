@@ -47,16 +47,16 @@
             }
 
             &-icon {
-              &:nth-of-type(1) {
+              &:nth-child(1) {
                 order: 1;
               }
-              &:nth-of-type(2) {
+              &:nth-child(2) {
                 order: 2;
               }
-              &:nth-of-type(3) {
+              &:nth-child(3) {
                 order: 4;
               }
-              &:nth-of-type(4) {
+              &:nth-child(4) {
                 order: 5;
               }
 
@@ -214,6 +214,10 @@
       border-bottom: 1px solid $gallery;
       white-space: pre-wrap;
 
+      .ant-menu-title-content {
+        white-space: nowrap;
+      }
+
       .Icon {
         width: 1.8rem;
         height: 1.8rem;
@@ -235,6 +239,7 @@
         margin: 0;
       }
 
+      &.active,
       &:hover {
         .Sidebar-menu-item-skew {
           background: $electric-violet;
@@ -264,6 +269,7 @@
         }
       }
 
+      &:not(.ant-menu-item-disabled).active,
       &:not(.ant-menu-item-disabled):hover {
         color: $electric-violet !important;
       }

@@ -1,14 +1,24 @@
 import { createReducer } from 'deox';
 
-import { TGetPackExerciseResponse, TGetPackExercisesResponse } from '@/services/api/pack-exercise-controller/types';
-import { getPackExerciseAction, getPackExercisesAction } from '@/redux/actions/pack-exercise-controller';
+import {
+  TGetPackExerciseResponse,
+  TGetPackExercisesBoughtResponse,
+  TGetPackExercisesResponse,
+} from '@/services/api/pack-exercise-controller/types';
+import {
+  getPackExerciseAction,
+  getPackExercisesAction,
+  getPackExercisesBoughtAction,
+} from '@/redux/actions/pack-exercise-controller';
 
 export interface IUIState {
   packExercises?: TGetPackExercisesResponse;
+  packExercisesBought?: TGetPackExercisesBoughtResponse;
   packExercise?: TGetPackExerciseResponse;
 }
 const initialState: IUIState = {
   packExercises: undefined,
+  packExercisesBought: undefined,
   packExercise: undefined,
 };
 
@@ -18,6 +28,13 @@ const reducer = createReducer(initialState, (handleAction) => [
     return {
       ...state,
       packExercises: response,
+    };
+  }),
+  handleAction(getPackExercisesBoughtAction.success, (state, { payload }) => {
+    const { response } = payload;
+    return {
+      ...state,
+      packExercisesBought: response,
     };
   }),
   handleAction(getPackExerciseAction.success, (state, { payload }) => {

@@ -99,6 +99,7 @@ const WheelDetail: React.FC = () => {
 
   const handleAddTurnWheelSuccess = (): void => {
     showNotification(ETypeNotification.SUCCESS, 'Đổi lượt quay thành công');
+    getTurnWheelUserData();
   };
 
   const getWheelDetailData = useCallback((): void => {

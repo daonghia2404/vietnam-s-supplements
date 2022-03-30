@@ -54,7 +54,7 @@ const App: React.FC = () => {
       )}
 
       <div className="App-sidebar">
-        <Sidebar onClickMenuBars={handleToggleVisibleSidebar} />
+        <Sidebar onClickMenuBars={handleToggleVisibleSidebar} isMobile={deviceType === EDeviceType.MOBILE} />
       </div>
 
       <div className="App-body">
@@ -76,14 +76,12 @@ const App: React.FC = () => {
 
           <Admin path={LayoutPaths.Admin}>
             {/* <PublicRoute path={Paths.UpdateProfile} component={Pages.UpdateProfile} /> */}
-
             <ProtectedRoute path={Paths.Wheels} component={Pages.Wheels} />
             <ProtectedRoute path={Paths.WheelDetail()} component={Pages.WheelDetail} />
+            <ProtectedRoute path={Paths.MealSchedule} component={Pages.MealSchedule} />
+            <ProtectedRoute path={Paths.MealScheduleConfig} component={Pages.MealScheduleConfig} />
 
-            {/* <PublicRoute path={Paths.MealSchedule} component={Pages.MealSchedule} />
-            <PublicRoute path={Paths.MealScheduleConfig} component={Pages.MealScheduleConfig} />
-
-            <PublicRoute path={Paths.Exercise} component={Pages.Exercise} />
+            {/* <PublicRoute path={Paths.Exercise} component={Pages.Exercise} />
             <PublicRoute path={Paths.ExerciseDetail()} component={Pages.ExerciseDetail} /> */}
 
             <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} />
@@ -95,13 +93,14 @@ const App: React.FC = () => {
             <ProtectedRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
             <ProtectedRoute path={Paths.ChangePasswordAccount} component={Pages.ChangePasswordAccount} />
             <ProtectedRoute path={Paths.ReferralCode} component={Pages.ReferralCode} />
-            <PublicRoute path={Paths.Wallet} component={Pages.Wallet} />
-            <PublicRoute path={Paths.WalletRecharge} component={Pages.WalletRecharge} />
-            <PublicRoute path={Paths.WalletDetail()} component={Pages.WalletDetail} />
-            <PublicRoute path={Paths.Rank} component={Pages.Rank} />
-            <PublicRoute path={Paths.FavoriteProducts} component={Pages.FavoriteProducts} />
-            <PublicRoute path={Paths.Cart} component={Pages.Cart} />
-            <PublicRoute path={Paths.CartDetail()} component={Pages.CartDetail} />
+            <ProtectedRoute path={Paths.ExerciseBought} component={Pages.ExerciseBought} />
+            <ProtectedRoute path={Paths.Wallet} component={Pages.Wallet} />
+            <ProtectedRoute path={Paths.WalletRecharge} component={Pages.WalletRecharge} />
+            <ProtectedRoute path={Paths.WalletDetail()} component={Pages.WalletDetail} />
+            <ProtectedRoute path={Paths.Rank} component={Pages.Rank} />
+            <ProtectedRoute path={Paths.FavoriteProducts} component={Pages.FavoriteProducts} />
+            <ProtectedRoute path={Paths.Cart} component={Pages.Cart} />
+            <ProtectedRoute path={Paths.CartDetail()} component={Pages.CartDetail} />
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} />
           </Profile>
         </Router>

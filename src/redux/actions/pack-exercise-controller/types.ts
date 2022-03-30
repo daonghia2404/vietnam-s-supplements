@@ -1,8 +1,10 @@
 import { EPackExerciseControllerAction } from '@/redux/actions/pack-exercise-controller/constants';
 import {
   TGetPackExerciseResponse,
+  TGetPackExercisesBoughtResponse,
   TGetPackExercisesResponse,
   TParamsGetPackExercises,
+  TParamsGetPackExercisesBought,
 } from '@/services/api/pack-exercise-controller/types';
 
 export type TGetPackExercisesRequest = {
@@ -20,6 +22,24 @@ export type TGetPackExercisesSuccess = {
 
 export type TGetPackExercisesFailed = {
   type: EPackExerciseControllerAction.GET_PACK_EXERCISES_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetPackExercisesBoughtRequest = {
+  type: EPackExerciseControllerAction.GET_PACK_EXERCISES_BOUGHT_REQUEST;
+  payload: {
+    params: TParamsGetPackExercisesBought;
+    cb?: (response: TGetPackExercisesBoughtResponse) => void;
+  };
+};
+
+export type TGetPackExercisesBoughtSuccess = {
+  type: EPackExerciseControllerAction.GET_PACK_EXERCISES_BOUGHT_SUCCESS;
+  payload: { response: TGetPackExercisesBoughtResponse };
+};
+
+export type TGetPackExercisesBoughtFailed = {
+  type: EPackExerciseControllerAction.GET_PACK_EXERCISES_BOUGHT_FAILED;
   payload: { error: unknown };
 };
 

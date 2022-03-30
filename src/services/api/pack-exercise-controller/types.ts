@@ -5,6 +5,11 @@ export type TParamsGetPackExercises = {
   pageSize: number;
 };
 
+export type TParamsGetPackExercisesBought = {
+  page: number;
+  pageSize: number;
+};
+
 export type TPackExerciseResponse = {
   id: string;
   title: string;
@@ -22,5 +27,12 @@ export type TPackExerciseResponse = {
 export type TGetPackExercisesResponse = TPaginateResponse & {
   records: TPackExerciseResponse[];
 };
+
+export type TGetPackExercisesBoughtResponse = {
+  id: string;
+  packExercise: TPackExerciseResponse;
+  createdAt: string;
+  updatedAt: string;
+}[];
 
 export type TGetPackExerciseResponse = TPackExerciseResponse;

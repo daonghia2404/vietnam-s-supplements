@@ -13,11 +13,11 @@ import { dataMenu, dataProfileMenu } from '@/containers/Sidebar/Sidebar.data';
 import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/helpers';
-
-import './Sidebar.scss';
 import Modal from '@/components/Modal';
 
-const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
+import './Sidebar.scss';
+
+const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const [pathName, setPathName] = useState<string>('');
   const pathNameArray = pathName.split('/');
 
@@ -60,6 +60,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
   };
 
   const handleClickMenu = (data: TSidebarData): void => {
+    if (isMobile) onClickMenuBars?.();
     switch (true) {
       case data.isAction:
         handleOpenConfirmLogoutModal();
@@ -130,7 +131,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
                   >
                     {item.subItems.map((subItem) => (
                       <Menu.Item
-                        className="Sidebar-menu-item"
+                        className={classNames('Sidebar-menu-item', { active: pathName.includes(subItem.link || ' ') })}
                         key={subItem.key}
                         disabled={subItem.disabled}
                         onClick={(): void => handleClickMenu(subItem)}
@@ -145,7 +146,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
               if (isSkewItem) {
                 return (
                   <Menu.Item
-                    className="Sidebar-menu-item"
+                    className={classNames('Sidebar-menu-item', { active: pathName.includes(item?.link || ' ') })}
                     key={item.key}
                     disabled={item.disabled}
                     onClick={(): void => handleClickMenu(item)}
@@ -158,7 +159,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
               return (
                 <Menu.Item
                   icon={item.icon}
-                  className="Sidebar-menu-item"
+                  className={classNames('Sidebar-menu-item', { active: pathName.includes(item?.link || ' ') })}
                   key={item.key}
                   disabled={item.disabled}
                   onClick={(): void => handleClickMenu(item)}
