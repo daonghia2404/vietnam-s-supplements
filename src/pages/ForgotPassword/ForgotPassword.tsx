@@ -8,10 +8,9 @@ import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { validationRules } from '@/utils/functions';
 import Icon, { EIconName } from '@/components/Icon';
-import { forgotPasswordAction, sendOtpAction } from '@/redux/actions';
+import { sendOtpAction } from '@/redux/actions';
 import { ETypeSendOTP } from '@/services/api/auth-controller/enums';
 import { LayoutPaths, Paths } from '@/pages/routers';
-import { TForgotPasswordBody } from '@/services/api/auth-controller/types';
 import { EAuthControllerAction } from '@/redux/actions/auth-controller/constants';
 import { TRootState } from '@/redux/reducers';
 
@@ -35,7 +34,7 @@ const ForgotPassword: React.FC = () => {
   const handleSendOtpSuccess = (values: any): void => {
     navigate(`${LayoutPaths.Auth}${Paths.AccountVerification}`, {
       state: {
-        type: ETypeSendOTP.REGISTER,
+        type: ETypeSendOTP.FORGOT_PASSWORD,
         body: {
           phone: values.phone,
         },
@@ -55,7 +54,7 @@ const ForgotPassword: React.FC = () => {
 
         <div className="AuthForm-main flex flex-col">
           <Form className="AuthForm-main-form" form={form} onFinish={handleSubmit}>
-            <Form.Item name="phone" rules={[validationRules.required()]}>
+            <Form.Item name="phone" rules={[validationRules.required(), validationRules.onlyNumeric()]}>
               <Input placeholder="Số Điện Thoại" prefix={<Icon name={EIconName.Phone} />} />
             </Form.Item>
 

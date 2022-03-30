@@ -69,8 +69,13 @@ export enum ETypeNotification {
 }
 
 export enum TIMEOUT_DEBOUNCE {
-  search = 200,
+  SEARCH = 200,
 }
 export enum EEmpty {
   STRIKE_THROUGH = '-',
+}
+
+export enum EFormatDate {
+  COMMON = 'DD/MM/YYYY',
+  DATE_TIME = 'HH:MM - DD/MM/YYYY',
 }

@@ -1,8 +1,9 @@
 /* eslint-disable no-useless-escape */
+import moment, { Moment } from 'moment';
 import { notification } from 'antd';
 import { Rule } from 'antd/lib/form';
 
-import { ETypeNotification } from '@/common/enums';
+import { EFormatDate, ETypeNotification } from '@/common/enums';
 import { regex } from '@/common/constants';
 
 export const removeAccents = (str: string): string => {
@@ -156,4 +157,26 @@ export const copyText = (text: string): void => {
   el.select();
   document.execCommand('copy');
   document.body.removeChild(el);
+};
+
+export const formatISODateToDateTime = (date?: string): string | undefined => {
+  return date ? moment(date).format(EFormatDate.DATE_TIME) : undefined;
+};
+
+export const formatMomentToString = (date?: Moment): string | undefined => {
+  return date ? moment(date).format(EFormatDate.COMMON) : undefined;
+};
+
+export const formatISODateToMomment = (date?: string): Moment | undefined => {
+  return date ? moment(date) : undefined;
+};
+
+export const formatMoneyVND = (config: {
+  amount: number | string;
+  uppercaseUnit?: boolean;
+  showSuffix?: boolean;
+}): string => {
+  const separateMoney = Intl.NumberFormat('vi-VN').format(Number(config.amount));
+  const unit = config.uppercaseUnit ? 'Đ' : 'đ';
+  return `${separateMoney} ${config.showSuffix ? unit : ''}`;
 };

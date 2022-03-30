@@ -6,7 +6,20 @@
     border-color: $electric-violet !important;
   }
 
+  .ant-select-single .ant-select-selector .ant-select-selection-item,
+  .ant-select-single .ant-select-selector .ant-select-selection-placeholder {
+    line-height: 1.9;
+  }
+
   .ant-select {
+    &:not(.ant-select-disabled) {
+      .ant-select-selector {
+        &:hover {
+          border-color: $electric-violet;
+        }
+      }
+    }
+
     .ant-select-selection-search-input {
       height: 100% !important;
 
@@ -31,13 +44,19 @@
         left: 1.8rem;
       }
 
-      &:hover {
-        border-color: $electric-violet;
-      }
-
       &::placeholder {
         color: $boulder;
       }
+    }
+
+    .ant-select-clear {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $athens-gray;
+      margin-top: -.8rem;
     }
   }
 }

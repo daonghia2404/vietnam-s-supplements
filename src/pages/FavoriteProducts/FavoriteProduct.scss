@@ -1,5 +1,7 @@
 .FavoriteProduct {
   &-main {
+    margin-bottom: 3rem;
+
     &-item {
       flex: 0 0 calc(100% / 4 - 1rem);
       max-width: calc(100% / 4 - 1rem);

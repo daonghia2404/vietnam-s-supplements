@@ -1,27 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { navigate } from '@reach/router';
+import { navigate, useLocation } from '@reach/router';
 
 import AuthForm from '@/containers/AuthForm';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-import { validationRules } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import Icon, { EIconName } from '@/components/Icon';
 import { TRootState } from '@/redux/reducers';
 import { EAuthControllerAction } from '@/redux/actions/auth-controller/constants';
-import { changePasswordAction } from '@/redux/actions';
+import { forgotPasswordAction } from '@/redux/actions';
 import { LayoutPaths } from '@/pages/routers';
+import { ETypeNotification } from '@/common/enums';
+import { ETypeSendOTP } from '@/services/api/auth-controller/enums';
 
 import './ChangePasswordCode.scss';
 
 const ChangePasswordCode: React.FC = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const location: any = useLocation();
+  const dataLocationState = location?.state;
 
   const [passwordValue, setPasswordValue] = useState<string>('');
-  const changePasswordLoading = useSelector(
-    (state: TRootState) => state.loadingReducer[EAuthControllerAction.CHANGE_PASSWORD],
+  const forgotPasswordLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EAuthControllerAction.FORGOT_PASSWORD],
   );
 
   const handleChangePasswordField = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -31,16 +35,22 @@ const ChangePasswordCode: React.FC = () => {
 
   const handleSubmit = (values: any): void => {
     const body = {
+      ...dataLocationState.body,
       password: values.password,
-      newPassword: values.password,
     };
 
-    dispatch(changePasswordAction.request(body, handleChangePasswordSuccess));
+    dispatch(forgotPasswordAction.request(body, handleForgotPasswordSuccess));
   };
 
-  const handleChangePasswordSuccess = (): void => {
+  const handleForgotPasswordSuccess = (): void => {
+    showNotification(ETypeNotification.SUCCESS, 'Đổi mật khẩu thành công');
     navigate(LayoutPaths.Auth);
   };
+
+  useEffect(() => {
+    const dataNavigateFrom = [ETypeSendOTP.FORGOT_PASSWORD].includes(dataLocationState?.type);
+    if (!dataNavigateFrom) navigate(LayoutPaths.Auth);
+  }, [dataLocationState]);
 
   return (
     <div>
@@ -70,7 +80,7 @@ const ChangePasswordCode: React.FC = () => {
             </Form.Item>
 
             <Form.Item style={{ marginTop: '6.4rem' }}>
-              <Button title="Tiếp Theo" type="primary" htmlType="submit" loading={changePasswordLoading} />
+              <Button title="Tiếp Theo" type="primary" htmlType="submit" loading={forgotPasswordLoading} />
             </Form.Item>
           </Form>
         </div>

@@ -1,5 +1,11 @@
 import Service from '@/services/api';
-import { TParamsGetWheelsUser, TGetWheelsUserResponse, TGetWheelResponse } from '@/services/api/wheel-controller/types';
+import {
+  TParamsGetWheelsUser,
+  TGetWheelsUserResponse,
+  TGetWheelResponse,
+  TParamsGetHistoryWheel,
+  TGetHistoryWheelResponse,
+} from '@/services/api/wheel-controller/types';
 
 class Controller {
   getWheelsUser = async (params: TParamsGetWheelsUser): Promise<TGetWheelsUserResponse> => {
@@ -9,6 +15,11 @@ class Controller {
 
   getWheel = async (id: string): Promise<TGetWheelResponse> => {
     const response = await Service.get(`/wheel/${id}`);
+    return response.data;
+  };
+
+  getHistoryWheel = async (params: TParamsGetHistoryWheel): Promise<TGetHistoryWheelResponse> => {
+    const response = await Service.get(`/history-wheel`, { params });
     return response.data;
   };
 }

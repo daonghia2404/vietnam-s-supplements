@@ -1,6 +1,9 @@
 import React from 'react';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { LayoutPaths, Paths } from '@/pages/routers';
+import { TSidebarData } from '@/containers/Sidebar/Sidebar.types';
+import { TGetInfoResponse } from '@/services/api/auth-controller/types';
+import { formatMoneyVND } from '@/utils/functions';
 
 export const dataMenu = [
   { key: 'about-us', title: 'Về Chúng Tôi', link: '/', subItems: [], disabled: true },
@@ -38,40 +41,36 @@ export const dataMenu = [
   },
 ];
 
-export const dataProfileMenu = [
+export const dataProfileMenu = (authInfo?: TGetInfoResponse): TSidebarData[] => [
   {
     key: 'personal-information',
     title: 'Thông tin cá nhân',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.ProfileInformation}`,
     subItems: [],
     icon: <Icon name={EIconName.User} />,
-    disabled: true,
   },
   {
     key: 'rank',
     title: 'Hạng của bạn',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.Rank}`,
     subItems: [],
-    suffix: '1000 điểm',
+    suffix: String(authInfo?.rank || ''),
     icon: <Icon name={EIconName.Medal} color={EIconColor.BUDDHA_GOLD} />,
-    disabled: true,
   },
   {
     key: 'my-wallet',
     title: 'Ví của tôi',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.Wallet}`,
     subItems: [],
     icon: <Icon name={EIconName.CreditCard} />,
-    suffix: '240.000 đ',
-    disabled: true,
+    suffix: formatMoneyVND({ amount: authInfo?.money || 0, showSuffix: true }),
   },
   {
     key: 'order-history',
     title: 'Lịch sử đơn hàng',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.Cart}`,
     subItems: [],
     icon: <Icon name={EIconName.History} />,
-    disabled: true,
   },
   {
     key: 'exercise-package',
@@ -84,33 +83,36 @@ export const dataProfileMenu = [
   {
     key: 'history-rotation',
     title: 'Lịch sử vòng quay',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.HistoryRotation}`,
     subItems: [],
     icon: <Icon name={EIconName.Wheel} />,
-    disabled: true,
   },
   {
     key: 'favorite-product',
     title: 'Sản phẩm yêu thích',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.FavoriteProducts}`,
     subItems: [],
     icon: <Icon name={EIconName.Heart} />,
-    disabled: true,
   },
   {
     key: 'code',
     title: 'Mã giới thiệu',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.ReferralCode}`,
     subItems: [],
     icon: <Icon name={EIconName.Users} />,
-    disabled: true,
   },
   {
     key: 'change-password',
     title: 'Đổi mật khẩu',
-    link: '/',
+    link: `${LayoutPaths.Profile}${Paths.ChangePasswordAccount}`,
     subItems: [],
     icon: <Icon name={EIconName.Lock} />,
-    disabled: true,
+  },
+  {
+    key: 'logout',
+    title: 'Đăng xuất',
+    subItems: [],
+    isAction: true,
+    icon: <Icon name={EIconName.Logout} />,
   },
 ];

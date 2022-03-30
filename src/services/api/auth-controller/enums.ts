@@ -1,6 +1,8 @@
 export enum ERole {
-  CUSTOMER = 1,
-  ADMIN = 99,
+  USER = 1,
+  PT = 2,
+  ADMIN = 3,
+  SUPER_ADMIN = 4,
 }
 
 export enum ETypeSendOTP {

@@ -8,7 +8,8 @@ export type TSidebarProps = {
 export type TSidebarData = {
   key: string;
   title: string;
-  link: string;
+  link?: string;
+  isAction?: boolean;
   subItems?: TSidebarData[];
   isSkew?: boolean;
   suffix?: string;

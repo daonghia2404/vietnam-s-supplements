@@ -10,8 +10,8 @@ export function* getAddressSaga(action: ActionType<typeof getAddressAction.reque
   try {
     const response = (yield call(Instance.getAddress, params)) as TGetAddressResponse;
 
-    yield put(getAddressAction.success(response));
-    cb?.(response);
+    yield put(getAddressAction.success(response, params));
+    cb?.(response, params);
   } catch (err) {
     yield put(getAddressAction.failure(err));
   }

@@ -1,6 +1,7 @@
 export type TUploadFilesListProps = {
   className?: string;
-  value?: any;
-  label: string;
-  onChange?: (value: any) => void;
+  value?: string[];
+  useSingle?: boolean;
+  label?: string;
+  onChange?: (value: string[]) => void;
 };

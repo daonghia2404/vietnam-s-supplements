@@ -44,6 +44,7 @@ export type TSendOtpResponse = {
 export type TForgotPasswordBody = {
   phone: string;
   code: string;
+  password: string;
 };
 
 export type TForgotPasswordResponse = {
@@ -68,3 +69,39 @@ export type TChangePasswordBody = {
 export type TChangePasswordResponse = {
   message: string;
 };
+
+export type TGetInfoResponse = {
+  address: string;
+  avatar: string;
+  backIdCard: string;
+  birthday: string;
+  city: string;
+  district: string;
+  email: string;
+  frontIdCard: string;
+  fullName: string;
+  id: string;
+  infoBody: unknown;
+  money: number;
+  phone: string;
+  rank: number;
+  referralCode: string;
+  role: ERole;
+  score: number;
+  userInviteId: unknown;
+  userType: unknown;
+};
+
+export type TUpdateInfoBody = {
+  fullName: string;
+  avatar: string;
+  address: string;
+  city: string;
+  district: string;
+  backIdCard: string;
+  frontIdCard: string;
+  birthday?: string;
+  email: string;
+};
+
+export type TUpdateInfoResponse = { message: string };

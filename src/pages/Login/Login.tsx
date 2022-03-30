@@ -38,7 +38,7 @@ const Login: React.FC = () => {
 
   const handleLoginSuccess = (): void => {
     showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công');
-    navigate(LayoutPaths.Admin);
+    navigate(LayoutPaths.Profile);
   };
 
   useEffect(() => {

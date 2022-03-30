@@ -8,24 +8,35 @@ import ImageFavicon from '@/assets/images/favicon.png';
 import ImageLogo from '@/assets/images/logo.png';
 import { TSidebarData, TSidebarProps } from '@/containers/Sidebar/Sidebar.types';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import { LayoutPaths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 import { dataMenu, dataProfileMenu } from '@/containers/Sidebar/Sidebar.data';
 import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
+import AuthHelpers from '@/services/helpers';
 
 import './Sidebar.scss';
+import Modal from '@/components/Modal';
 
 const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
   const [pathName, setPathName] = useState<string>('');
   const pathNameArray = pathName.split('/');
+
   const deviceType = useSelector((state: TRootState) => state.uiReducer.device.type);
   const isDesktop = deviceType === EDeviceType.DESKTOP;
 
   const isShowProfileMenu = pathNameArray.includes(LayoutPaths.Profile.substring(1));
   const isShowNormalMenu = !isShowProfileMenu;
 
+  const authState = useSelector((state: TRootState) => state.authReducer.user);
+
+  const [confirmLogoutModalState, setConfirmLogoutModalState] = useState<{
+    visible: boolean;
+  }>({
+    visible: false,
+  });
+
   const renderDataMenu = (): TSidebarData[] => {
-    if (isShowProfileMenu) return dataProfileMenu;
+    if (isShowProfileMenu) return dataProfileMenu(authState);
     if (isShowNormalMenu) return dataMenu;
     return [];
 
@@ -36,8 +47,29 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
     setPathName(pathname);
   };
 
+  const handleOpenConfirmLogoutModal = (): void => {
+    setConfirmLogoutModalState({ visible: true });
+  };
+  const handleConfirmLogoutModalSubmit = (): void => {
+    handleCloseConfirmLogoutModal();
+    AuthHelpers.clearTokens();
+    navigate(LayoutPaths.Auth);
+  };
+  const handleCloseConfirmLogoutModal = (): void => {
+    setConfirmLogoutModalState({ visible: false });
+  };
+
   const handleClickMenu = (data: TSidebarData): void => {
-    navigate(data.link);
+    switch (true) {
+      case data.isAction:
+        handleOpenConfirmLogoutModal();
+        break;
+      case Boolean(data.link):
+        navigate(data?.link || '');
+        break;
+      default:
+        break;
+    }
   };
 
   useEffect(() => {
@@ -66,9 +98,9 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
         <div className="Sidebar-item-icon disabled">
           <Icon name={EIconName.Cart} />
         </div>
-        <div className="Sidebar-item-icon disabled">
+        <Link to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} className="Sidebar-item-icon">
           <Icon name={EIconName.UserSquare} color={EIconColor.SCARPA_FLOW} />
-        </div>
+        </Link>
       </div>
 
       <div className="Sidebar-item">
@@ -176,6 +208,20 @@ const Sidebar: React.FC<TSidebarProps> = ({ onClickMenuBars }) => {
           </div>
         )}
       </div>
+
+      <Modal
+        {...confirmLogoutModalState}
+        confirmButton={{ title: 'Đăng xuất', onClick: handleConfirmLogoutModalSubmit }}
+        cancelButton={{ title: 'Huỷ bỏ', onClick: handleCloseConfirmLogoutModal }}
+        onClose={handleCloseConfirmLogoutModal}
+      >
+        <div className="Modal-body-title" style={{ marginBottom: '1rem' }}>
+          Đăng xuất
+        </div>
+        <div className="Modal-body-subtitle" style={{ marginBottom: '.5rem' }}>
+          Bạn xác nhận đăng xuất tài khoản?
+        </div>
+      </Modal>
 
       {!isDesktop && <div className="Sidebar-overlay" onClick={onClickMenuBars} />}
     </div>

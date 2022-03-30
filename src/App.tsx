@@ -9,10 +9,11 @@ import Auth from '@/layouts/Auth';
 import Admin from '@/layouts/Admin';
 import Sidebar from '@/containers/Sidebar/Sidebar';
 import Profile from '@/layouts/Profile';
-import { uiActions } from '@/redux/actions';
+import { getInfoAction, uiActions } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import Header from '@/containers/Header/Header';
+import AuthHelpers from '@/services/helpers';
 
 import './App.scss';
 
@@ -20,6 +21,7 @@ const App: React.FC = () => {
   const dispatch = useDispatch();
   const [visibleSidebar, setVisibleSidebar] = useState<boolean>(true);
   const deviceType = useSelector((state: TRootState) => state.uiReducer.device.type);
+  const atk = AuthHelpers.getAccessToken();
 
   const handleToggleVisibleSidebar = (): void => {
     setVisibleSidebar(!visibleSidebar);
@@ -39,6 +41,10 @@ const App: React.FC = () => {
     return (): void => window.removeEventListener('resize', updateSize);
   }, [dispatch]);
 
+  useEffect(() => {
+    if (atk) dispatch(getInfoAction.request());
+  }, [dispatch, atk]);
+
   return (
     <div className={classNames('App', { 'hide': !visibleSidebar }, deviceType)}>
       {deviceType === EDeviceType.MOBILE && (
@@ -55,7 +61,7 @@ const App: React.FC = () => {
         <Router primary={false}>
           <Guest path={LayoutPaths.Guest}>
             <PublicRoute path={Paths.Home} component={Pages.Home} />
-            <PublicRoute path={Paths.ListPage} component={Pages.ListPage} />
+            {/* <PublicRoute path={Paths.ListPage} component={Pages.ListPage} /> */}
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
           </Guest>
 
@@ -85,18 +91,18 @@ const App: React.FC = () => {
           </Admin>
 
           <Profile path={LayoutPaths.Profile}>
-            {/* <PublicRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
-            <PublicRoute path={Paths.Cart} component={Pages.Cart} />
-            <PublicRoute path={Paths.CartDetail()} component={Pages.CartDetail} />
-            <PublicRoute path={Paths.Rank} component={Pages.Rank} />
-            <PublicRoute path={Paths.FavoriteProducts} component={Pages.FavoriteProducts} />
-            <PublicRoute path={Paths.ReferralCode} component={Pages.ReferralCode} />
-            <PublicRoute path={Paths.ChangePasswordAccount} component={Pages.ChangePasswordAccount} />
-            <PublicRoute path={Paths.HistoryRotation} component={Pages.HistoryRotation} />
+            <ProtectedRoute path={Paths.HistoryRotation} component={Pages.HistoryRotation} />
+            <ProtectedRoute path={Paths.ProfileInformation} component={Pages.ProfileInformation} />
+            <ProtectedRoute path={Paths.ChangePasswordAccount} component={Pages.ChangePasswordAccount} />
+            <ProtectedRoute path={Paths.ReferralCode} component={Pages.ReferralCode} />
             <PublicRoute path={Paths.Wallet} component={Pages.Wallet} />
             <PublicRoute path={Paths.WalletRecharge} component={Pages.WalletRecharge} />
-            <PublicRoute path={Paths.WalletDetail()} component={Pages.WalletDetail} /> */}
-            <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Dashboard}`} />
+            <PublicRoute path={Paths.WalletDetail()} component={Pages.WalletDetail} />
+            <PublicRoute path={Paths.Rank} component={Pages.Rank} />
+            <PublicRoute path={Paths.FavoriteProducts} component={Pages.FavoriteProducts} />
+            <PublicRoute path={Paths.Cart} component={Pages.Cart} />
+            <PublicRoute path={Paths.CartDetail()} component={Pages.CartDetail} />
+            <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} />
           </Profile>
         </Router>
       </div>

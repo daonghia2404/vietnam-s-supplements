@@ -6,6 +6,7 @@ import {
   TConfirmOtpForgotPasswordResponse,
   TForgotPasswordBody,
   TForgotPasswordResponse,
+  TGetInfoResponse,
   TLoginBody,
   TLoginResponse,
   TRefreshTokenBody,
@@ -14,6 +15,8 @@ import {
   TRegisterResponse,
   TSendOtpBody,
   TSendOtpResponse,
+  TUpdateInfoBody,
+  TUpdateInfoResponse,
 } from '@/services/api/auth-controller/types';
 
 class Controller {
@@ -45,12 +48,22 @@ class Controller {
   };
 
   changePassword = async (body: TChangePasswordBody): Promise<TChangePasswordResponse> => {
-    const response = await Service.post('/auth/change-password', body);
+    const response = await Service.put('/auth/change-password', body);
     return response.data;
   };
 
   sendOtp = async (body: TSendOtpBody): Promise<TSendOtpResponse> => {
     const response = await Service.post('/auth/send-otp', body);
+    return response.data;
+  };
+
+  getInfo = async (): Promise<TGetInfoResponse> => {
+    const response = await Service.get('/auth/me');
+    return response.data;
+  };
+
+  updateInfo = async (body: TUpdateInfoBody): Promise<TUpdateInfoResponse> => {
+    const response = await Service.put('/auth/update', body);
     return response.data;
   };
 }

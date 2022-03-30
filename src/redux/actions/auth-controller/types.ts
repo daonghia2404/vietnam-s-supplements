@@ -5,12 +5,15 @@ import {
   TConfirmOtpForgotPasswordResponse,
   TForgotPasswordBody,
   TForgotPasswordResponse,
+  TGetInfoResponse,
   TLoginBody,
   TLoginResponse,
   TRegisterBody,
   TRegisterResponse,
   TSendOtpBody,
   TSendOtpResponse,
+  TUpdateInfoBody,
+  TUpdateInfoResponse,
 } from '@/services/api/auth-controller/types';
 import { EAuthControllerAction } from './constants';
 
@@ -107,5 +110,40 @@ export type TChangePasswordSuccess = {
 
 export type TChangePasswordFailed = {
   type: EAuthControllerAction.CHANGE_PASSWORD_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetInfoRequest = {
+  type: EAuthControllerAction.GET_INFO_REQUEST;
+  payload: {
+    cb?: (response: TGetInfoResponse) => void;
+  };
+};
+
+export type TGetInfoSuccess = {
+  type: EAuthControllerAction.GET_INFO_SUCCESS;
+  payload: { response: TGetInfoResponse };
+};
+
+export type TGetInfoFailed = {
+  type: EAuthControllerAction.GET_INFO_FAILED;
+  payload: { error: unknown };
+};
+
+export type TUpdateInfoRequest = {
+  type: EAuthControllerAction.UPDATE_INFO_REQUEST;
+  payload: {
+    body: TUpdateInfoBody;
+    cb?: (response: TUpdateInfoResponse) => void;
+  };
+};
+
+export type TUpdateInfoSuccess = {
+  type: EAuthControllerAction.UPDATE_INFO_SUCCESS;
+  payload: { response: TUpdateInfoResponse };
+};
+
+export type TUpdateInfoFailed = {
+  type: EAuthControllerAction.UPDATE_INFO_FAILED;
   payload: { error: unknown };
 };

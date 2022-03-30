@@ -10,6 +10,9 @@ import {
   TForgotPasswordFailed,
   TForgotPasswordRequest,
   TForgotPasswordSuccess,
+  TGetInfoFailed,
+  TGetInfoRequest,
+  TGetInfoSuccess,
   TLoginFailed,
   TLoginRequest,
   TLoginSuccess,
@@ -19,6 +22,9 @@ import {
   TSendOtpFailed,
   TSendOtpRequest,
   TSendOtpSuccess,
+  TUpdateInfoFailed,
+  TUpdateInfoRequest,
+  TUpdateInfoSuccess,
 } from '@/redux/actions/auth-controller/types';
 import {
   TChangePasswordBody,
@@ -27,12 +33,15 @@ import {
   TConfirmOtpForgotPasswordResponse,
   TForgotPasswordBody,
   TForgotPasswordResponse,
+  TGetInfoResponse,
   TLoginBody,
   TLoginResponse,
   TRegisterBody,
   TRegisterResponse,
   TSendOtpBody,
   TSendOtpResponse,
+  TUpdateInfoBody,
+  TUpdateInfoResponse,
 } from '@/services/api/auth-controller/types';
 
 import { EAuthControllerAction } from './constants';
@@ -162,6 +171,48 @@ export const changePasswordAction = {
     EAuthControllerAction.CHANGE_PASSWORD_FAILED,
     (resolve) =>
       (error: unknown): TChangePasswordFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getInfoAction = {
+  request: createActionCreator(
+    EAuthControllerAction.GET_INFO_REQUEST,
+    (resolve) =>
+      (cb?: (response: TGetInfoResponse) => void): TGetInfoRequest =>
+        resolve({ cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.GET_INFO_SUCCESS,
+    (resolve) =>
+      (response: TGetInfoResponse): TGetInfoSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.GET_INFO_FAILED,
+    (resolve) =>
+      (error: unknown): TGetInfoFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const updateInfoAction = {
+  request: createActionCreator(
+    EAuthControllerAction.UPDATE_INFO_REQUEST,
+    (resolve) =>
+      (body: TUpdateInfoBody, cb?: (response: TUpdateInfoResponse) => void): TUpdateInfoRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EAuthControllerAction.UPDATE_INFO_SUCCESS,
+    (resolve) =>
+      (response: TUpdateInfoResponse): TUpdateInfoSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EAuthControllerAction.UPDATE_INFO_FAILED,
+    (resolve) =>
+      (error: unknown): TUpdateInfoFailed =>
         resolve({ error }),
   ),
 };

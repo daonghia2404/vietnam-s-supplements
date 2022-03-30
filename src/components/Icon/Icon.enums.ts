@@ -28,6 +28,8 @@ export enum EIconName {
   Quote = 'Quote',
   MapMarker = 'MapMarker',
   Mail = 'Mail',
+  LoadingSpin = 'LoadingSpin',
+  Logout = 'Logout',
 }
 
 export enum EIconColor {

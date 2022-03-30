@@ -48,7 +48,7 @@ const AccountVerification: React.FC = () => {
         dispatch(registerAction.request(body, handleRegisterSuccess));
         break;
       case ETypeSendOTP.FORGOT_PASSWORD:
-        dispatch(confirmOtpForgotPasswordAction.request(body, handleConfirmOtpForgotPasswordSuccess));
+        dispatch(confirmOtpForgotPasswordAction.request(body, (): void => handleConfirmOtpForgotPasswordSuccess(body)));
         break;
 
       default:
@@ -56,8 +56,8 @@ const AccountVerification: React.FC = () => {
     }
   };
 
-  const handleConfirmOtpForgotPasswordSuccess = (): void => {
-    navigate(`${LayoutPaths.Auth}${Paths.ChangePasswordCode}`);
+  const handleConfirmOtpForgotPasswordSuccess = (body: { code: string; phone: string }): void => {
+    navigate(`${LayoutPaths.Auth}${Paths.ChangePasswordCode}`, { state: { type: ETypeSendOTP.FORGOT_PASSWORD, body } });
   };
 
   const handleRegisterSuccess = (): void => {

@@ -2,6 +2,8 @@
 
 .Cart {
   &-main {
+    margin-bottom: 3rem;
+
     &-header {
       margin-bottom: 2.5rem;
 
@@ -25,6 +27,15 @@
         .ant-btn {
           border-radius: 1rem;
         }
+      }
+    }
+
+    &-body {
+      position: relative;
+      min-height: 40rem;
+
+      .PageLoading {
+        height: 100%;
       }
     }
   }

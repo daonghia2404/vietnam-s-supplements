@@ -1,5 +1,11 @@
 import { EWheelControllerAction } from '@/redux/actions/wheel-controller/constants';
-import { TGetWheelResponse, TGetWheelsUserResponse, TParamsGetWheelsUser } from '@/services/api/wheel-controller/types';
+import {
+  TGetHistoryWheelResponse,
+  TGetWheelResponse,
+  TGetWheelsUserResponse,
+  TParamsGetHistoryWheel,
+  TParamsGetWheelsUser,
+} from '@/services/api/wheel-controller/types';
 
 export type TGetWheelsRequest = {
   type: EWheelControllerAction.GET_WHEELS_USER_REQUEST;
@@ -30,3 +36,21 @@ export type TGetWheelSuccess = {
 };
 
 export type TGetWheelFailed = { type: EWheelControllerAction.GET_WHEEL_FAILED; payload: { error: unknown } };
+
+export type TGetHistoryWheelRequest = {
+  type: EWheelControllerAction.GET_HISTORY_WHEEL_REQUEST;
+  payload: {
+    params: TParamsGetHistoryWheel;
+    cb?: (response: TGetHistoryWheelResponse) => void;
+  };
+};
+
+export type TGetHistoryWheelSuccess = {
+  type: EWheelControllerAction.GET_HISTORY_WHEEL_SUCCESS;
+  payload: { response: TGetHistoryWheelResponse };
+};
+
+export type TGetHistoryWheelFailed = {
+  type: EWheelControllerAction.GET_HISTORY_WHEEL_FAILED;
+  payload: { error: unknown };
+};

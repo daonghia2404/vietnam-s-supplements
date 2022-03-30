@@ -1,15 +1,21 @@
 import { createReducer } from 'deox';
 
-import { TGetWheelResponse, TGetWheelsUserResponse } from '@/services/api/wheel-controller/types';
-import { getWheelAction, getWheelsUserAction } from '@/redux/actions/wheel-controller';
+import {
+  TGetHistoryWheelResponse,
+  TGetWheelResponse,
+  TGetWheelsUserResponse,
+} from '@/services/api/wheel-controller/types';
+import { getHisotryWheelAction, getWheelAction, getWheelsUserAction } from '@/redux/actions/wheel-controller';
 
 export interface IUIState {
   wheelsUser?: TGetWheelsUserResponse;
   wheel?: TGetWheelResponse;
+  historyWheel?: TGetHistoryWheelResponse;
 }
 const initialState: IUIState = {
   wheelsUser: undefined,
   wheel: undefined,
+  historyWheel: undefined,
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
@@ -25,6 +31,13 @@ const reducer = createReducer(initialState, (handleAction) => [
     return {
       ...state,
       wheel: response,
+    };
+  }),
+  handleAction(getHisotryWheelAction.success, (state, { payload }) => {
+    const { response } = payload;
+    return {
+      ...state,
+      historyWheel: response,
     };
   }),
 ]);

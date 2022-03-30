@@ -7,6 +7,11 @@ import packPtOnlineControllerSaga from './pack-pt-online-controller';
 import addressControllerSaga from './address-controller';
 import wheelControllerSaga from './wheel-controller';
 import turnWheelControllerSaga from './turn-wheel-controller';
+import uploadControllerSaga from './upload-controller';
+import paymentControllerSaga from './payment-controller';
+import rankControllerSaga from './rank-controller';
+import productControllerSaga from './product-controller';
+import orderControllerSaga from './order-controller';
 
 const rootSaga = function* root(): Generator {
   yield all([
@@ -17,6 +22,11 @@ const rootSaga = function* root(): Generator {
     fork(addressControllerSaga),
     fork(wheelControllerSaga),
     fork(turnWheelControllerSaga),
+    fork(uploadControllerSaga),
+    fork(paymentControllerSaga),
+    fork(rankControllerSaga),
+    fork(productControllerSaga),
+    fork(orderControllerSaga),
   ]);
 };
 

@@ -17,6 +17,12 @@ const reducer = createReducer(initialState, (handleAction) => [
       turnNumber: response.turnNumber,
     };
   }),
+  handleAction(getTurnWheelUserAction.failure, (state) => {
+    return {
+      ...state,
+      turnNumber: 0,
+    };
+  }),
 ]);
 
 export default reducer;

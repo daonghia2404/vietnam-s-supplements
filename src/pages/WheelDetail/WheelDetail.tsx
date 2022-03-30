@@ -143,6 +143,7 @@ const WheelDetail: React.FC = () => {
                 type="ghost"
                 onClick={handleBuyTurnWheelByPoint}
                 loading={buyTurnWheelLoading}
+                disabled={wheelRotationState.triggerStart}
               />
               <Button
                 title={`Quay số (${turnWheel} lượt quay)`}
@@ -156,8 +157,9 @@ const WheelDetail: React.FC = () => {
                 type="ghost"
                 onClick={handleShareSocialTurnWHeel}
                 loading={shareSocialTurnWheelLoading}
+                disabled={wheelRotationState.triggerStart}
               />
-              <Link to="/" className="WheelDetail-main-link">
+              <Link to={`${LayoutPaths.Profile}${Paths.HistoryRotation}`} className="WheelDetail-main-link">
                 Lịch sử quay
               </Link>
             </div>

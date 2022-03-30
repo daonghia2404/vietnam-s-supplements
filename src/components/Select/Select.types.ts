@@ -3,6 +3,8 @@ export type TSelectProps = {
   placeholder?: string;
   value?: TSelectOption;
   options?: TSelectOption[];
+  showSearch?: boolean;
+  disabled?: boolean;
   onChange?: (option: TSelectOption) => void;
 };
 

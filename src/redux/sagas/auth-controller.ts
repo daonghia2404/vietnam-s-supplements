@@ -6,16 +6,20 @@ import AuthControllerInstance from '@/services/api/auth-controller';
 import {
   changePasswordAction,
   forgotPasswordAction,
+  getInfoAction,
   loginAction,
   registerAction,
   sendOtpAction,
+  updateInfoAction,
 } from '@/redux/actions';
 import {
   TChangePasswordResponse,
   TForgotPasswordResponse,
+  TGetInfoResponse,
   TLoginResponse,
   TRegisterResponse,
   TSendOtpResponse,
+  TUpdateInfoResponse,
 } from '@/services/api/auth-controller/types';
 
 export function* loginSaga(action: ActionType<typeof loginAction.request>): Generator {
@@ -81,10 +85,36 @@ export function* changePasswordSaga(action: ActionType<typeof changePasswordActi
   }
 }
 
+export function* getInfoSaga(action: ActionType<typeof getInfoAction.request>): Generator {
+  const { cb } = action.payload;
+  try {
+    const response = (yield call(AuthControllerInstance.getInfo)) as TGetInfoResponse;
+
+    yield put(getInfoAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getInfoAction.failure(err));
+  }
+}
+
+export function* updateInfoSaga(action: ActionType<typeof updateInfoAction.request>): Generator {
+  const { body, cb } = action.payload;
+  try {
+    const response = (yield call(AuthControllerInstance.updateInfo, body)) as TUpdateInfoResponse;
+
+    yield put(updateInfoAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(updateInfoAction.failure(err));
+  }
+}
+
 export default function* root(): Generator {
   yield all([takeLatest(loginAction.request.type, loginSaga)]);
   yield all([takeLatest(registerAction.request.type, registerSaga)]);
   yield all([takeLatest(sendOtpAction.request.type, sendOtpSaga)]);
   yield all([takeLatest(forgotPasswordAction.request.type, forgotPasswordSaga)]);
   yield all([takeLatest(changePasswordAction.request.type, changePasswordSaga)]);
+  yield all([takeLatest(getInfoAction.request.type, getInfoSaga)]);
+  yield all([takeLatest(updateInfoAction.request.type, updateInfoSaga)]);
 }

@@ -8,14 +8,17 @@ export const getAddressAction = {
   request: createActionCreator(
     EAddressControllerAction.GET_ADDRESS_REQUEST,
     (resolve) =>
-      (params: TParamsGetAddress, cb?: (response: TGetAddressResponse) => void): TGetAddressRequest =>
+      (
+        params: TParamsGetAddress,
+        cb?: (response: TGetAddressResponse, params: TParamsGetAddress) => void,
+      ): TGetAddressRequest =>
         resolve({ params, cb }),
   ),
   success: createActionCreator(
     EAddressControllerAction.GET_ADDRESS_SUCCESS,
     (resolve) =>
-      (response: TGetAddressResponse): TGetAddressSuccess =>
-        resolve({ response }),
+      (response: TGetAddressResponse, params: TParamsGetAddress): TGetAddressSuccess =>
+        resolve({ response, params }),
   ),
   failure: createActionCreator(
     EAddressControllerAction.GET_ADDRESS_FAILED,
