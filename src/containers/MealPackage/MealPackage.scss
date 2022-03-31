@@ -10,6 +10,11 @@
     position: relative;
     width: fit-content;
 
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
     .Icon {
       transform: rotate(180deg);
       margin-right: .5rem;
@@ -23,6 +28,8 @@
   }
 
   &-main {
+    margin-bottom: 3rem;
+
     .MealPackageBox {
       flex: 0 0 calc(100% / 2 - 2rem);
       max-width: calc(100% / 2 - 2rem);

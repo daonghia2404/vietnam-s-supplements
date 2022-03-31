@@ -12,25 +12,29 @@ import { scrollToTop } from '@/utils/functions';
 import MealPackageDetail from '@/containers/MealPackageDetail';
 import { LayoutPaths, Paths } from '@/pages/routers';
 
+import { TDataGlobalStep } from './MealScheduleConfig.types';
 import './MealScheduleConfig.scss';
 
 const MealScheduleConfig: React.FC = () => {
   const [step, setStep] = useState<EMealScheduleStepKey>(EMealScheduleStepKey.REGISTER);
+  const [dataGlobalStep, setDataGlobalStep] = useState<TDataGlobalStep>({});
 
   const handleBackStep = (): void => {
     switch (step) {
+      case EMealScheduleStepKey.MEAL_SCHEDULE_OVERVIEW:
+        setStep(EMealScheduleStepKey.MEAL_PACKAGE);
+        break;
+      case EMealScheduleStepKey.MEAL_PACKAGE:
+        setStep(EMealScheduleStepKey.BODY_STATUS);
+        break;
+      case EMealScheduleStepKey.BODY_STATUS:
+        setStep(EMealScheduleStepKey.BODY_INFORMATION);
+        break;
       case EMealScheduleStepKey.BODY_INFORMATION:
         setStep(EMealScheduleStepKey.REGISTER);
         break;
-      case EMealScheduleStepKey.MEAL_PACKAGE:
       case EMealScheduleStepKey.MEAL_PACKAGE_DETAIL:
-        setStep(EMealScheduleStepKey.BODY_INFORMATION);
-        break;
-      case EMealScheduleStepKey.BODY_STATUS:
         setStep(EMealScheduleStepKey.MEAL_PACKAGE);
-        break;
-      case EMealScheduleStepKey.MEAL_SCHEDULE_OVERVIEW:
-        setStep(EMealScheduleStepKey.BODY_STATUS);
         break;
       default:
         break;
@@ -43,13 +47,13 @@ const MealScheduleConfig: React.FC = () => {
         setStep(EMealScheduleStepKey.BODY_INFORMATION);
         break;
       case EMealScheduleStepKey.BODY_INFORMATION:
+        setStep(EMealScheduleStepKey.BODY_STATUS);
+        break;
+      case EMealScheduleStepKey.BODY_STATUS:
         setStep(EMealScheduleStepKey.MEAL_PACKAGE);
         break;
       case EMealScheduleStepKey.MEAL_PACKAGE:
       case EMealScheduleStepKey.MEAL_PACKAGE_DETAIL:
-        setStep(EMealScheduleStepKey.BODY_STATUS);
-        break;
-      case EMealScheduleStepKey.BODY_STATUS:
         setStep(EMealScheduleStepKey.MEAL_SCHEDULE_OVERVIEW);
         break;
       case EMealScheduleStepKey.MEAL_SCHEDULE_OVERVIEW:
@@ -60,8 +64,9 @@ const MealScheduleConfig: React.FC = () => {
     }
   };
 
-  const handleClickMealPackageDetail = (): void => {
+  const handleClickMealPackageDetail = (idPackMeal: string): void => {
     setStep(EMealScheduleStepKey.MEAL_PACKAGE_DETAIL);
+    setDataGlobalStep({ ...dataGlobalStep, idPackMeal });
   };
 
   const renderSectionByStep = (): React.ReactNode => {
@@ -71,13 +76,33 @@ const MealScheduleConfig: React.FC = () => {
       case EMealScheduleStepKey.BODY_INFORMATION:
         return <BodyInformationForm onBack={handleBackStep} onNext={handleNextStep} />;
       case EMealScheduleStepKey.BODY_STATUS:
-        return <BodyStatusForm onBack={handleBackStep} onNext={handleNextStep} />;
+        return (
+          <BodyStatusForm
+            onBack={handleBackStep}
+            onNext={(values): void => {
+              setDataGlobalStep({ ...dataGlobalStep, ...values });
+              handleNextStep();
+            }}
+          />
+        );
       case EMealScheduleStepKey.MEAL_PACKAGE:
         return (
-          <MealPackage onBack={handleBackStep} onNext={handleNextStep} onClickDetail={handleClickMealPackageDetail} />
+          <MealPackage
+            dataGlobalStep={dataGlobalStep}
+            onBack={handleBackStep}
+            onNext={handleNextStep}
+            onClickDetail={handleClickMealPackageDetail}
+          />
         );
       case EMealScheduleStepKey.MEAL_PACKAGE_DETAIL:
-        return <MealPackageDetail onBack={handleBackStep} onNext={handleNextStep} />;
+        return (
+          <MealPackageDetail
+            dataGlobalStep={dataGlobalStep}
+            id={dataGlobalStep.idPackMeal}
+            onBack={handleBackStep}
+            onNext={handleNextStep}
+          />
+        );
       case EMealScheduleStepKey.MEAL_SCHEDULE_OVERVIEW:
         return <MealScheduleOverview onBack={handleBackStep} onNext={handleNextStep} />;
 

@@ -1,3 +1,4 @@
+import { ESex } from '@/common/enums';
 import { EHistoryPrizeStatus } from '@/services/api/wheel-controller/enums';
 
 /* eslint-disable no-useless-escape */
@@ -14,8 +15,8 @@ export const regex = {
 };
 
 export const dataSexOptions = [
-  { label: 'Nam', value: 'male' },
-  { label: 'Nữ', value: 'female' },
+  { label: 'Nam', value: ESex.MALE },
+  { label: 'Nữ', value: ESex.FEMALE },
 ];
 
 export const DEFAULT_PAGE = 1;

@@ -1,6 +1,7 @@
 export * from '@/redux/actions/auth-controller';
 export * from '@/redux/actions/handbook-controller';
 export * from '@/redux/actions/pack-exercise-controller';
+export * from '@/redux/actions/pack-meal-controller';
 export * from '@/redux/actions/pack-pt-online-controller';
 export * from '@/redux/actions/address-controller';
 export * from '@/redux/actions/wheel-controller';
@@ -10,4 +11,5 @@ export * from '@/redux/actions/payment-controller';
 export * from '@/redux/actions/rank-controller';
 export * from '@/redux/actions/product-controller';
 export * from '@/redux/actions/order-controller';
+export * from '@/redux/actions/user-meal-schedule-controller';
 export * from '@/redux/actions/ui';

@@ -6,11 +6,12 @@ import ImageExercisePackage from '@/assets/images/image-exercise.png';
 import { TExercisePackageProps } from './ExercisePackage.types';
 import Modal from '@/components/Modal';
 import { LayoutPaths, Paths } from '@/pages/routers';
+import EmptyBox from '@/components/EmptyBox';
+import Pagination from '@/components/Pagination';
 
 import './ExercisePackage.scss';
-import EmptyBox from '@/components/EmptyBox';
 
-const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, dataSource = [] }) => {
+const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, paginate, dataSource = [], onPageChange }) => {
   const [confirmExercisePackageModalState, setConfirmExercisePackageModalState] = useState<{
     visible: boolean;
   }>({
@@ -68,18 +69,24 @@ const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, dataSource = 
       {isEmpty ? (
         <EmptyBox title="Bạn chưa mua gói tập nào" />
       ) : (
-        <div className="ExercisePackage-main flex flex-wrap justify-between">
-          {[1, 2, 3, 4, 5, 6].map((item) => (
-            <ExercisePackageBox
-              key={item}
-              image={ImageExercisePackage}
-              title="Gói PT bổ trợ thể thao"
-              description="Lorem Ipsum is simply dummy text of the printing."
-              onBuy={handleOpenConfirmExercisePackageModal}
-              onClickDetail={(): void => handleNavigateExercisePackageDetail(String(item))}
-            />
-          ))}
-        </div>
+        <>
+          <div className="ExercisePackage-main flex flex-wrap justify-between">
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+              <ExercisePackageBox
+                key={item}
+                image={ImageExercisePackage}
+                title="Gói PT bổ trợ thể thao"
+                description="Lorem Ipsum is simply dummy text of the printing."
+                onBuy={handleOpenConfirmExercisePackageModal}
+                onClickDetail={(): void => handleNavigateExercisePackageDetail(String(item))}
+              />
+            ))}
+          </div>
+
+          <div className="ExercisePackage-pagination flex justify-center">
+            <Pagination {...paginate} onChange={onPageChange} />
+          </div>
+        </>
       )}
 
       <Modal

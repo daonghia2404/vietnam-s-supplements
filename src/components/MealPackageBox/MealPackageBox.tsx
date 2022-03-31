@@ -9,6 +9,7 @@ const MealPackageBox: React.FC<TMealPackageBoxProps> = ({
   className,
   image,
   title,
+  prePrice,
   price,
   date,
   onClickDetail,
@@ -24,7 +25,7 @@ const MealPackageBox: React.FC<TMealPackageBoxProps> = ({
           {title}
         </div>
         <div className="MealPackageBox-info-description" onClick={onClickDetail}>
-          <span>{price}</span> / {date}
+          <span>{price}</span> {prePrice && <del className="MealPackageBox-pre-price">{prePrice}</del>} / {date}
         </div>
         <div className="MealPackageBox-info-btn flex">
           <div className="MealPackageBox-info-cta" onClick={onRegister}>

@@ -79,3 +79,8 @@ export enum EFormatDate {
   COMMON = 'DD/MM/YYYY',
   DATE_TIME = 'HH:MM - DD/MM/YYYY',
 }
+
+export enum ESex {
+  MALE = 'male',
+  FEMALE = 'female',
+}

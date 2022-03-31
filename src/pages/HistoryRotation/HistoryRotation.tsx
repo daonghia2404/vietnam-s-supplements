@@ -63,6 +63,14 @@ const HistoryRotation: React.FC = () => {
     });
   };
 
+  const handlePageChange = (page: number, pageSize?: number): void => {
+    setGetHistoryWheelParamsRequest({
+      ...getHistoryWheelParamsRequest,
+      page,
+      pageSize: pageSize || getHistoryWheelParamsRequest.pageSize,
+    });
+  };
+
   const getHistoryWheelData = useCallback(() => {
     dispatch(getHisotryWheelAction.request(getHistoryWheelParamsRequest));
   }, [dispatch, getHistoryWheelParamsRequest]);
@@ -139,6 +147,7 @@ const HistoryRotation: React.FC = () => {
           page={getHistoryWheelParamsRequest.page}
           pageSize={getHistoryWheelParamsRequest.pageSize}
           total={historyWheelState?.total}
+          onChange={handlePageChange}
         />
       </div>
     </div>

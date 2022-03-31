@@ -6,11 +6,11 @@ import Calendar from '@/components/Calendar';
 import Button from '@/components/Button';
 import MealScheduleOverviewModal from '@/containers/MealScheduleOverviewModal';
 import MealOverviewModal from '@/containers/MealOverviewModal';
+import { dataTabsMealSchedule } from '@/containers/MealScheduleOverview/MealScheduleOverview.data';
+import { EKeyMealScheduleTab } from '@/containers/MealScheduleOverview/MealScheduleOverview.enums';
 
 import { TMealScheduleOverviewProps } from './MealScheduleOverview.types';
 import './MealScheduleOverview.scss';
-import { dataTabsMealSchedule } from '@/containers/MealScheduleOverview/MealScheduleOverview.data';
-import { EKeyMealScheduleTab } from '@/containers/MealScheduleOverview/MealScheduleOverview.enums';
 
 const MealScheduleOverview: React.FC<TMealScheduleOverviewProps> = ({ onBack, onNext }) => {
   const [mealOverviewModalState, setMealOverviewModalState] = useState<{

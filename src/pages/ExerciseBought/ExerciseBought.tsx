@@ -32,6 +32,14 @@ const ExerciseBought: React.FC = () => {
     updatedAtPack: item.updatedAt,
   }));
 
+  const handlePageChange = (page: number, pageSize?: number): void => {
+    setGetPackExercisesParamsRequest({
+      ...getPackExercisesParamsRequest,
+      page,
+      pageSize: pageSize || getPackExercisesParamsRequest.pageSize,
+    });
+  };
+
   const getPackExercisesBoughtData = useCallback(() => {
     dispatch(getPackExercisesBoughtAction.request(getPackExercisesParamsRequest));
   }, [dispatch, getPackExercisesParamsRequest]);
@@ -49,7 +57,12 @@ const ExerciseBought: React.FC = () => {
           <HeaderSkew title="Gói tập đã mua" />
 
           <div className="ExerciseBought-main">
-            <ExercisePackage title="Các gói tập đã mua" dataSource={parsePackExercisesBought || []} />
+            <ExercisePackage
+              title="Các gói tập đã mua"
+              paginate={{ ...getPackExercisesParamsRequest, total: 0 }}
+              dataSource={parsePackExercisesBought}
+              onPageChange={handlePageChange}
+            />
           </div>
         </>
       )}

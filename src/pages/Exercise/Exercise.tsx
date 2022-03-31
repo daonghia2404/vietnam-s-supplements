@@ -10,9 +10,7 @@ const Exercise: React.FC = () => {
     <div className="Exercise style-container">
       <HeaderSkew title="Gói tập" />
 
-      <div className="Exercise-main">
-        <ExercisePackage />
-      </div>
+      <div className="Exercise-main">{/* <ExercisePackage /> */}</div>
     </div>
   );
 };

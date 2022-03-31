@@ -9,6 +9,12 @@
     margin-bottom: 1rem;
     position: relative;
     width: fit-content;
+    transition: $common-transition;
+
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
 
     .Icon {
       transform: rotate(180deg);
@@ -64,6 +70,13 @@
           border-radius: 1rem;
         }
       }
+    }
+  }
+
+  &-activity-level,
+  &-checkbox {
+    .ant-form-item-explain-error {
+      margin-top: 1rem;
     }
   }
 

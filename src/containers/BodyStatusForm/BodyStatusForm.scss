@@ -72,12 +72,8 @@
   }
 
   &-checkbox {
-    margin-bottom: 2rem;
-
-    .Checkbox {
-      &:not(:last-child) {
-        margin-bottom: 1.5rem;
-      }
+    &:not(:last-child) {
+      margin-bottom: 1.5rem;
     }
   }
 
