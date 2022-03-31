@@ -12,6 +12,7 @@ import {
   getTurnWheelUserAction,
   getWheelAction,
   shareSocialTurnWheelAction,
+  startWheelAction,
 } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EWheelControllerAction } from '@/redux/actions/wheel-controller/constants';
@@ -28,6 +29,11 @@ const WheelDetail: React.FC = () => {
 
   const wheelState = useSelector((state: TRootState) => state.wheelReducer.wheel?.result);
   const turnWheel = useSelector((state: TRootState) => state.turnWheelReducer.turnNumber);
+  const startWheelState = useSelector((state: TRootState) => state.wheelReducer.startWheel);
+
+  const startWheelLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EWheelControllerAction.START_WHEEL],
+  );
   const getWheelLoading = useSelector((state: TRootState) => state.loadingReducer[EWheelControllerAction.GET_WHEEL]);
   const getTurnWheelUserLoading = useSelector(
     (state: TRootState) => state.loadingReducer[ETurnWheelControllerAction.GET_TURN_WHEEL_USER],
@@ -52,17 +58,25 @@ const WheelDetail: React.FC = () => {
     gift: undefined,
   });
 
+  const isStartWheel = startWheelLoading || wheelRotationState.triggerStart;
+
   const listGift =
     wheelState?.listPrizes?.map((item) => ({
       ...item,
+      id: item.idPrize,
       label: item.namePrize,
       percent: item.percent / 100,
     })) || [];
 
   const handleRotationStart = (): void => {
-    setWheelRotationState({
-      triggerStart: true,
-    });
+    dispatch(
+      startWheelAction.request(id, (response): void => {
+        setWheelRotationState({
+          triggerStart: true,
+        });
+        dispatch(getTurnWheelUserAction.success({ turnNumber: response.turnOfUser, wheelId: id }));
+      }),
+    );
   };
 
   const handleRotationFinish = (gift: TWheelRotationData): void => {
@@ -130,6 +144,7 @@ const WheelDetail: React.FC = () => {
             <div className="WheelDetail-main-rotation">
               <WheelRotation
                 dataGifts={listGift}
+                dataGift={startWheelState?.prize}
                 triggerStart={wheelRotationState.triggerStart}
                 onFinish={handleRotationFinish}
               />
@@ -144,21 +159,21 @@ const WheelDetail: React.FC = () => {
                 type="ghost"
                 onClick={handleBuyTurnWheelByPoint}
                 loading={buyTurnWheelLoading}
-                disabled={wheelRotationState.triggerStart}
+                disabled={isStartWheel}
               />
               <Button
                 title={`Quay số (${turnWheel} lượt quay)`}
                 type="primary"
                 onClick={handleRotationStart}
                 loading={getTurnWheelUserLoading}
-                disabled={wheelRotationState.triggerStart || turnWheel === 0}
+                disabled={isStartWheel || turnWheel === 0}
               />
               <Button
                 title="Chia sẻ mạng xã hội để nhận thêm 1 lượt quay"
                 type="ghost"
                 onClick={handleShareSocialTurnWHeel}
                 loading={shareSocialTurnWheelLoading}
-                disabled={wheelRotationState.triggerStart}
+                disabled={isStartWheel}
               />
               <Link to={`${LayoutPaths.Profile}${Paths.HistoryRotation}`} className="WheelDetail-main-link">
                 Lịch sử quay

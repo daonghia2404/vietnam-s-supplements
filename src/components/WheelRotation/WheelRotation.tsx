@@ -6,7 +6,7 @@ import { TWheelRotationData, TWheelRotationProps } from '@/components/WheelRotat
 
 import './WheelRotation.scss';
 
-const WheelRotation: React.FC<TWheelRotationProps> = ({ triggerStart, dataGifts, onFinish }) => {
+const WheelRotation: React.FC<TWheelRotationProps> = ({ random, triggerStart, dataGifts, dataGift, onFinish }) => {
   const [isRotating, setIsRotating] = useState<boolean>(false);
   const [rotateWheel, setRotateWheel] = useState<number>(0);
   const [currentRotate, setCurrentRotate] = useState<number>(0);
@@ -19,11 +19,16 @@ const WheelRotation: React.FC<TWheelRotationProps> = ({ triggerStart, dataGifts,
     // Đóng nút quay
     setIsRotating(true);
 
-    // Lấy 1 số ngầu nhiên 0 -> 1
-    const random = Math.random();
+    let gift;
 
-    // Gọi hàm lấy phần thưởng
-    const gift = getGift(random);
+    if (random) {
+      // Gọi hàm lấy phần thưởng random
+      const randomNumber = Math.random(); // Lấy 1 số ngầu nhiên 0 -> 1
+      gift = getGiftRandom(randomNumber);
+    } else {
+      // Gọi hàm lấy phần thưởng theo BE
+      gift = getGift();
+    }
 
     // Số vòng quay: 360 độ = 1 vòng (Góc quay hiện tại)
     const countRotate = currentRotate + 360 * 10;
@@ -33,7 +38,7 @@ const WheelRotation: React.FC<TWheelRotationProps> = ({ triggerStart, dataGifts,
     rotateStartWheel(countRotate, gift?.index || 0);
 
     // Show phần thưởng
-    handleRotationEnd(gift);
+    if (gift) handleRotationEnd(gift);
   };
 
   // Hàm quay vòng quay
@@ -42,7 +47,7 @@ const WheelRotation: React.FC<TWheelRotationProps> = ({ triggerStart, dataGifts,
   };
 
   // Hàm lấy phần thưởng
-  const getGift = (randomNumber: number): TWheelRotationData => {
+  const getGiftRandom = (randomNumber: number): TWheelRotationData => {
     let currentPercent = 0;
     const list: TWheelRotationData[] = [];
 
@@ -58,6 +63,21 @@ const WheelRotation: React.FC<TWheelRotationProps> = ({ triggerStart, dataGifts,
 
     // Phần thưởng đầu tiên trong danh sách là phần thưởng quay được
     return list[0];
+  };
+
+  const getGift = (): TWheelRotationData | undefined => {
+    if (dataGift) {
+      const indexGift = dataGifts.map((item) => item.id).indexOf(dataGift.idPrize);
+      return {
+        ...dataGift,
+        id: dataGift?.idPrize,
+        label: dataGift?.namePrize,
+        percent: dataGift?.percent,
+        index: indexGift,
+      };
+    }
+
+    return undefined;
   };
 
   const handleRotationEnd = (gift: TWheelRotationData): void => {

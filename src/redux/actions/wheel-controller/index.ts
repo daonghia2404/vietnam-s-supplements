@@ -7,6 +7,7 @@ import {
   TGetWheelsUserResponse,
   TParamsGetHistoryWheel,
   TParamsGetWheelsUser,
+  TStartWheelResponse,
 } from '@/services/api/wheel-controller/types';
 import {
   TGetWheelsRequest,
@@ -18,6 +19,9 @@ import {
   TGetHistoryWheelFailed,
   TGetHistoryWheelRequest,
   TGetHistoryWheelSuccess,
+  TStartWheelFailed,
+  TStartWheelRequest,
+  TStartWheelSuccess,
 } from '@/redux/actions/wheel-controller/types';
 
 export const getWheelsUserAction = {
@@ -79,6 +83,27 @@ export const getHisotryWheelAction = {
     EWheelControllerAction.GET_HISTORY_WHEEL_FAILED,
     (resolve) =>
       (error: unknown): TGetHistoryWheelFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const startWheelAction = {
+  request: createActionCreator(
+    EWheelControllerAction.START_WHEEL_REQUEST,
+    (resolve) =>
+      (id: string, cb?: (response: TStartWheelResponse) => void): TStartWheelRequest =>
+        resolve({ id, cb }),
+  ),
+  success: createActionCreator(
+    EWheelControllerAction.START_WHEEL_SUCCESS,
+    (resolve) =>
+      (response: TStartWheelResponse): TStartWheelSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EWheelControllerAction.START_WHEEL_FAILED,
+    (resolve) =>
+      (error: unknown): TStartWheelFailed =>
         resolve({ error }),
   ),
 };

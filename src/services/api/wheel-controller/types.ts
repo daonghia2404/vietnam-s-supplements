@@ -1,5 +1,5 @@
 import { TPaginateResponse } from '@/common/types';
-import { ETypeHistoryWheel } from '@/services/api/wheel-controller/enums';
+import { EHistoryPrizeStatus, ETypeHistoryWheel } from '@/services/api/wheel-controller/enums';
 
 export type TParamsGetWheelsUser = {
   page: number;
@@ -56,5 +56,22 @@ export type TParamsGetHistoryWheel = {
 };
 
 export type TGetHistoryWheelResponse = TPaginateResponse & {
-  records: [];
+  records: THistoryWheelResponse[];
+};
+
+export type THistoryWheelResponse = {
+  createdAt: string;
+  description: string;
+  id: string;
+  outOfDate: string;
+  prize: string;
+  status: EHistoryPrizeStatus;
+  updatedAt: string;
+  userId: string;
+};
+
+export type TStartWheelResponse = {
+  message: string;
+  prize: TPrizesResponse;
+  turnOfUser: number;
 };

@@ -5,6 +5,7 @@ import {
   TGetWheelResponse,
   TParamsGetHistoryWheel,
   TGetHistoryWheelResponse,
+  TStartWheelResponse,
 } from '@/services/api/wheel-controller/types';
 
 class Controller {
@@ -20,6 +21,11 @@ class Controller {
 
   getHistoryWheel = async (params: TParamsGetHistoryWheel): Promise<TGetHistoryWheelResponse> => {
     const response = await Service.get(`/history-wheel`, { params });
+    return response.data;
+  };
+
+  startWheel = async (id: string): Promise<TStartWheelResponse> => {
+    const response = await Service.get(`/wheel/${id}/start-wheel`);
     return response.data;
   };
 }

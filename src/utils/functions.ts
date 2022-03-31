@@ -180,3 +180,7 @@ export const formatMoneyVND = (config: {
   const unit = config.uppercaseUnit ? 'Đ' : 'đ';
   return `${separateMoney} ${config.showSuffix ? unit : ''}`;
 };
+
+export const isFirstDateValueGreaterThanSecondDateValue = (firstDate: string, secondDate: string): boolean => {
+  return moment(firstDate).valueOf() > moment(secondDate).valueOf();
+};

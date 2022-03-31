@@ -11,7 +11,7 @@ import Checkbox from '@/components/Checkbox';
 import { showNotification, validationRules } from '@/utils/functions';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/helpers';
-import { loginAction } from '@/redux/actions';
+import { getInfoAction, loginAction } from '@/redux/actions';
 import { ETypeNotification } from '@/common/enums';
 import { TRootState } from '@/redux/reducers';
 import { EAuthControllerAction } from '@/redux/actions/auth-controller/constants';
@@ -38,6 +38,7 @@ const Login: React.FC = () => {
 
   const handleLoginSuccess = (): void => {
     showNotification(ETypeNotification.SUCCESS, 'Đăng nhập thành công');
+    dispatch(getInfoAction.request());
     navigate(LayoutPaths.Profile);
   };
 

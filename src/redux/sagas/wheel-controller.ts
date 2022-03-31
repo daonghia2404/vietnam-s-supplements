@@ -2,11 +2,17 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'deox';
 
 import Instance from '@/services/api/wheel-controller';
-import { getHisotryWheelAction, getWheelAction, getWheelsUserAction } from '@/redux/actions/wheel-controller';
+import {
+  getHisotryWheelAction,
+  getWheelAction,
+  getWheelsUserAction,
+  startWheelAction,
+} from '@/redux/actions/wheel-controller';
 import {
   TGetHistoryWheelResponse,
   TGetWheelResponse,
   TGetWheelsUserResponse,
+  TStartWheelResponse,
 } from '@/services/api/wheel-controller/types';
 
 export function* getWheelsUserSaga(action: ActionType<typeof getWheelsUserAction.request>): Generator {
@@ -42,9 +48,21 @@ export function* getHistoryWheelSaga(action: ActionType<typeof getHisotryWheelAc
     yield put(getHisotryWheelAction.failure(err));
   }
 }
+export function* startWheelSaga(action: ActionType<typeof startWheelAction.request>): Generator {
+  const { id, cb } = action.payload;
+  try {
+    const response = (yield call(Instance.startWheel, id)) as TStartWheelResponse;
+
+    yield put(startWheelAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(startWheelAction.failure(err));
+  }
+}
 
 export default function* root(): Generator {
   yield all([takeLatest(getWheelsUserAction.request.type, getWheelsUserSaga)]);
   yield all([takeLatest(getWheelAction.request.type, getWheelSaga)]);
   yield all([takeLatest(getHisotryWheelAction.request.type, getHistoryWheelSaga)]);
+  yield all([takeLatest(startWheelAction.request.type, startWheelSaga)]);
 }

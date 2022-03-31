@@ -5,6 +5,7 @@ import {
   TGetWheelsUserResponse,
   TParamsGetHistoryWheel,
   TParamsGetWheelsUser,
+  TStartWheelResponse,
 } from '@/services/api/wheel-controller/types';
 
 export type TGetWheelsRequest = {
@@ -54,3 +55,18 @@ export type TGetHistoryWheelFailed = {
   type: EWheelControllerAction.GET_HISTORY_WHEEL_FAILED;
   payload: { error: unknown };
 };
+
+export type TStartWheelRequest = {
+  type: EWheelControllerAction.START_WHEEL_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TStartWheelResponse) => void;
+  };
+};
+
+export type TStartWheelSuccess = {
+  type: EWheelControllerAction.START_WHEEL_SUCCESS;
+  payload: { response: TStartWheelResponse };
+};
+
+export type TStartWheelFailed = { type: EWheelControllerAction.START_WHEEL_FAILED; payload: { error: unknown } };

@@ -15,7 +15,16 @@
   }
 
   &-main {
+    margin-bottom: 3rem;
+
     &-list {
+      position: relative;
+      min-height: 40rem;
+
+      .PageLoading {
+        height: 100%;
+      }
+
       &-item {
         padding: 1.5rem 0;
         border-bottom: 1px solid $iron;
