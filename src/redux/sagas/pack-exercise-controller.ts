@@ -3,11 +3,13 @@ import { ActionType } from 'deox';
 
 import Instance from '@/services/api/pack-exercise-controller';
 import {
+  buyPackExerciseAction,
   getPackExerciseAction,
   getPackExercisesAction,
   getPackExercisesBoughtAction,
 } from '@/redux/actions/pack-exercise-controller';
 import {
+  TBuyPackExerciseResponse,
   TGetPackExerciseResponse,
   TGetPackExercisesBoughtResponse,
   TGetPackExercisesResponse,
@@ -48,9 +50,22 @@ export function* getPackExerciseSaga(action: ActionType<typeof getPackExerciseAc
     yield put(getPackExerciseAction.failure(err));
   }
 }
+export function* buyPackExerciseSaga(action: ActionType<typeof buyPackExerciseAction.request>): Generator {
+  const { body, cb, failedCb } = action.payload;
+  try {
+    const response = (yield call(Instance.buyPackExercise, body)) as TBuyPackExerciseResponse;
+
+    yield put(buyPackExerciseAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    failedCb?.();
+    yield put(buyPackExerciseAction.failure(err));
+  }
+}
 
 export default function* root(): Generator {
   yield all([takeLatest(getPackExercisesAction.request.type, getPackExercisesSaga)]);
   yield all([takeLatest(getPackExercisesBoughtAction.request.type, getPackExercisesBoughtSaga)]);
   yield all([takeLatest(getPackExerciseAction.request.type, getPackExerciseSaga)]);
+  yield all([takeLatest(buyPackExerciseAction.request.type, buyPackExerciseSaga)]);
 }

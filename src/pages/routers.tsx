@@ -39,6 +39,9 @@ const Exercise = lazy(() => retryLoadComponent(() => import('@/pages/Exercise'))
 const ExerciseBought = lazy(() => retryLoadComponent(() => import('@/pages/ExerciseBought')));
 const ExerciseDetail = lazy(() => retryLoadComponent(() => import('@/pages/ExerciseDetail')));
 
+const ExerciseOnline = lazy(() => retryLoadComponent(() => import('@/pages/ExerciseOnline')));
+const ExerciseOnlineDetail = lazy(() => retryLoadComponent(() => import('@/pages/ExerciseOnlineDetail')));
+
 const ProfileInformation = lazy(() => retryLoadComponent(() => import('@/pages/ProfileInformation')));
 
 const Cart = lazy(() => retryLoadComponent(() => import('@/pages/Cart')));
@@ -72,6 +75,7 @@ export const ModulePaths = {
   Wheels: '/vong-quay',
   MealSchedule: '/lich-an-uong',
   Exercise: '/goi-tap',
+  ExerciseOnline: '/pt-online',
   Cart: '/don-hang',
   Rank: '/hang-tai-khoan',
   Wallet: '/vi-cua-toi',
@@ -96,6 +100,9 @@ export const Paths = {
   Exercise: ModulePaths.Exercise,
   ExerciseBought: `${ModulePaths.Exercise}/da-mua`,
   ExerciseDetail: (id?: string): string => `${ModulePaths.Exercise}/chi-tiet/${id || ':id'}`,
+
+  ExerciseOnline: ModulePaths.ExerciseOnline,
+  ExerciseOnlineDetail: (id?: string): string => `${ModulePaths.ExerciseOnline}/chi-tiet/${id || ':id'}`,
 
   ProfileInformation: '/ca-nhan',
 
@@ -141,6 +148,9 @@ export const Pages = {
   Exercise,
   ExerciseBought,
   ExerciseDetail,
+
+  ExerciseOnline,
+  ExerciseOnlineDetail,
 
   ProfileInformation,
 

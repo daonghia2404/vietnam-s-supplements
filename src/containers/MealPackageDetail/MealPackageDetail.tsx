@@ -166,7 +166,8 @@ const MealPackageDetail: React.FC<TMealPackageDetailProps> = ({ dataGlobalStep, 
             <div className="MealPackageDetail-action-item flex justify-between items-center">
               <span>Mức giá</span>
               <span>
-                30 ngày / <strong>{formatMoneyVND({ amount: packMealState?.price || 0, showSuffix: true })}</strong>{' '}
+                {packMealState?.numberDate} ngày /{' '}
+                <strong>{formatMoneyVND({ amount: packMealState?.price || 0, showSuffix: true })}</strong>{' '}
                 {packMealState?.prePrice && (
                   <del className="MealPackageDetail-pre-price">
                     {formatMoneyVND({ amount: packMealState?.prePrice || 0, showSuffix: true })}

@@ -53,7 +53,8 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
     const { response } = axiosError;
     const responseStatus = response?.status;
     const originalRequest = axiosError.config;
-    const isNotRefreshTokenRequest = originalRequest.url !== 'refresh-token';
+    const urlRefreshToken = '/auth/refresh-token';
+    const isNotRefreshTokenRequest = originalRequest.url !== urlRefreshToken;
 
     if (responseStatus === EResponseCode.UNAUTHORIZED && originalRequest && isNotRefreshTokenRequest) {
       if (!isRefreshingAccessToken) {
@@ -64,7 +65,7 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
           })
           .catch((err: AxiosError) => {
             onTokenRefreshed(new Error('Failed to refresh access token'));
-            const refreshTokenFailed = err?.response?.config?.url === 'refresh-token';
+            const refreshTokenFailed = err?.response?.config?.url === urlRefreshToken;
             if (refreshTokenFailed) {
               authHelpers.clearTokens();
               navigate(LayoutPaths.Auth);

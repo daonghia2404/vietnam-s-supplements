@@ -1,5 +1,6 @@
 import { EPackPtOnlineControllerAction } from '@/redux/actions/pack-pt-online-controller/constants';
 import {
+  TBuyPackPtOnlineResponse,
   TGetPackPtOnlineResponse,
   TGetPackPtOnlinesResponse,
   TParamsGetPackPtOnlines,
@@ -38,5 +39,24 @@ export type TGetPackPtOnlineSuccess = {
 
 export type TGetPackPtOnlineFailed = {
   type: EPackPtOnlineControllerAction.GET_PACK_PT_ONLINE_FAILED;
+  payload: { error: unknown };
+};
+
+export type TBuyPackPtOnlineRequest = {
+  type: EPackPtOnlineControllerAction.BUY_PACK_PT_ONLINE_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TBuyPackPtOnlineResponse) => void;
+    failedCb?: () => void;
+  };
+};
+
+export type TBuyPackPtOnlineSuccess = {
+  type: EPackPtOnlineControllerAction.BUY_PACK_PT_ONLINE_SUCCESS;
+  payload: { response: TBuyPackPtOnlineResponse };
+};
+
+export type TBuyPackPtOnlineFailed = {
+  type: EPackPtOnlineControllerAction.BUY_PACK_PT_ONLINE_FAILED;
   payload: { error: unknown };
 };

@@ -35,6 +35,7 @@
   &.fullPage {
     position: fixed;
     background: $white;
+    z-index: 30;
   }
 
   &-spin {

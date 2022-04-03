@@ -11,6 +11,7 @@ import { EPackExerciseControllerAction } from '@/redux/actions/pack-exercise-con
 import PageLoading from '@/components/PageLoading';
 
 import './ExerciseBought.scss';
+import { ETypeExercisePackage } from '@/containers/ExercisePackage/ExercisePackage.enums';
 
 const ExerciseBought: React.FC = () => {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ const ExerciseBought: React.FC = () => {
 
           <div className="ExerciseBought-main">
             <ExercisePackage
+              type={ETypeExercisePackage.EXERCISE}
               title="Các gói tập đã mua"
               paginate={{ ...getPackExercisesParamsRequest, total: 0 }}
               dataSource={parsePackExercisesBought}

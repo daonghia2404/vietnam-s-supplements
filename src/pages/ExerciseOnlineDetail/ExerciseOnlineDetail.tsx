@@ -5,21 +5,21 @@ import HeaderSkew from '@/components/HeaderSkew';
 import ExercisePackageDetail from '@/containers/ExercisePackageDetail';
 import { ETypeExercisePackage } from '@/containers/ExercisePackage/ExercisePackage.enums';
 
-import './ExerciseDetail.scss';
+import './ExerciseOnlineDetail.scss';
 
-const ExerciseDetail: React.FC = () => {
+const ExerciseOnlineDetail: React.FC = () => {
   const handleNavigateExercisePackage = (): void => {
     navigate(-1);
   };
   return (
     <div className="Exercise style-container">
-      <HeaderSkew title="Gói tập" />
+      <HeaderSkew title="Gói PT Online" />
 
       <div className="Exercise-main">
-        <ExercisePackageDetail type={ETypeExercisePackage.EXERCISE} onBack={handleNavigateExercisePackage} />
+        <ExercisePackageDetail type={ETypeExercisePackage.PT_ONLINE} onBack={handleNavigateExercisePackage} />
       </div>
     </div>
   );
 };
 
-export default ExerciseDetail;
+export default ExerciseOnlineDetail;

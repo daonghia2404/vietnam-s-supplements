@@ -1,5 +1,3 @@
-import { TPaginateResponse } from '@/common/types';
-
 export type TParamsGetPackExercises = {
   page: number;
   pageSize: number;
@@ -24,9 +22,10 @@ export type TPackExerciseResponse = {
   updatedAt: string;
 };
 
-export type TGetPackExercisesResponse = TPaginateResponse & {
-  records: TPackExerciseResponse[];
-};
+// export type TGetPackExercisesResponse = TPaginateResponse & {
+//   records: TPackExerciseResponse[];
+// };
+export type TGetPackExercisesResponse = TPackExerciseResponse[];
 
 export type TGetPackExercisesBoughtResponse = {
   id: string;
@@ -36,3 +35,8 @@ export type TGetPackExercisesBoughtResponse = {
 }[];
 
 export type TGetPackExerciseResponse = TPackExerciseResponse;
+
+export type TBodyBuyPackExercise = {
+  packExerciseId: string;
+};
+export type TBuyPackExerciseResponse = unknown;

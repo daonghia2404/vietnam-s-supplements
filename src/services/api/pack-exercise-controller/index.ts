@@ -5,6 +5,8 @@ import {
   TGetPackExerciseResponse,
   TGetPackExercisesBoughtResponse,
   TParamsGetPackExercisesBought,
+  TBodyBuyPackExercise,
+  TBuyPackExerciseResponse,
 } from '@/services/api/pack-exercise-controller/types';
 
 class Controller {
@@ -15,6 +17,11 @@ class Controller {
 
   getPackExercise = async (id: string): Promise<TGetPackExerciseResponse> => {
     const response = await Service.get(`/pack-exercise/${id}`);
+    return response.data;
+  };
+
+  buyPackExercise = async (body: TBodyBuyPackExercise): Promise<TBuyPackExerciseResponse> => {
+    const response = await Service.post(`/pack-exercise/buy-pack-exercise`, body);
     return response.data;
   };
 

@@ -1,19 +1,43 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { navigate } from '@reach/router';
 
 import ExercisePackageBox from '@/components/ExercisePackageBox';
-import ImageExercisePackage from '@/assets/images/image-exercise.png';
 import { TExercisePackageProps } from './ExercisePackage.types';
 import Modal from '@/components/Modal';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
 import Pagination from '@/components/Pagination';
+import { TPackExerciseResponse } from '@/services/api/pack-exercise-controller/types';
+import { formatMoneyVND } from '@/utils/functions';
+import { TRootState } from '@/redux/reducers';
+import { buyPackExerciseAction, buyPackPtOnlineAction } from '@/redux/actions';
+import { EPackExerciseControllerAction } from '@/redux/actions/pack-exercise-controller/constants';
+import { EPackPtOnlineControllerAction } from '@/redux/actions/pack-pt-online-controller/constants';
 
 import './ExercisePackage.scss';
+import { ETypeExercisePackage } from '@/containers/ExercisePackage/ExercisePackage.enums';
 
-const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, paginate, dataSource = [], onPageChange }) => {
+const ExercisePackage: React.FC<TExercisePackageProps> = ({ type, title, paginate, dataSource = [], onPageChange }) => {
+  const dispatch = useDispatch();
+  const isPackExercisePage = type === ETypeExercisePackage.EXERCISE;
+  const isPackPtOnlinePage = type === ETypeExercisePackage.PT_ONLINE;
+
+  const authState = useSelector((state: TRootState) => state.authReducer.user);
+  const buyPackExerciseLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EPackExerciseControllerAction.BUY_PACK_EXERCISE],
+  );
+  const buyPackPtOnlineLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EPackPtOnlineControllerAction.BUY_PACK_PT_ONLINE],
+  );
+
+  const mainTitle = isPackExercisePage ? 'tập' : 'Pt Online';
+
+  const loading = buyPackExerciseLoading || buyPackPtOnlineLoading;
+
   const [confirmExercisePackageModalState, setConfirmExercisePackageModalState] = useState<{
     visible: boolean;
+    data?: any;
   }>({
     visible: false,
   });
@@ -24,11 +48,18 @@ const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, paginate, dat
     visible: false,
   });
 
+  const [failedPaymentModalState, setFailedPaymentModalState] = useState<{
+    visible: boolean;
+  }>({
+    visible: false,
+  });
+
   const isEmpty = !dataSource || dataSource.length === 0;
 
-  const handleOpenConfirmExercisePackageModal = (): void => {
+  const handleOpenConfirmExercisePackageModal = (data: TPackExerciseResponse): void => {
     setConfirmExercisePackageModalState({
       visible: true,
+      data,
     });
   };
 
@@ -50,35 +81,75 @@ const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, paginate, dat
     });
   };
 
+  const handleOpenFailedPaymentModal = (): void => {
+    setFailedPaymentModalState({ visible: true });
+  };
+  const handleCloseFailedPaymentModal = (): void => {
+    setFailedPaymentModalState({ visible: false });
+  };
+  const handleSubmitFailedPaymentModal = (): void => {
+    handleCloseFailedPaymentModal();
+    navigate(`${LayoutPaths.Profile}${Paths.Wallet}`);
+  };
+
   const handleConfirmExercisePackageModalSubmit = (): void => {
+    if (confirmExercisePackageModalState.data) {
+      if (isPackExercisePage) {
+        dispatch(
+          buyPackExerciseAction.request(
+            { packExerciseId: confirmExercisePackageModalState.data.id },
+            handleBuyPackExerciseSuccess,
+            handleBuyPackExerciseFailed,
+          ),
+        );
+      }
+
+      if (isPackPtOnlinePage) {
+        dispatch(
+          buyPackPtOnlineAction.request(
+            confirmExercisePackageModalState.data.id,
+            handleBuyPackExerciseSuccess,
+            handleBuyPackExerciseFailed,
+          ),
+        );
+      }
+    }
+  };
+
+  const handleBuyPackExerciseSuccess = (): void => {
     handleCloseConfirmExercisePackageModal();
     handleOpenPaymentModal();
+  };
+  const handleBuyPackExerciseFailed = (): void => {
+    handleCloseConfirmExercisePackageModal();
+    handleOpenFailedPaymentModal();
   };
 
   const handleSubmit = (): void => {
     handleClosePaymentModal();
   };
 
-  const handleNavigateExercisePackageDetail = (id: string): void => {
-    navigate(`${LayoutPaths.Admin}${Paths.ExerciseDetail(id)}`);
+  const handleNavigateExercisePackageDetail = (data: TPackExerciseResponse): void => {
+    if (isPackExercisePage) navigate(`${LayoutPaths.Admin}${Paths.ExerciseDetail(data.id)}`);
+    if (isPackPtOnlinePage) navigate(`${LayoutPaths.Admin}${Paths.ExerciseOnlineDetail(data.id)}`);
   };
 
   return (
     <div className="ExercisePackage">
       <div className="ExercisePackage-title">{title}</div>
       {isEmpty ? (
-        <EmptyBox title="Bạn chưa mua gói tập nào" />
+        <EmptyBox title={`Bạn chưa mua gói ${mainTitle} nào`} />
       ) : (
         <>
           <div className="ExercisePackage-main flex flex-wrap justify-between">
-            {[1, 2, 3, 4, 5, 6].map((item) => (
+            {dataSource.map((item) => (
               <ExercisePackageBox
-                key={item}
-                image={ImageExercisePackage}
-                title="Gói PT bổ trợ thể thao"
-                description="Lorem Ipsum is simply dummy text of the printing."
-                onBuy={handleOpenConfirmExercisePackageModal}
-                onClickDetail={(): void => handleNavigateExercisePackageDetail(String(item))}
+                key={item.id}
+                image={item.image}
+                title={item.title || item.name}
+                description={item.description}
+                onBuy={(): void => handleOpenConfirmExercisePackageModal(item)}
+                onClickDetail={(): void => handleNavigateExercisePackageDetail(item)}
               />
             ))}
           </div>
@@ -91,15 +162,26 @@ const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, paginate, dat
 
       <Modal
         {...confirmExercisePackageModalState}
-        confirmButton={{ title: 'Thanh toán', onClick: handleConfirmExercisePackageModalSubmit }}
-        cancelButton={{ title: 'Huỷ bỏ', onClick: handleCloseConfirmExercisePackageModal }}
+        confirmButton={{
+          title: 'Thanh toán',
+          onClick: handleConfirmExercisePackageModalSubmit,
+          loading,
+        }}
+        cancelButton={{
+          title: 'Huỷ bỏ',
+          onClick: handleCloseConfirmExercisePackageModal,
+          disabled: loading,
+        }}
         onClose={handleCloseConfirmExercisePackageModal}
       >
         <div className="Modal-body-title" style={{ marginBottom: '1rem' }}>
           Xác nhận thanh toán
         </div>
         <div className="Modal-body-subtitle" style={{ marginBottom: '.5rem' }}>
-          Gói PT bổ trợ thể thao: <strong>3.000.000đ</strong>
+          {confirmExercisePackageModalState.data?.title || confirmExercisePackageModalState.data?.name}:{' '}
+          <strong>
+            {formatMoneyVND({ amount: confirmExercisePackageModalState.data?.price || 0, showSuffix: true })}
+          </strong>
         </div>
         <div className="Modal-body-link">Thanh toán qua ví của tôi</div>
       </Modal>
@@ -108,8 +190,20 @@ const ExercisePackage: React.FC<TExercisePackageProps> = ({ title, paginate, dat
         <div className="Modal-body-title" style={{ marginBottom: '1.5rem' }}>
           Thanh toán thành công
         </div>
+        <div className="Modal-body-description">Bạn đã mua gói {mainTitle} thành công</div>
+      </Modal>
+
+      <Modal
+        {...failedPaymentModalState}
+        onClose={handleCloseFailedPaymentModal}
+        confirmButton={{ title: 'Nạp thêm', onClick: handleSubmitFailedPaymentModal }}
+        cancelButton={{ title: 'Huỷ bỏ', onClick: handleCloseFailedPaymentModal }}
+      >
+        <div className="Modal-body-subtitle" style={{ marginBottom: '1.5rem' }}>
+          Số dư của bạn: <strong>{formatMoneyVND({ amount: authState?.money || 0, showSuffix: true })}</strong>
+        </div>
         <div className="Modal-body-description">
-          Vui lòng nhập thông tin cơ thể để chúng tôi điều chỉnh thông tin phù hợp
+          Số dư ví của bạn không đủ để thanh toán gói {mainTitle}. Xin vui lòng nạp thêm!
         </div>
       </Modal>
     </div>

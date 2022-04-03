@@ -2,6 +2,8 @@ import { createActionCreator } from 'deox';
 
 import { EPackExerciseControllerAction } from '@/redux/actions/pack-exercise-controller/constants';
 import {
+  TBodyBuyPackExercise,
+  TBuyPackExerciseResponse,
   TGetPackExerciseResponse,
   TGetPackExercisesBoughtResponse,
   TGetPackExercisesResponse,
@@ -18,6 +20,9 @@ import {
   TGetPackExercisesBoughtFailed,
   TGetPackExercisesBoughtRequest,
   TGetPackExercisesBoughtSuccess,
+  TBuyPackExerciseFailed,
+  TBuyPackExerciseRequest,
+  TBuyPackExerciseSuccess,
 } from '@/redux/actions/pack-exercise-controller/types';
 
 export const getPackExercisesAction = {
@@ -82,6 +87,31 @@ export const getPackExerciseAction = {
     EPackExerciseControllerAction.GET_PACK_EXERCISE_FAILED,
     (resolve) =>
       (error: unknown): TGetPackExerciseFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const buyPackExerciseAction = {
+  request: createActionCreator(
+    EPackExerciseControllerAction.BUY_PACK_EXERCISE_REQUEST,
+    (resolve) =>
+      (
+        body: TBodyBuyPackExercise,
+        cb?: (response: TBuyPackExerciseResponse) => void,
+        failedCb?: () => void,
+      ): TBuyPackExerciseRequest =>
+        resolve({ body, cb, failedCb }),
+  ),
+  success: createActionCreator(
+    EPackExerciseControllerAction.BUY_PACK_EXERCISE_SUCCESS,
+    (resolve) =>
+      (response: TBuyPackExerciseResponse): TBuyPackExerciseSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EPackExerciseControllerAction.BUY_PACK_EXERCISE_FAILED,
+    (resolve) =>
+      (error: unknown): TBuyPackExerciseFailed =>
         resolve({ error }),
   ),
 };

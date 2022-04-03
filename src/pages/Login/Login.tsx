@@ -26,6 +26,8 @@ const Login: React.FC = () => {
     if (values.remember) {
       AuthHelpers.storeRememberAccountPhone(values.phone);
       AuthHelpers.storeRememberAccountPassword(values.password);
+    } else {
+      AuthHelpers.clearRememberAccount();
     }
 
     const body = {
@@ -50,6 +52,7 @@ const Login: React.FC = () => {
       form.setFieldsValue({
         phone: rmPhone,
         password: rmPassword,
+        remember: true,
       });
     }
   }, [form]);

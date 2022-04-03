@@ -1,4 +1,5 @@
-import { TPackExerciseResponse, TParamsGetPackExercises } from '@/services/api/pack-exercise-controller/types';
+import { ETypeExercisePackage } from '@/containers/ExercisePackage/ExercisePackage.enums';
+import { TParamsGetPackExercises } from '@/services/api/pack-exercise-controller/types';
 
 export type TExercisePackageProps = {
   onNext?: () => void;
@@ -7,5 +8,6 @@ export type TExercisePackageProps = {
   paginate: TParamsGetPackExercises & { total: number };
   onPageChange?: (page: number, pageSize?: number) => void;
   title?: string;
-  dataSource?: TPackExerciseResponse[];
+  dataSource?: Array<any>;
+  type: ETypeExercisePackage;
 };

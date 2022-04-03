@@ -28,6 +28,7 @@ const AccountVerification: React.FC = () => {
   const confirmOtpForgotPasswordLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EAuthControllerAction.CONFIRM_OTP_FORGOT_PASSWORD],
   );
+  const sendOtpLoading = useSelector((state: TRootState) => state.loadingReducer[EAuthControllerAction.SEND_OTP]);
 
   const loading = registerLoading || confirmOtpForgotPasswordLoading;
 
@@ -113,9 +114,17 @@ const AccountVerification: React.FC = () => {
 
             <div className="AccountVerification-otp">
               <div className="AccountVerification-otp-description">Chưa nhận được mã OTP?</div>
-              <div className={classNames('AccountVerification-otp-description', { disabled: !countdownState.isEnd })}>
-                <span onClick={handleResendCode}>Gửi lại</span> (
-                {!countdownState.isEnd && <CountdownTime defaultValue="05:00" onFinish={handleCountdownFinish} />})
+              <div
+                className={classNames('AccountVerification-otp-description', {
+                  disabled: !countdownState.isEnd || sendOtpLoading,
+                })}
+              >
+                <span onClick={handleResendCode}>Gửi lại </span>
+                {!countdownState.isEnd && (
+                  <>
+                    (<CountdownTime defaultValue="02:00" onFinish={handleCountdownFinish} />)
+                  </>
+                )}
               </div>
             </div>
 

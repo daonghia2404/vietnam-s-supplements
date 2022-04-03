@@ -1,5 +1,7 @@
 import { EPackExerciseControllerAction } from '@/redux/actions/pack-exercise-controller/constants';
 import {
+  TBodyBuyPackExercise,
+  TBuyPackExerciseResponse,
   TGetPackExerciseResponse,
   TGetPackExercisesBoughtResponse,
   TGetPackExercisesResponse,
@@ -58,5 +60,24 @@ export type TGetPackExerciseSuccess = {
 
 export type TGetPackExerciseFailed = {
   type: EPackExerciseControllerAction.GET_PACK_EXERCISE_FAILED;
+  payload: { error: unknown };
+};
+
+export type TBuyPackExerciseRequest = {
+  type: EPackExerciseControllerAction.BUY_PACK_EXERCISE_REQUEST;
+  payload: {
+    body: TBodyBuyPackExercise;
+    cb?: (response: TBuyPackExerciseResponse) => void;
+    failedCb?: () => void;
+  };
+};
+
+export type TBuyPackExerciseSuccess = {
+  type: EPackExerciseControllerAction.BUY_PACK_EXERCISE_SUCCESS;
+  payload: { response: TBuyPackExerciseResponse };
+};
+
+export type TBuyPackExerciseFailed = {
+  type: EPackExerciseControllerAction.BUY_PACK_EXERCISE_FAILED;
   payload: { error: unknown };
 };

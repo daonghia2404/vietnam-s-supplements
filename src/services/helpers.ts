@@ -44,6 +44,11 @@ class AuthHelpers {
     removeCookie(COOKIE_REFRESH_TOKEN);
     removeCookie(COOKIE_ACCESS_TOKEN);
   };
+
+  clearRememberAccount = (): void => {
+    removeCookie(COOKIE_REMEMBER_ACCOUNT_PHONE);
+    removeCookie(COOKIE_REMEMBER_ACCOUNT_PASSWORD);
+  };
 }
 
 const instance = new AuthHelpers();

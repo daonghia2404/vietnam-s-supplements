@@ -81,8 +81,11 @@ const App: React.FC = () => {
             <ProtectedRoute path={Paths.MealSchedule} component={Pages.MealSchedule} />
             <ProtectedRoute path={Paths.MealScheduleConfig} component={Pages.MealScheduleConfig} />
 
-            {/* <PublicRoute path={Paths.Exercise} component={Pages.Exercise} />
-            <PublicRoute path={Paths.ExerciseDetail()} component={Pages.ExerciseDetail} /> */}
+            <PublicRoute path={Paths.Exercise} component={Pages.Exercise} />
+            <PublicRoute path={Paths.ExerciseDetail()} component={Pages.ExerciseDetail} />
+
+            <PublicRoute path={Paths.ExerciseOnline} component={Pages.ExerciseOnline} />
+            <PublicRoute path={Paths.ExerciseOnlineDetail()} component={Pages.ExerciseOnlineDetail} />
 
             <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} />
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Dashboard}`} />

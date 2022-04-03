@@ -23,3 +23,5 @@ export type TGetPackPtOnlinesResponse = TPaginateResponse & {
 };
 
 export type TGetPackPtOnlineResponse = TPackPtOnlineResponse;
+
+export type TBuyPackPtOnlineResponse = unknown;

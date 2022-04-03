@@ -3,6 +3,7 @@ import {
   TParamsGetPackPtOnlines,
   TGetPackPtOnlinesResponse,
   TGetPackPtOnlineResponse,
+  TBuyPackPtOnlineResponse,
 } from '@/services/api/pack-pt-online-controller/types';
 
 class Controller {
@@ -13,6 +14,11 @@ class Controller {
 
   getPackPtOnline = async (id: string): Promise<TGetPackPtOnlineResponse> => {
     const response = await Service.get(`/pack-pt-online/${id}`);
+    return response.data;
+  };
+
+  buyPackPtOnline = async (id: string): Promise<TBuyPackPtOnlineResponse> => {
+    const response = await Service.post(`/pack-pt-online/buy-pack/${id}`);
     return response.data;
   };
 }
