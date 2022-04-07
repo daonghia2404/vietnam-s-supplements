@@ -7,16 +7,15 @@ import HeaderSkew from '@/components/HeaderSkew';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import Input from '@/components/Input';
-import Select from '@/components/Select';
 import Button from '@/components/Button';
 import Modal from '@/components/Modal';
 import { createPaymentAction } from '@/redux/actions';
 import { formatMoneyVND } from '@/utils/functions';
 import { TRootState } from '@/redux/reducers';
 import { EPaymentControllerAction } from '@/redux/actions/payment-controller/constants';
+import { TBodyCreatePayment, TCreatePaymentResponse } from '@/services/api/payment-controller/types';
 
 import './WalletRecharge.scss';
-import { TBodyCreatePayment } from '@/services/api/payment-controller/types';
 
 const WalletRecharge: React.FC = () => {
   const [form] = Form.useForm();
@@ -95,9 +94,10 @@ const WalletRecharge: React.FC = () => {
     handleOpenConfirmRechargeModal(body);
   };
 
-  const handleCreatePaymentSuccess = (): void => {
+  const handleCreatePaymentSuccess = (response: TCreatePaymentResponse): void => {
     handleCloseConfirmRechargeModal();
-    handleOpenSuccessRechargeModal();
+    window.open(response.paymentUrl, 'blank');
+    // handleOpenSuccessRechargeModal();
   };
 
   const handleCreatePaymentFailed = (): void => {
@@ -117,7 +117,7 @@ const WalletRecharge: React.FC = () => {
         <Form form={form} onFinish={handleSubmit}>
           <div className="WalletRecharge-badge flex items-start">
             <Icon name={EIconName.Info} color={EIconColor.WHITE} />
-            Bạn sẽ thanh toán bằng cách chuyển khoản hoặc giao dịch VNpay với Vnsupplements
+            Bạn sẽ thanh toán bằng cách chuyển khoản hoặc giao dịch qua Appotapay với Vnsupplements
           </div>
 
           <div className="WalletRecharge-group">
@@ -127,11 +127,11 @@ const WalletRecharge: React.FC = () => {
           </div>
 
           <div className="WalletRecharge-group">
-            <div className="WalletRecharge-text bold">Phương thức thanh toán</div>
+            {/* <div className="WalletRecharge-text bold">Phương thức thanh toán</div>
 
             <Form.Item name="paymentMethod">
               <Select placeholder="Phương thức thanh toán" />
-            </Form.Item>
+            </Form.Item> */}
 
             <div className="WalletRecharge-text bold">Lưu ý</div>
             <div className="WalletRecharge-text gray">

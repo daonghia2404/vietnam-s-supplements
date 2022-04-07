@@ -5,6 +5,8 @@ import {
   TParamsGetPaymentHistorys,
   TBodyCreatePayment,
   TCreatePaymentResponse,
+  TReturnPaymentResponse,
+  TParamsReturnPayment,
 } from '@/services/api/payment-controller/types';
 
 export type TGetPaymentHistorysRequest = {
@@ -40,6 +42,24 @@ export type TGetPaymentHistorySuccess = {
 
 export type TGetPaymentHistoryFailed = {
   type: EPaymentControllerAction.GET_PAYMENT_HISTORY_FAILED;
+  payload: { error: unknown };
+};
+
+export type TReturnPaymentRequest = {
+  type: EPaymentControllerAction.RETURN_PAYMENT_REQUEST;
+  payload: {
+    params: TParamsReturnPayment;
+    cb?: (response: TReturnPaymentResponse) => void;
+  };
+};
+
+export type TReturnPaymentSuccess = {
+  type: EPaymentControllerAction.RETURN_PAYMENT_SUCCESS;
+  payload: { response: TReturnPaymentResponse };
+};
+
+export type TReturnPaymentFailed = {
+  type: EPaymentControllerAction.RETURN_PAYMENT_FAILED;
   payload: { error: unknown };
 };
 

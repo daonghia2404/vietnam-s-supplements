@@ -1,15 +1,25 @@
 import { createReducer } from 'deox';
 
-import { TGetPaymentHistoryResponse, TGetPaymentHistorysResponse } from '@/services/api/payment-controller/types';
-import { getPaymentHistoryAction, getPaymentHistorysAction } from '@/redux/actions/payment-controller';
+import {
+  TGetPaymentHistoryResponse,
+  TGetPaymentHistorysResponse,
+  TReturnPaymentResponse,
+} from '@/services/api/payment-controller/types';
+import {
+  getPaymentHistoryAction,
+  getPaymentHistorysAction,
+  returnPaymentAction,
+} from '@/redux/actions/payment-controller';
 
 export interface IUIState {
   paymentHistorys?: TGetPaymentHistorysResponse;
   paymentHistory?: TGetPaymentHistoryResponse;
+  returnPayment?: TReturnPaymentResponse;
 }
 const initialState: IUIState = {
   paymentHistorys: undefined,
   paymentHistory: undefined,
+  returnPayment: undefined,
 };
 
 const reducer = createReducer(initialState, (handleAction) => [
@@ -17,14 +27,21 @@ const reducer = createReducer(initialState, (handleAction) => [
     const { response } = payload;
     return {
       ...state,
-      payments: response,
+      paymentHistorys: response,
     };
   }),
   handleAction(getPaymentHistoryAction.success, (state, { payload }) => {
     const { response } = payload;
     return {
       ...state,
-      payment: response,
+      paymentHistory: response,
+    };
+  }),
+  handleAction(returnPaymentAction.success, (state, { payload }) => {
+    const { response } = payload;
+    return {
+      ...state,
+      returnPayment: response,
     };
   }),
 ]);

@@ -41,6 +41,13 @@
   }
 
   &-history {
+    position: relative;
+    min-height: 40rem;
+
+    .PageLoading {
+      height: 100%;
+    }
+
     &-header {
       padding: 1.5rem;
       border-bottom: 1px solid $iron;
@@ -52,7 +59,7 @@
     }
 
     &-body {
-      
+
       &-item {
         padding: 1.5rem;
         border-bottom: 1px solid $iron;

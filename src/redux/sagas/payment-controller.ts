@@ -6,6 +6,7 @@ import {
   getPaymentHistoryAction,
   getPaymentHistorysAction,
   createPaymentAction,
+  returnPaymentAction,
 } from '@/redux/actions/payment-controller';
 import {
   TCreatePaymentResponse,
@@ -33,6 +34,17 @@ export function* getPaymentHistorySaga(action: ActionType<typeof getPaymentHisto
     cb?.(response);
   } catch (err) {
     yield put(getPaymentHistoryAction.failure(err));
+  }
+}
+export function* returnPaymentSaga(action: ActionType<typeof returnPaymentAction.request>): Generator {
+  const { params, cb } = action.payload;
+  try {
+    const response = (yield call(Instance.returnPayment, params)) as TGetPaymentHistoryResponse;
+
+    yield put(returnPaymentAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(returnPaymentAction.failure(err));
   }
 }
 export function* createPaymentSaga(action: ActionType<typeof createPaymentAction.request>): Generator {
