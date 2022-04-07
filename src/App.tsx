@@ -100,7 +100,7 @@ const App: React.FC = () => {
             <ProtectedRoute path={Paths.Wallet} component={Pages.Wallet} />
             <ProtectedRoute path={Paths.WalletRecharge} component={Pages.WalletRecharge} />
             <ProtectedRoute path={Paths.WalletDetail()} component={Pages.WalletDetail} />
-            <ProtectedRoute path={Paths.WalletRechargeSuccess} component={Pages.WalletRechargeSuccess} />
+            <ProtectedRoute path={Paths.WalletRechargeResult} component={Pages.WalletRechargeResult} />
             <ProtectedRoute path={Paths.Rank} component={Pages.Rank} />
             <ProtectedRoute path={Paths.FavoriteProducts} component={Pages.FavoriteProducts} />
             <ProtectedRoute path={Paths.Cart} component={Pages.Cart} />

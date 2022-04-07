@@ -58,7 +58,7 @@ const HistoryRotation = lazy(() => retryLoadComponent(() => import('@/pages/Hist
 const Wallet = lazy(() => retryLoadComponent(() => import('@/pages/Wallet')));
 const WalletDetail = lazy(() => retryLoadComponent(() => import('@/pages/WalletDetail')));
 const WalletRecharge = lazy(() => retryLoadComponent(() => import('@/pages/WalletRecharge')));
-const WalletRechargeSuccess = lazy(() => retryLoadComponent(() => import('@/pages/WalletRechargeSuccess')));
+const WalletRechargeResult = lazy(() => retryLoadComponent(() => import('@/pages/WalletRechargeResult')));
 
 const ListPage = lazy(() => retryLoadComponent(() => import('@/pages/ListPage')));
 
@@ -121,7 +121,7 @@ export const Paths = {
   Wallet: ModulePaths.Wallet,
   WalletRecharge: `${ModulePaths.Wallet}/nap-tien`,
   WalletDetail: (id?: string): string => `${ModulePaths.Wallet}/chi-tiet/${id || ':id'}`,
-  WalletRechargeSuccess: `${ModulePaths.Wallet}/thanh-toan-thanh-cong`,
+  WalletRechargeResult: `${ModulePaths.Wallet}/ket-qua-thanh-toan`,
 
   Home: '/',
   Dashboard: '/',
@@ -170,7 +170,7 @@ export const Pages = {
   Wallet,
   WalletRecharge,
   WalletDetail,
-  WalletRechargeSuccess,
+  WalletRechargeResult,
 
   Home,
   Dashboard,
