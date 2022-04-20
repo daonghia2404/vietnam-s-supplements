@@ -72,8 +72,8 @@ const App: React.FC = () => {
             <PublicRoute path={Paths.News} component={Pages.News} />
             <PublicRoute path={Paths.HandbookDetail()} component={Pages.HandbookDetail} />
             <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
-
-            {/* <PublicRoute path={Paths.ListPage} component={Pages.ListPage} /> */}
+            <PublicRoute path={Paths.Category()} component={Pages.Category} />
+            <PublicRoute path={Paths.Product()} component={Pages.Product} />
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
           </Guest>
 
@@ -87,7 +87,6 @@ const App: React.FC = () => {
           </Auth>
 
           <Admin path={LayoutPaths.Admin}>
-            {/* <PublicRoute path={Paths.UpdateProfile} component={Pages.UpdateProfile} /> */}
             <ProtectedRoute path={Paths.Wheels} component={Pages.Wheels} />
             <ProtectedRoute path={Paths.WheelDetail()} component={Pages.WheelDetail} />
             <ProtectedRoute path={Paths.MealSchedule} component={Pages.MealSchedule} />
@@ -100,7 +99,7 @@ const App: React.FC = () => {
             <PublicRoute path={Paths.ExerciseOnlineDetail()} component={Pages.ExerciseOnlineDetail} />
 
             <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} />
-            <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Admin}${Paths.Dashboard}`} />
+            <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} />
           </Admin>
 
           <Profile path={LayoutPaths.Profile}>

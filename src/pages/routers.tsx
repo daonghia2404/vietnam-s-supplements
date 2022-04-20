@@ -75,6 +75,8 @@ const Handbooks = lazy(() => retryLoadComponent(() => import('@/pages/Handbooks'
 const News = lazy(() => retryLoadComponent(() => import('@/pages/News')));
 const HandbookDetail = lazy(() => retryLoadComponent(() => import('@/pages/HandbookDetail')));
 const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
+const Category = lazy(() => retryLoadComponent(() => import('@/pages/Category')));
+const Product = lazy(() => retryLoadComponent(() => import('@/pages/Product')));
 
 export const LayoutPaths = {
   Guest: '/',
@@ -146,6 +148,8 @@ export const Paths = {
   News: '/tin-tuc',
   HandbookDetail: (id?: string): string => `/cam-nang/${id || ':id'}`,
   NewDetail: (id?: string): string => `/tin-tuc/${id || ':id'}`,
+  Category: (id?: string): string => `/danh-muc/${id || ':id'}`,
+  Product: (id?: string): string => `/san-pham/${id || ':id'}`,
   Dashboard: '/',
 
   ListPage: '/danh-sach',
@@ -206,8 +210,10 @@ export const Pages = {
   News,
   HandbookDetail,
   NewDetail,
-  Dashboard,
+  Category,
+  Product,
 
+  Dashboard,
   ListPage,
 };
 

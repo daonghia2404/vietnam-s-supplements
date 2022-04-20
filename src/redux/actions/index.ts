@@ -14,3 +14,4 @@ export * from '@/redux/actions/product-controller';
 export * from '@/redux/actions/order-controller';
 export * from '@/redux/actions/user-meal-schedule-controller';
 export * from '@/redux/actions/new-controller';
+export * from '@/redux/actions/category-controller';

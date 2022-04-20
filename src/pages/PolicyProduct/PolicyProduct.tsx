@@ -3,6 +3,7 @@ import React from 'react';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { Paths } from '@/pages/routers';
 import { renderUrlShareSocial } from '@/utils/functions';
+import HeaderSkew from '@/components/HeaderSkew';
 
 import './PolicyProduct.scss';
 
@@ -10,7 +11,7 @@ const PolicyProduct: React.FC = () => {
   return (
     <div className="PolicyProduct">
       <div className="PolicyProduct-wrapper style-content">
-        <h3>Chính sách bảo hành sản phẩm</h3>
+        <HeaderSkew title="Chính sách bảo hành sản phẩm" />
         <h4>
           Chính sách bảo hành sản phẩm khi mua hàng cam kết các sản phẩm đều được bảo hành chính hãng theo đúng thời
           gian mà nhà sản xuất đưa ra

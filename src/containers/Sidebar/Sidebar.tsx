@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Menu } from 'antd';
 import { Link, globalHistory, navigate } from '@reach/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 
 import ImageFavicon from '@/assets/images/favicon.png';
@@ -16,8 +16,11 @@ import AuthHelpers from '@/services/helpers';
 import Modal from '@/components/Modal';
 
 import './Sidebar.scss';
+import { getCategorysAction } from '@/redux/actions';
+import { DEFAULT_PAGE } from '@/common/constants';
 
 const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
+  const dispatch = useDispatch();
   const [pathName, setPathName] = useState<string>('');
   const pathNameArray = pathName.split('/');
 
@@ -28,6 +31,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const isShowNormalMenu = !isShowProfileMenu;
 
   const authState = useSelector((state: TRootState) => state.authReducer.user);
+  const categorysState = useSelector((state: TRootState) => state.categoryReducer.categorys);
 
   const [confirmLogoutModalState, setConfirmLogoutModalState] = useState<{
     visible: boolean;
@@ -37,7 +41,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
 
   const renderDataMenu = (): TSidebarData[] => {
     if (isShowProfileMenu) return dataProfileMenu(authState);
-    if (isShowNormalMenu) return dataMenu;
+    if (isShowNormalMenu) return dataMenu({ categorys: categorysState || [] });
     return [];
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -72,6 +76,18 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
         break;
     }
   };
+
+  const getCategoriesData = useCallback(() => {
+    const params = {
+      page: DEFAULT_PAGE,
+      pageSize: 500,
+    };
+    dispatch(getCategorysAction.request(params));
+  }, [dispatch]);
+
+  useEffect(() => {
+    getCategoriesData();
+  }, [getCategoriesData]);
 
   useEffect(() => {
     const { pathname: mountedPathName } = window.location;

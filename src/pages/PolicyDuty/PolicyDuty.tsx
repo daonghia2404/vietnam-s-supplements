@@ -3,6 +3,7 @@ import React from 'react';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { Paths } from '@/pages/routers';
 import { renderUrlShareSocial } from '@/utils/functions';
+import HeaderSkew from '@/components/HeaderSkew';
 
 import './PolicyDuty.scss';
 
@@ -10,6 +11,7 @@ const PolicyDuty: React.FC = () => {
   return (
     <div className="PolicyDuty">
       <div className="PolicyDuty-wrapper style-content">
+        <HeaderSkew title="Nghĩa vụ" />
         <h3>Nghĩa vụ của người bán và nghĩa vụ của khách hàng trong mỗi giao dịch</h3>
         <h4>Nghĩa vụ của bên bán:</h4>
         <h4>Nghĩa vụ bảo đảm quyền sở hữu đối với hàng hoá</h4>

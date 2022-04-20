@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { navigate } from '@reach/router';
 
 import { TProductBoxProps } from './ProductBox.types';
 
@@ -13,17 +14,21 @@ const ProductBox: React.FC<TProductBoxProps> = ({
   price,
   oldPrice,
   hasBg,
-  onClickDetail,
+  link,
   onBuy,
 }) => {
+  const handleNavigateProductDetail = (): void => {
+    if (link) navigate(link);
+  };
+
   return (
     <div className={classNames('ProductBox', className, { background: hasBg })}>
-      {sale && <div className="ProductBox-badge">{sale}</div>}
-      <div className="ProductBox-image" onClick={onClickDetail}>
+      {sale && <div className="ProductBox-badge">{sale}%</div>}
+      <div className="ProductBox-image" onClick={handleNavigateProductDetail}>
         <img src={image} alt="" />
       </div>
       <div className="ProductBox-info">
-        <div className="ProductBox-info-title" onClick={onClickDetail}>
+        <div className="ProductBox-info-title" onClick={handleNavigateProductDetail}>
           {title}
         </div>
         <div
@@ -31,7 +36,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({
             'justify-center': price && !oldPrice,
             'justify-between': price && oldPrice,
           })}
-          onClick={onClickDetail}
+          onClick={handleNavigateProductDetail}
         >
           <div className="ProductBox-info-price-current">
             {price}

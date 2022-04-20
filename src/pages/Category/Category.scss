@@ -1,18 +1,16 @@
 @import '../../assets/styles/global';
 
-.News {
+.Category {
   &-wrapper {
     padding: 0 7rem 7rem;
   }
 
-  .NewsCarousel {
-    margin-bottom: 5rem;
-  }
-
-  &-title {
-    font-size: 2.2rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
+  .ProductsCarousel {
+    .container {
+      padding: 0;
+      margin: 0;
+      max-width: 100%;
+    }
   }
 
   &-list {

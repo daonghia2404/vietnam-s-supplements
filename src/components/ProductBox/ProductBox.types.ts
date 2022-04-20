@@ -4,6 +4,7 @@ export type TProductBoxProps = {
   title: string;
   price: string;
   sale?: string;
+  link?: string;
   oldPrice?: string;
   hasBg?: boolean;
   onBuy?: () => void;

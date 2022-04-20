@@ -3,17 +3,18 @@ import React from 'react';
 import HeaderSkew from '@/components/HeaderSkew';
 import ImageProduct from '@/assets/images/image-product.png';
 import ImageProductKOL from '@/assets/images/image-product-kol.jpg';
-
-import './ProductsCarousel.scss';
 import ProductBox from '@/components/ProductBox';
 import Carousels from '@/components/Carousels';
 
-const ProductsCarousel: React.FC = () => {
+import { TProductsCarouselProps } from './ProductsCarousel.types';
+import './ProductsCarousel.scss';
+
+const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ title }) => {
   return (
     <div className="ProductsCarousel">
       <div className="container">
         <div className="ProductsCarousel-wrapper">
-          <HeaderSkew title="Sản phẩm" center />
+          {title && <HeaderSkew title={title} center />}
 
           <div className="ProductsCarousel-main flex flex-wrap">
             <div className="ProductsCarousel-main-item">

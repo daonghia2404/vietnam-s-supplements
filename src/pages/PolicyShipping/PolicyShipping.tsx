@@ -3,6 +3,7 @@ import React from 'react';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { Paths } from '@/pages/routers';
 import { renderUrlShareSocial } from '@/utils/functions';
+import HeaderSkew from '@/components/HeaderSkew';
 
 import './PolicyShipping.scss';
 
@@ -10,7 +11,7 @@ const PolicyShipping: React.FC = () => {
   return (
     <div className="PolicyShipping">
       <div className="PolicyShipping-wrapper style-content">
-        <h3>Các phương thức giao hàng</h3>
+        <HeaderSkew title="Các phương thức giao hàng" />
         <p>
           Hàng đến tay các bạn sau 2-7 ngày làm việc (thành phố 3-4 ngày ; huyện/ xã tối đa 5-7 ngày), áp dụng nhận giao
           hàng tại các vùng/địa chỉ theo giới hạn của các ĐVVC

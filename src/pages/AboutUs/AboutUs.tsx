@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import HeaderSkew from '@/components/HeaderSkew';
 
 import './AboutUs.scss';
 
@@ -8,7 +9,7 @@ const AboutUs: React.FC = () => {
   return (
     <div className="AboutUs style-content">
       <div className="AboutUs-wrapper">
-        <h3>Về chúng tôi</h3>
+        <HeaderSkew title="Về chúng tôi" />
         <p>
           Giới thiệu về Supplements Việt Nam: Tiên phong trong lĩnh vực thực phẩm bảo vệ sức khoẻ , Vietnam’s
           Supplements mang tới những nghiên cứu chuyên sâu về chế độ dinh dưỡng, bổ sung dưỡng chất, từ đó sản xuất nên

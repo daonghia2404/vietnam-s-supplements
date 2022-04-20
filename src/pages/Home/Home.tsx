@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     <div className="Home">
       <HomeBanner />
       <TradeMark />
-      <ProductsCarousel />
+      <ProductsCarousel title="Sản phẩm" />
       <ReviewsCarousel />
       <QuanlityStandards />
       <Footer />

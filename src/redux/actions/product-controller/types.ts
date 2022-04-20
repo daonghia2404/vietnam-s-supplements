@@ -1,5 +1,11 @@
 import { EProductControllerAction } from '@/redux/actions/product-controller/constants';
-import { TParamsGetProductsFavorite, TGetProductsFavoriteResponse } from '@/services/api/product-controller/types';
+import {
+  TParamsGetProductsFavorite,
+  TGetProductsFavoriteResponse,
+  TGetProductsResponse,
+  TParamsGetProducts,
+  TGetProductResponse,
+} from '@/services/api/product-controller/types';
 
 export type TGetProductsFavoriteRequest = {
   type: EProductControllerAction.GET_PRODUCTS_FAVORITE_REQUEST;
@@ -16,5 +22,41 @@ export type TGetProductsFavoriteSuccess = {
 
 export type TGetProductsFavoriteFailed = {
   type: EProductControllerAction.GET_PRODUCTS_FAVORITE_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetProductsRequest = {
+  type: EProductControllerAction.GET_PRODUCTS_REQUEST;
+  payload: {
+    params: TParamsGetProducts;
+    cb?: (response: TGetProductsResponse) => void;
+  };
+};
+
+export type TGetProductsSuccess = {
+  type: EProductControllerAction.GET_PRODUCTS_SUCCESS;
+  payload: { response: TGetProductsResponse };
+};
+
+export type TGetProductsFailed = {
+  type: EProductControllerAction.GET_PRODUCTS_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetProductRequest = {
+  type: EProductControllerAction.GET_PRODUCT_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TGetProductResponse) => void;
+  };
+};
+
+export type TGetProductSuccess = {
+  type: EProductControllerAction.GET_PRODUCT_SUCCESS;
+  payload: { response: TGetProductResponse };
+};
+
+export type TGetProductFailed = {
+  type: EProductControllerAction.GET_PRODUCT_FAILED;
   payload: { error: unknown };
 };

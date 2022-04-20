@@ -3,6 +3,7 @@ import React from 'react';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { Paths } from '@/pages/routers';
 import { renderUrlShareSocial } from '@/utils/functions';
+import HeaderSkew from '@/components/HeaderSkew';
 
 import './PolicyReturn.scss';
 
@@ -10,7 +11,7 @@ const PolicyReturn: React.FC = () => {
   return (
     <div className="PolicyReturn">
       <div className="PolicyReturn-wrapper style-content">
-        <h3>Chính sách hoàn trả</h3>
+        <HeaderSkew title="Chính sách hoàn trả" />
         <h4>Đổi trả hàng</h4>
         <ul>
           <li>

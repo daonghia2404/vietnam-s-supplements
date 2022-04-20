@@ -3,6 +3,7 @@ import React from 'react';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { Paths } from '@/pages/routers';
 import { renderUrlShareSocial } from '@/utils/functions';
+import HeaderSkew from '@/components/HeaderSkew';
 
 import './PolicyInformation.scss';
 
@@ -10,6 +11,7 @@ const PolicyInformation: React.FC = () => {
   return (
     <div className="PolicyInformation">
       <div className="PolicyInformation-wrapper style-content">
+        <HeaderSkew title="Chính sách bảo vệ thông tin" />
         <h3>Chính sách bảo vệ thông tin cá nhân của người tiêu dùng</h3>
         <p>
           Cảm ơn bạn đã truy cập vào trang website được vận hành bởi Công ty TNHH Vietnam’s Supplements. Chúng tôi tôn
