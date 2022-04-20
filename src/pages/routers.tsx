@@ -63,7 +63,18 @@ const WalletRechargeResult = lazy(() => retryLoadComponent(() => import('@/pages
 const ListPage = lazy(() => retryLoadComponent(() => import('@/pages/ListPage')));
 
 const Home = lazy(() => retryLoadComponent(() => import('@/pages/Home')));
+const AboutUs = lazy(() => retryLoadComponent(() => import('@/pages/AboutUs')));
+const PolicyProduct = lazy(() => retryLoadComponent(() => import('@/pages/PolicyProduct')));
+const PolicyReturn = lazy(() => retryLoadComponent(() => import('@/pages/PolicyReturn')));
+const PolicyDuty = lazy(() => retryLoadComponent(() => import('@/pages/PolicyDuty')));
+const PolicyShipping = lazy(() => retryLoadComponent(() => import('@/pages/PolicyShipping')));
+const PolicyInformation = lazy(() => retryLoadComponent(() => import('@/pages/PolicyInformation')));
 const Dashboard = lazy(() => retryLoadComponent(() => import('@/pages/Dashboard')));
+const Contact = lazy(() => retryLoadComponent(() => import('@/pages/Contact')));
+const Handbooks = lazy(() => retryLoadComponent(() => import('@/pages/Handbooks')));
+const News = lazy(() => retryLoadComponent(() => import('@/pages/News')));
+const HandbookDetail = lazy(() => retryLoadComponent(() => import('@/pages/HandbookDetail')));
+const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
 
 export const LayoutPaths = {
   Guest: '/',
@@ -124,6 +135,17 @@ export const Paths = {
   WalletRechargeResult: `${ModulePaths.Wallet}/ket-qua-thanh-toan`,
 
   Home: '/',
+  AboutUs: '/ve-chung-toi',
+  PolicyProduct: '/chinh-sach-bao-hanh-san-pham',
+  PolicyReturn: '/chinh-sach-hoan-tra',
+  PolicyInformation: '/chinh-sach-bao-ve-thong-tin',
+  PolicyDuty: '/nghia-vu',
+  PolicyShipping: '/phuong-thuc-giao-hang',
+  Contact: '/lien-he',
+  Handbooks: '/cam-nang',
+  News: '/tin-tuc',
+  HandbookDetail: (id?: string): string => `/cam-nang/${id || ':id'}`,
+  NewDetail: (id?: string): string => `/tin-tuc/${id || ':id'}`,
   Dashboard: '/',
 
   ListPage: '/danh-sach',
@@ -173,6 +195,17 @@ export const Pages = {
   WalletRechargeResult,
 
   Home,
+  AboutUs,
+  PolicyProduct,
+  PolicyReturn,
+  PolicyDuty,
+  PolicyInformation,
+  PolicyShipping,
+  Contact,
+  Handbooks,
+  News,
+  HandbookDetail,
+  NewDetail,
   Dashboard,
 
   ListPage,

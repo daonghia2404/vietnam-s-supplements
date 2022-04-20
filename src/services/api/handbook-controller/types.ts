@@ -6,13 +6,13 @@ export type TParamsGetHandbooks = {
 };
 
 export type THandbookResponse = {
-  id: number;
-  title: string;
-  image: string;
-  content: string;
-  description: string;
   active: boolean;
+  content: string;
   createdAt: string;
+  description: string;
+  id: number;
+  image: string;
+  title: string;
   updatedAt: string;
 };
 

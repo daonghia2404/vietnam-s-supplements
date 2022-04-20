@@ -61,6 +61,18 @@ const App: React.FC = () => {
         <Router primary={false}>
           <Guest path={LayoutPaths.Guest}>
             <PublicRoute path={Paths.Home} component={Pages.Home} />
+            <PublicRoute path={Paths.AboutUs} component={Pages.AboutUs} />
+            <PublicRoute path={Paths.PolicyProduct} component={Pages.PolicyProduct} />
+            <PublicRoute path={Paths.PolicyReturn} component={Pages.PolicyReturn} />
+            <PublicRoute path={Paths.PolicyInformation} component={Pages.PolicyInformation} />
+            <PublicRoute path={Paths.PolicyDuty} component={Pages.PolicyDuty} />
+            <PublicRoute path={Paths.PolicyShipping} component={Pages.PolicyShipping} />
+            <PublicRoute path={Paths.Contact} component={Pages.Contact} />
+            <PublicRoute path={Paths.Handbooks} component={Pages.Handbooks} />
+            <PublicRoute path={Paths.News} component={Pages.News} />
+            <PublicRoute path={Paths.HandbookDetail()} component={Pages.HandbookDetail} />
+            <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
+
             {/* <PublicRoute path={Paths.ListPage} component={Pages.ListPage} /> */}
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />
           </Guest>

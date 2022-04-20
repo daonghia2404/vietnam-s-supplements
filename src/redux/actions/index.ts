@@ -1,3 +1,4 @@
+export * from '@/redux/actions/ui';
 export * from '@/redux/actions/auth-controller';
 export * from '@/redux/actions/handbook-controller';
 export * from '@/redux/actions/pack-exercise-controller';
@@ -12,4 +13,4 @@ export * from '@/redux/actions/rank-controller';
 export * from '@/redux/actions/product-controller';
 export * from '@/redux/actions/order-controller';
 export * from '@/redux/actions/user-meal-schedule-controller';
-export * from '@/redux/actions/ui';
+export * from '@/redux/actions/new-controller';

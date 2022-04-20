@@ -1,0 +1,46 @@
+@import '../../assets/styles/global';
+
+.Contact {
+  padding: 0 7rem 7rem;
+
+  &-title {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  &-address {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+
+    .Icon {
+      flex: 0 0 2rem;
+      max-width: 2rem;
+      margin-right: 1rem;
+    }
+  }
+
+  &-row {
+    &.two {
+      .ant-form-item {
+        flex: 0 0 calc(100% / 2 - 0.8rem);
+        max-width: calc(100% / 2 - 0.8rem);
+
+        @media (max-width: 575px) {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+    }
+  }
+
+  &-map {
+    margin: 2rem 0;
+
+    iframe {
+      height: 450px;
+      width: 100%;
+      border: none;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+@import '../../assets/styles/global';
+
+.TextArea {
+
+  .ant-input-affix-wrapper:focus,
+  .ant-input-affix-wrapper-focused {
+    border-color: $electric-violet !important;
+  }
+
+  .ant-input-affix-wrapper {
+    padding: 1rem 1.8rem;
+    background: $athens-gray;
+    border-color: $silver;
+    border-radius: 1rem;
+    height: 5.2rem;
+
+    &.ant-input-affix-wrapper-sm {
+      height: 4rem;
+      padding: 1rem 1.2rem;
+    }
+
+    &:not(.ant-input-affix-wrapper-disabled):hover {
+      border-color: $electric-violet;
+    }
+
+    .ant-input {
+      font-size: 1.6rem;
+      background: transparent;
+
+      &::placeholder {
+        color: $boulder;
+      }
+    }
+
+    .ant-input-prefix {
+      margin-right: 1.8rem;
+
+      .Icon {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+    }
+  }
+
+  .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper,
+  .ant-input-affix-wrapper-status-error:not(.ant-input-affix-wrapper-disabled):not(.ant-input-affix-wrapper-borderless).ant-input-affix-wrapper:hover {
+    background: $athens-gray;
+  }
+
+  &:not(.affix) {
+
+    .ant-input:focus,
+    .ant-input-focused {
+      border-color: $electric-violet;
+    }
+
+    .ant-input {
+      font-size: 1.6rem;
+      padding: 1rem 1.8rem;
+      background: $athens-gray;
+      border-color: $silver;
+      border-radius: 1rem;
+      min-height: 18rem;
+
+      &:hover {
+        border-color: $electric-violet;
+      }
+
+      &::placeholder {
+        color: $boulder;
+      }
+    }
+  }
+}

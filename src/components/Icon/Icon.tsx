@@ -36,6 +36,7 @@ import MapMarker from './MapMarker';
 import Mail from './Mail';
 import LoadingSpin from './LoadingSpin';
 import Logout from './Logout';
+import Share from './Share';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -102,6 +103,8 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <LoadingSpin color={color} />;
       case EIconName.Logout:
         return <Logout color={color} />;
+      case EIconName.Share:
+        return <Share color={color} />;
 
       default:
         return <></>;

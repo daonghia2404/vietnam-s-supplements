@@ -5,6 +5,7 @@ import { Rule } from 'antd/lib/form';
 
 import { EFormatDate, ETypeNotification } from '@/common/enums';
 import { regex } from '@/common/constants';
+import env from '@/env';
 
 export const removeAccents = (str: string): string => {
   let strConverted = str;
@@ -188,4 +189,8 @@ export const isFirstDateValueGreaterThanSecondDateValue = (firstDate: string, se
 export const getQueryParam = (param: string): string | null => {
   const params = new URLSearchParams(window.location.search);
   return params.get(param);
+};
+
+export const renderUrlShareSocial = (path: string, title: string): string => {
+  return `https://www.facebook.com/sharer?u=${env.rootUrl}${path}&t=${title}`;
 };

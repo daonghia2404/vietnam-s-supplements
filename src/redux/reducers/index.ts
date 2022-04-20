@@ -15,6 +15,7 @@ import rankReducer from './rank';
 import productReducer from './product';
 import orderReducer from './order';
 import userMealScheduleReducer from './user-meal-schedule';
+import newReducer from './new';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   productReducer,
   orderReducer,
   userMealScheduleReducer,
+  newReducer,
 });
 
 export default rootReducer;

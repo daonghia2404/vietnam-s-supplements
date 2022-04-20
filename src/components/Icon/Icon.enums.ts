@@ -30,6 +30,7 @@ export enum EIconName {
   Mail = 'Mail',
   LoadingSpin = 'LoadingSpin',
   Logout = 'Logout',
+  Share = 'Share',
 }
 
 export enum EIconColor {

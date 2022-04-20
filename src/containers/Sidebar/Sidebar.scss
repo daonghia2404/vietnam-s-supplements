@@ -212,10 +212,9 @@
       margin: 0 !important;
       height: auto !important;
       border-bottom: 1px solid $gallery;
-      white-space: pre-wrap;
 
       .ant-menu-title-content {
-        white-space: nowrap;
+        white-space: pre-wrap;
       }
 
       .Icon {

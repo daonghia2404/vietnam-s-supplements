@@ -1,0 +1,32 @@
+@import '../../assets/styles/global';
+
+.Handbooks {
+  &-wrapper {
+    padding: 0 7rem 7rem;
+  }
+
+  .NewsCarousel {
+    margin-bottom: 5rem;
+  }
+
+  &-title {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  &-list {
+    margin: 0 -1.5rem;
+
+    &-item {
+      flex: 0 0 calc(100% / 4);
+      max-width: calc(100% / 4);
+      padding: 0 1.5rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  &-pagination {
+    margin-top: 3rem;
+  }
+}

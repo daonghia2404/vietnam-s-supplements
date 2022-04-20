@@ -6,8 +6,8 @@ import { TGetInfoResponse } from '@/services/api/auth-controller/types';
 import { formatMoneyVND } from '@/utils/functions';
 
 export const dataMenu = [
-  { key: 'about-us', title: 'Về Chúng Tôi', link: '/', subItems: [], disabled: true },
-  { key: 'library', title: 'Cẩm Nang', link: '/', subItems: [], disabled: true },
+  { key: 'about-us', title: 'Về Chúng Tôi', link: Paths.AboutUs, subItems: [] },
+  { key: 'library', title: 'Cẩm Nang', link: Paths.Handbooks, subItems: [] },
   {
     key: 'products',
     title: 'Sản Phẩm VNSUPPLEMENT',
@@ -18,18 +18,28 @@ export const dataMenu = [
     ],
     disabled: true,
   },
-  { key: 'news', title: 'Tin Tức', link: '/', subItems: [], disabled: true },
+  { key: 'news', title: 'Tin Tức', link: Paths.News, subItems: [] },
   {
     key: 'privacy',
     title: 'Chính Sách',
     link: '/',
     subItems: [
-      { key: 'chinh-sach-bao-hanh-san-pham', title: 'Chính Sách Bảo Hành Sản Phẩm', link: '/' },
-      { key: 'chinh-sach-hoan-tra', title: 'Chính Sách Hoàn Trả', link: '/' },
+      { key: 'chinh-sach-bao-hanh-san-pham', title: 'Chính Sách Bảo Hành Sản Phẩm', link: Paths.PolicyProduct },
+      { key: 'chinh-sach-hoan-tra', title: 'Chính Sách Hoàn Trả', link: Paths.PolicyReturn },
+      {
+        key: 'chinh-sach-bao-ve-thong-tin-ca-nhan-cua-nguoi-tieu-dung',
+        title: 'Chính sách bảo vệ thông tin cá nhân của người tiêu dùng',
+        link: Paths.PolicyInformation,
+      },
+      {
+        key: 'nghia-vu-cua-nguoi-ban-va-nghia-vu-cua-khach-hang-trong-moi-giao-dich',
+        title: 'Nghĩa vụ của người bán và nghĩa vụ của khách hàng trong mỗi giao dịch',
+        link: Paths.PolicyDuty,
+      },
+      { key: 'cac-phuong-thuc-giao-hang', title: 'Các phương thức giao hàng', link: Paths.PolicyShipping },
     ],
-    disabled: true,
   },
-  { key: 'contact', title: 'Liên Hệ', link: '/', subItems: [], disabled: true },
+  { key: 'contact', title: 'Liên Hệ', link: Paths.Contact, subItems: [] },
   { key: 'calendar', title: 'Lịch Ăn Uống', link: `${LayoutPaths.Admin}${Paths.MealSchedule}`, subItems: [] },
   { key: 'rotation', title: 'Vòng Quay', link: `${LayoutPaths.Admin}${Paths.Wheels}`, subItems: [] },
   {
