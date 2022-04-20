@@ -14,6 +14,8 @@ export type TSidebarData = {
   subItems?: TSidebarData[];
   isSkew?: boolean;
   suffix?: string;
+  checkAuth?: boolean;
+  notShowAuth?: boolean;
   icon?: React.ReactNode;
   disabled?: boolean;
 };

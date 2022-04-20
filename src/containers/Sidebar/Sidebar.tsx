@@ -120,6 +120,11 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
             {renderDataMenu().map((item) => {
               const isSubMenu = item.subItems && item.subItems.length > 0;
               const isSkewItem = item.isSkew;
+              const isNotShowAuth = item.notShowAuth;
+
+              if (isNotShowAuth && authState?.id) {
+                return <></>;
+              }
 
               if (isSubMenu && item.subItems) {
                 return (

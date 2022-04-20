@@ -48,6 +48,7 @@ export const dataMenu = [
     link: `${LayoutPaths.Auth}${Paths.Login}`,
     subItems: [],
     isSkew: true,
+    notShowAuth: true,
   },
 ];
 
