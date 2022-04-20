@@ -31,6 +31,7 @@ export enum EIconName {
   LoadingSpin = 'LoadingSpin',
   Logout = 'Logout',
   Share = 'Share',
+  CloudDownload = 'CloudDownload',
 }
 
 export enum EIconColor {
