@@ -70,6 +70,8 @@ const App: React.FC = () => {
             <PublicRoute path={Paths.Contact} component={Pages.Contact} />
             <PublicRoute path={Paths.Handbooks} component={Pages.Handbooks} />
             <PublicRoute path={Paths.News} component={Pages.News} />
+            <PublicRoute path={Paths.Carts} component={Pages.Carts} />
+            <PublicRoute path={Paths.Checkout} component={Pages.Checkout} />
             <PublicRoute path={Paths.HandbookDetail()} component={Pages.HandbookDetail} />
             <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
             <PublicRoute path={Paths.Category()} component={Pages.Category} />
@@ -98,7 +100,7 @@ const App: React.FC = () => {
             <PublicRoute path={Paths.ExerciseOnline} component={Pages.ExerciseOnline} />
             <PublicRoute path={Paths.ExerciseOnlineDetail()} component={Pages.ExerciseOnlineDetail} />
 
-            <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} />
+            {/* <ProtectedRoute path={Paths.Dashboard} component={Pages.Dashboard} /> */}
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} />
           </Admin>
 

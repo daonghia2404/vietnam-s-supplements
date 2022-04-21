@@ -1,0 +1,15 @@
+@import '../../../assets/styles/global';
+
+.DistributionProductModal {
+  &-wrapper {
+    .Modal {
+      &-body {
+        padding-top: 3rem;
+
+        &-title {
+          font-size: 2.4rem;
+        }
+      }
+    }
+  }
+}

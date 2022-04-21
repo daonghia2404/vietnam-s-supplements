@@ -3,5 +3,9 @@
 .AboutUs {
   &-wrapper {
     padding: 0 7rem 7rem;
+
+    @media (max-width: 575px) {
+      padding: 0 1.5rem 10rem;
+    }
   }
 }

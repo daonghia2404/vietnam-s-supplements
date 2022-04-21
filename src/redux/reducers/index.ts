@@ -17,6 +17,7 @@ import orderReducer from './order';
 import userMealScheduleReducer from './user-meal-schedule';
 import newReducer from './new';
 import categoryReducer from './category';
+import cartReducer from './cart';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   userMealScheduleReducer,
   newReducer,
   categoryReducer,
+  cartReducer,
 });
 
 export default rootReducer;

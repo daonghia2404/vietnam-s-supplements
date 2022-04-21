@@ -10,6 +10,11 @@
     &-item {
       flex: 0 0 50%;
       max-width: 50%;
+
+      @media (max-width: 991px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
     }
 
     &-image {
@@ -29,6 +34,11 @@
       font-weight: bold;
       text-transform: uppercase;
       margin-bottom: 3rem;
+
+
+      @media (max-width: 575px) {
+        font-size: 6rem;
+      }
     }
 
     &-old-price {
@@ -63,6 +73,10 @@
 
   &-info {
     padding: 0 7rem 7rem;
+
+    @media (max-width: 575px) {
+      padding: 0 1.5rem 7rem;
+    }
   }
 
   &-list {
@@ -92,6 +106,17 @@
       max-width: calc(100% / 4 - 0.5rem);
       padding: 4rem 1.5rem;
       background: $white;
+      margin-bottom: 1rem;
+
+      @media (max-width: 1200px) {
+        flex: 0 0 calc(100% / 2 - 0.5rem);
+        max-width: calc(100% / 2 - 0.5rem);
+      }
+
+      @media (max-width: 575px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
 
       &-title {
         text-align: center;
@@ -136,6 +161,8 @@
   }
 
   &-carousel {
+    margin: 0 -.5rem;
+
     &-item {
       background: $white;
       padding: 0 .5rem;
@@ -161,6 +188,10 @@
     &-card {
       padding: 4rem;
       background: $white;
+
+      @media (max-width: 575px) {
+        padding: 3rem 1.5rem;
+      }
 
       table {
         width: 100%;

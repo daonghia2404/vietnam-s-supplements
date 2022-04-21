@@ -194,3 +194,7 @@ export const getQueryParam = (param: string): string | null => {
 export const renderUrlShareSocial = (path: string, title: string): string => {
   return `https://www.facebook.com/sharer?u=${env.rootUrl}${path}&t=${title}`;
 };
+
+export const caculatorSalePrice = (price: number, sale: number): number => {
+  return price - (price * sale) / 100;
+};

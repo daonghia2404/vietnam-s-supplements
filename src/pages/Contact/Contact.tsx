@@ -40,7 +40,7 @@ const Contact: React.FC = () => {
       <div className="Contact-title">Nếu bạn có bất kỳ thắc mắc nào hãy liên hệ với chúng tôi</div>
 
       <Form form={form} layout="vertical">
-        <div className="Contact-row two flex justify-between">
+        <div className="Contact-row two flex justify-between flex-wrap">
           <Form.Item name="name" rules={[validationRules.required()]}>
             <Input placeholder="Họ tên" />
           </Form.Item>
@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
             <Input placeholder="Số điện thoại" />
           </Form.Item>
         </div>
-        <div className="Contact-row two flex justify-between">
+        <div className="Contact-row two flex justify-between flex-wrap">
           <Form.Item name="email" rules={[validationRules.required(), validationRules.email()]}>
             <Input placeholder="Email" />
           </Form.Item>

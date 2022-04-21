@@ -24,7 +24,6 @@ const Category: React.FC = () => {
   const [getProductsParamsRequest, setGetProductsParamsRequest] = useState<TParamsGetProducts>({
     page: DEFAULT_PAGE,
     pageSize: DEFAULT_PAGE_SIZE,
-    categoryId: id,
   });
   const categorysState = useSelector((state: TRootState) => state.categoryReducer.categorys);
   const productsState = useSelector((state: TRootState) => state.productReducer.products);
@@ -48,7 +47,7 @@ const Category: React.FC = () => {
   };
 
   const getProductsByCategory = useCallback(() => {
-    if (id) dispatch(getProductsAction.request(getProductsParamsRequest));
+    if (id) dispatch(getProductsAction.request({ ...getProductsParamsRequest, categoryId: id }));
   }, [dispatch, getProductsParamsRequest, id]);
 
   useEffect(() => {
@@ -75,7 +74,8 @@ const Category: React.FC = () => {
                     {...item}
                     image={item.image}
                     title={item.name}
-                    price={String(item.price)}
+                    sale={Number(item.sale)}
+                    price={Number(item.price)}
                     link={Paths.Product(item.id)}
                   />
                 </div>

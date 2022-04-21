@@ -14,15 +14,20 @@ import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/helpers';
 import Modal from '@/components/Modal';
+import { getCartAction, getCategorysAction, getInfoAction } from '@/redux/actions';
+import { DEFAULT_PAGE } from '@/common/constants';
+import { showNotification } from '@/utils/functions';
+import { ETypeNotification } from '@/common/enums';
 
 import './Sidebar.scss';
-import { getCategorysAction } from '@/redux/actions';
-import { DEFAULT_PAGE } from '@/common/constants';
 
 const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const dispatch = useDispatch();
   const [pathName, setPathName] = useState<string>('');
   const pathNameArray = pathName.split('/');
+
+  const userInfo = useSelector((state: TRootState) => state.authReducer.user);
+  const atk = userInfo?.id;
 
   const deviceType = useSelector((state: TRootState) => state.uiReducer.device.type);
   const isDesktop = deviceType === EDeviceType.DESKTOP;
@@ -32,6 +37,8 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
 
   const authState = useSelector((state: TRootState) => state.authReducer.user);
   const categorysState = useSelector((state: TRootState) => state.categoryReducer.categorys);
+
+  const cartState = useSelector((state: TRootState) => state.cartReducer.cart);
 
   const [confirmLogoutModalState, setConfirmLogoutModalState] = useState<{
     visible: boolean;
@@ -51,6 +58,10 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
     setPathName(pathname);
   };
 
+  const getCartData = useCallback((): void => {
+    if (userInfo) dispatch(getCartAction.request());
+  }, [dispatch, userInfo]);
+
   const handleOpenConfirmLogoutModal = (): void => {
     setConfirmLogoutModalState({ visible: true });
   };
@@ -58,6 +69,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
     handleCloseConfirmLogoutModal();
     AuthHelpers.clearTokens();
     navigate(LayoutPaths.Auth);
+    dispatch(getInfoAction.success(undefined as any));
   };
   const handleCloseConfirmLogoutModal = (): void => {
     setConfirmLogoutModalState({ visible: false });
@@ -77,6 +89,14 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
     }
   };
 
+  const handleNavigateCarts = (): void => {
+    if (atk) navigate(Paths.Carts);
+    else {
+      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động');
+      navigate(LayoutPaths.Auth);
+    }
+  };
+
   const getCategoriesData = useCallback(() => {
     const params = {
       page: DEFAULT_PAGE,
@@ -88,6 +108,10 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   useEffect(() => {
     getCategoriesData();
   }, [getCategoriesData]);
+
+  useEffect(() => {
+    getCartData();
+  }, [getCartData]);
 
   useEffect(() => {
     const { pathname: mountedPathName } = window.location;
@@ -112,8 +136,9 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
         <div className="Sidebar-item-icon disabled">
           <Icon name={EIconName.Search} />
         </div>
-        <div className="Sidebar-item-icon disabled">
+        <div className="Sidebar-item-icon" onClick={handleNavigateCarts}>
           <Icon name={EIconName.Cart} />
+          {atk && <div className="Sidebar-item-icon-badge">{cartState?.cart?.length || 0}</div>}
         </div>
         <Link to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} className="Sidebar-item-icon">
           <Icon name={EIconName.UserSquare} color={EIconColor.SCARPA_FLOW} />

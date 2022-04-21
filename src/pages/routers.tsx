@@ -77,6 +77,8 @@ const HandbookDetail = lazy(() => retryLoadComponent(() => import('@/pages/Handb
 const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
 const Category = lazy(() => retryLoadComponent(() => import('@/pages/Category')));
 const Product = lazy(() => retryLoadComponent(() => import('@/pages/Product')));
+const Carts = lazy(() => retryLoadComponent(() => import('@/pages/Carts')));
+const Checkout = lazy(() => retryLoadComponent(() => import('@/pages/Checkout')));
 
 export const LayoutPaths = {
   Guest: '/',
@@ -93,6 +95,7 @@ export const ModulePaths = {
   Cart: '/don-hang',
   Rank: '/hang-tai-khoan',
   Wallet: '/vi-cua-toi',
+  Carts: '/gio-hang',
 };
 
 export const Paths = {
@@ -150,8 +153,10 @@ export const Paths = {
   NewDetail: (id?: string): string => `/tin-tuc/${id || ':id'}`,
   Category: (id?: string): string => `/danh-muc/${id || ':id'}`,
   Product: (id?: string): string => `/san-pham/${id || ':id'}`,
-  Dashboard: '/',
+  Carts: ModulePaths.Carts,
+  Checkout: `/thanh-toan`,
 
+  Dashboard: '/',
   ListPage: '/danh-sach',
 
   Rest: '*',
@@ -212,6 +217,8 @@ export const Pages = {
   NewDetail,
   Category,
   Product,
+  Carts,
+  Checkout,
 
   Dashboard,
   ListPage,

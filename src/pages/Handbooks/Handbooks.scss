@@ -3,6 +3,10 @@
 .Handbooks {
   &-wrapper {
     padding: 0 7rem 7rem;
+
+    @media (max-width: 575px) {
+      padding: 0 1.5rem 10rem;
+    }
   }
 
   .NewsCarousel {
@@ -16,13 +20,23 @@
   }
 
   &-list {
-    margin: 0 -1.5rem;
+    margin: 0 -0.5rem;
 
     &-item {
       flex: 0 0 calc(100% / 4);
       max-width: calc(100% / 4);
-      padding: 0 1.5rem;
+      padding: 0 0.5rem;
       margin-bottom: 3rem;
+
+      @media (max-width: 768px) {
+        flex: 0 0 calc(100% / 2);
+        max-width: calc(100% / 2);
+      }
+
+      @media (max-width: 575px) {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
     }
   }
 

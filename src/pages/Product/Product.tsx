@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -6,31 +6,84 @@ import ImageCertificate1 from '@/assets/images/image-certificate-1.png';
 import ImageCart from '@/assets/images/image-cart.png';
 import ImageCau from '@/assets/images/image-cau.png';
 import HeaderSkew from '@/components/HeaderSkew';
-import ImageProduct from '@/assets/images/image-product.png';
 import ImageProduct2 from '@/assets/images/image-product-2.jpeg';
 import { TRootState } from '@/redux/reducers';
 import { EProductControllerAction } from '@/redux/actions/product-controller/constants';
 import PageLoading from '@/components/PageLoading';
-import { getProductAction } from '@/redux/actions';
-
-import './Product.scss';
-import Button from '@/components/Button';
+import { getProductAction, getProductsAction } from '@/redux/actions';
 import ProductBox from '@/components/ProductBox';
 import Icon, { EIconName } from '@/components/Icon';
-import Carousels from '@/components/Carousels';
+import Carousels, { TCarouselsProps } from '@/components/Carousels';
+import { EDeviceType } from '@/redux/reducers/ui';
+import { caculatorSalePrice, formatMoneyVND } from '@/utils/functions';
+import { DEFAULT_PAGE } from '@/common/constants';
+import { Paths } from '@/pages/routers';
+import EmptyBox from '@/components/EmptyBox';
+import DistributionProductModal from '@/pages/Product/DistributionProductModal';
+
+import './Product.scss';
+import { TProductResponse } from '@/services/api/product-controller/types';
 
 const Product: React.FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const window = useSelector((state: TRootState) => state.uiReducer.device.type);
+  const isMobile = window === EDeviceType.MOBILE;
+
+  const [distributionProductModalState, setDistributionProductModalState] = useState<{
+    visible: boolean;
+    data?: TProductResponse;
+  }>({
+    visible: false,
+  });
 
   const productState = useSelector((state: TRootState) => state.productReducer.product);
   const getProductLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EProductControllerAction.GET_PRODUCT],
   );
+  const productsState = useSelector((state: TRootState) => state.productReducer.products);
+  const isEmpty = productsState?.records.length === 0;
+
+  const handleOpenDistributionProductModal = (): void => {
+    setDistributionProductModalState({ visible: true, data: productState });
+  };
+  const handleCloseDistributionProductModal = (): void => {
+    setDistributionProductModalState({ visible: false });
+  };
+
+  const carouselProps = (): TCarouselsProps => {
+    const commonProps = {
+      arrows: true,
+      dots: false,
+      autoplay: true,
+      slidesPerRow: 1,
+    };
+
+    if (isMobile) {
+      return { ...commonProps, slidesToShow: 1 };
+    }
+
+    return { ...commonProps, slidesToShow: 3 };
+  };
 
   const getProductData = useCallback(() => {
     if (id) dispatch(getProductAction.request(id));
   }, [dispatch, id]);
+
+  const getProductsByCategory = useCallback(() => {
+    if (productState?.category?.id)
+      dispatch(
+        getProductsAction.request({
+          page: DEFAULT_PAGE,
+          pageSize: 4,
+          categoryId: productState?.category?.id,
+        }),
+      );
+  }, [dispatch, productState?.category?.id]);
+
+  useEffect(() => {
+    getProductsByCategory();
+  }, [getProductsByCategory]);
 
   useEffect(() => {
     getProductData();
@@ -45,15 +98,27 @@ const Product: React.FC = () => {
           <div className="Product-banner flex flex-wrap">
             <div className="Product-banner-item flex justify-center">
               <div className="Product-banner-image">
-                <img src={ImageProduct} alt="" />
+                <img src={productState?.image} alt="" />
               </div>
             </div>
             <div className="Product-banner-item flex flex-col justify-center items-center">
-              <div className="Product-banner-title">Absolute Chill</div>
-              <del className="Product-banner-old-price">480.00 VND</del>
-              <div className="Product-banner-price">470.400 VND</div>
+              <div className="Product-banner-title">{productState?.name}</div>
+              {productState?.sale ? (
+                <>
+                  <del className="Product-banner-old-price">{formatMoneyVND({ amount: productState.price })} VND</del>
+                  <div className="Product-banner-price">
+                    {formatMoneyVND({ amount: caculatorSalePrice(productState.price, Number(productState.sale)) })} VND
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="Product-banner-price">{formatMoneyVND({ amount: productState?.price || 0 })} VND</div>
+                </>
+              )}
               <div className="Product-banner-button">Mua ngay</div>
-              <div className="Product-banner-link">Đăng ký phân phối</div>
+              <div className="Product-banner-link" onClick={handleOpenDistributionProductModal}>
+                Đăng ký phân phối
+              </div>
             </div>
           </div>
 
@@ -98,7 +163,7 @@ const Product: React.FC = () => {
               </div>
             </div>
             <div className="Product-carousel">
-              <Carousels slidesToShow={1} slidesPerRow={3} arrows dots={false} autoplay>
+              <Carousels {...carouselProps()}>
                 {[1, 2, 3, 4, 5].map((item) => (
                   <div key={item} className="Product-carousel-item">
                     <img src={ImageProduct2} alt="" />
@@ -168,16 +233,29 @@ const Product: React.FC = () => {
               </div>
             </div>
             <HeaderSkew title="Sản phẩm liên quan" />
-            <div className="Product-list flex flex-wrap">
-              {[1, 2, 3, 4].map((item) => (
-                <div key={item} className="Product-list-item">
-                  <ProductBox {...item} image={ImageProduct} title="Absolute chill" price="124000" />
-                </div>
-              ))}
-            </div>
+            {isEmpty ? (
+              <EmptyBox title="Không có dữ liệu sản phẩm" />
+            ) : (
+              <div className="Product-list flex flex-wrap">
+                {productsState?.records?.map((item) => (
+                  <div key={item.id} className="Product-list-item">
+                    <ProductBox
+                      {...item}
+                      image={item.image}
+                      title={item.name}
+                      sale={Number(item.sale)}
+                      price={Number(item.price)}
+                      link={Paths.Product(item.id)}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
+
+      <DistributionProductModal {...distributionProductModalState} onClose={handleCloseDistributionProductModal} />
     </div>
   );
 };

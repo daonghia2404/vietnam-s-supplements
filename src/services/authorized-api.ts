@@ -21,7 +21,8 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
     const existingRefreshToken: string = authHelpers.getRefreshToken();
 
     if (!existingRefreshToken) {
-      navigate(LayoutPaths.Auth);
+      authHelpers.clearTokens();
+      navigate(LayoutPaths.Guest);
       return '';
     }
 
@@ -68,7 +69,7 @@ const AuthorizedInstance = (baseURL: string): AxiosInstance => {
             const refreshTokenFailed = err?.response?.config?.url === urlRefreshToken;
             if (refreshTokenFailed) {
               authHelpers.clearTokens();
-              navigate(LayoutPaths.Auth);
+              navigate(LayoutPaths.Guest);
             }
           })
           .finally(() => {

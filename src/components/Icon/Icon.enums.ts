@@ -32,6 +32,7 @@ export enum EIconName {
   Logout = 'Logout',
   Share = 'Share',
   CloudDownload = 'CloudDownload',
+  Minus = 'Minus',
 }
 
 export enum EIconColor {

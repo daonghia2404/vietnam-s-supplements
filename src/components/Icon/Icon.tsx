@@ -38,6 +38,7 @@ import LoadingSpin from './LoadingSpin';
 import Logout from './Logout';
 import Share from './Share';
 import CloudDownload from './CloudDownload';
+import Minus from './Minus';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -108,6 +109,8 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <Share color={color} />;
       case EIconName.CloudDownload:
         return <CloudDownload color={color} />;
+      case EIconName.Minus:
+        return <Minus color={color} />;
 
       default:
         return <></>;

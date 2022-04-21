@@ -63,12 +63,12 @@ const FavoriteProduct: React.FC = () => {
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
                   <div className="FavoriteProduct-main-item">
                     <ProductBox
+                      id={String(item)}
                       key={item}
                       image={ImageProduct}
                       title="Absolute Essentials"
-                      price="318.500"
-                      oldPrice="325.000"
-                      sale="-2%"
+                      price={318500}
+                      sale={2}
                     />
                   </div>
                 ))}
