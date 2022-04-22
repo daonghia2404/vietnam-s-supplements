@@ -69,6 +69,7 @@ const FavoriteProduct: React.FC = () => {
                       title="Absolute Essentials"
                       price={318500}
                       sale={2}
+                      type="1"
                     />
                   </div>
                 ))}

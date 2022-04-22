@@ -49,6 +49,8 @@ export type TProductResponse = {
   unit: string;
   updatedAt: string;
   videoUrl: string;
+  dateStartEat: string;
+  dateEndEat: string;
 };
 
 export type TProductObject = {

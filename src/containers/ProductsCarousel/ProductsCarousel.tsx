@@ -18,7 +18,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ title }) => {
 
           <div className="ProductsCarousel-main flex flex-wrap">
             <div className="ProductsCarousel-main-item">
-              <ProductBox id="1" image={ImageProduct} title="Absolute Bio Astaxanthin" price={535000} hasBg />
+              <ProductBox id="1" image={ImageProduct} title="Absolute Bio Astaxanthin" price={535000} type="1" hasBg />
             </div>
             <div className="ProductsCarousel-main-item">
               <Carousels autoplay dots={false}>
@@ -45,7 +45,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ title }) => {
               </Carousels>
             </div>
             <div className="ProductsCarousel-main-item">
-              <ProductBox id="1" image={ImageProduct} title="Absolute Bio Astaxanthin" price={545000} hasBg />
+              <ProductBox type="1" id="1" image={ImageProduct} title="Absolute Bio Astaxanthin" price={545000} hasBg />
             </div>
           </div>
         </div>

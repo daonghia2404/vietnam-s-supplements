@@ -160,8 +160,8 @@ export const copyText = (text: string): void => {
   document.body.removeChild(el);
 };
 
-export const formatISODateToDateTime = (date?: string): string | undefined => {
-  return date ? moment(date).format(EFormatDate.DATE_TIME) : undefined;
+export const formatISODateToDateTime = (date?: string, format?: string): string | undefined => {
+  return date ? moment(date).format(format || EFormatDate.DATE_TIME) : undefined;
 };
 
 export const formatMomentToString = (date?: Moment): string | undefined => {
@@ -196,5 +196,5 @@ export const renderUrlShareSocial = (path: string, title: string): string => {
 };
 
 export const caculatorSalePrice = (price: number, sale: number): number => {
-  return price - (price * sale) / 100;
+  return price + (price * sale) / 100;
 };

@@ -1,44 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import { navigate } from '@reach/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { caculatorSalePrice, formatMoneyVND, showNotification } from '@/utils/functions';
 import AuthHelpers from '@/services/helpers';
 import { ETypeNotification } from '@/common/enums';
 import { addCartAction, getCartAction } from '@/redux/actions';
-import { TRootState } from '@/redux/reducers';
-import { ECartControllerAction } from '@/redux/actions/cart-controller/constants';
+import AddCartModal from '@/containers/AddCartModal';
 
 import { TProductBoxProps } from './ProductBox.types';
 import './ProductBox.scss';
 
-const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title, price, hasBg, link, onBuy, id }) => {
+const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title, price, hasBg, link, id, type }) => {
   const atk = AuthHelpers.getAccessToken();
   const dispatch = useDispatch();
 
-  const addCartLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.ADD_CART]);
+  const [addCartModalState, setAddCartModalState] = useState<{
+    visible: boolean;
+    data?: { id: string; type: string };
+  }>({
+    visible: false,
+  });
+
+  const handleOpenAddCartModal = (): void => {
+    if (atk) {
+      setAddCartModalState({
+        visible: true,
+        data: {
+          id,
+          type,
+        },
+      });
+    } else {
+      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để thực hiện hành động');
+    }
+  };
+  const handleCloseAddCartModal = (): void => {
+    setAddCartModalState({
+      visible: false,
+    });
+  };
+  const handleSubmitAddCartModal = (values: any): void => {
+    const body = {
+      ...values,
+      product: id,
+    };
+    dispatch(addCartAction.request(body, handleAddCartSuccess));
+  };
 
   const handleNavigateProductDetail = (): void => {
     if (link) navigate(link);
   };
 
-  const handleBuyProduct = (): void => {
-    if (atk && !addCartLoading) {
-      const body = {
-        product: id,
-        amount: 1,
-      };
-      dispatch(addCartAction.request(body, handleAddCartSuccess));
-      onBuy?.();
-    } else {
-      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để thực hiện hành động');
-    }
-  };
-
   const handleAddCartSuccess = (): void => {
     showNotification(ETypeNotification.SUCCESS, 'Sản phẩm đã được thêm vào giỏ hàng');
     getCartData();
+    handleCloseAddCartModal();
   };
 
   const getCartData = (): void => {
@@ -59,32 +77,25 @@ const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title,
           className={classNames('ProductBox-info-price flex items-end justify-center')}
           onClick={handleNavigateProductDetail}
         >
-          {sale ? (
-            <>
-              <div className="ProductBox-info-price-current">
-                {formatMoneyVND({ amount: caculatorSalePrice(Number(price), Number(sale)) })}
-                <sup>VNĐ</sup>
-              </div>
-              <div className="ProductBox-info-price-old">
-                {formatMoneyVND({ amount: price || 0 })}
-                <sup>VNĐ</sup>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="ProductBox-info-price-current">
-                {formatMoneyVND({ amount: price || 0 })}
-                <sup>VNĐ</sup>
-              </div>
-            </>
+          <div className="ProductBox-info-price-current">
+            {formatMoneyVND({ amount: price })}
+            <sup>VNĐ</sup>
+          </div>
+          {sale && (
+            <div className="ProductBox-info-price-old">
+              {formatMoneyVND({ amount: caculatorSalePrice(price, Number(sale)) })}
+              <sup>VNĐ</sup>
+            </div>
           )}
         </div>
         <div className="ProductBox-info-btn flex justify-center">
-          <div className={classNames('ProductBox-info-cta', { loading: addCartLoading })} onClick={handleBuyProduct}>
+          <div className={classNames('ProductBox-info-cta')} onClick={handleOpenAddCartModal}>
             Mua ngay
           </div>
         </div>
       </div>
+
+      <AddCartModal {...addCartModalState} onClose={handleCloseAddCartModal} onSubmit={handleSubmitAddCartModal} />
     </div>
   );
 };

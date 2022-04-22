@@ -241,6 +241,7 @@ const Product: React.FC = () => {
                   <div key={item.id} className="Product-list-item">
                     <ProductBox
                       {...item}
+                      type={item.type}
                       image={item.image}
                       title={item.name}
                       sale={Number(item.sale)}

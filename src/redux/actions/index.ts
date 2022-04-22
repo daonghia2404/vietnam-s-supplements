@@ -16,3 +16,4 @@ export * from '@/redux/actions/user-meal-schedule-controller';
 export * from '@/redux/actions/new-controller';
 export * from '@/redux/actions/category-controller';
 export * from '@/redux/actions/cart-controller';
+export * from '@/redux/actions/voucher-controller';

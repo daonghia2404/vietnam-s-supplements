@@ -1,0 +1,36 @@
+@import '../../assets/styles/global';
+
+.AddCartModal {
+  &-form {
+    &-row {
+      padding: 1.5rem 0;
+
+      .ant-form-item {
+        margin-bottom: 0;
+      }
+
+      .Amount {
+        min-width: 11.5rem;
+      }
+
+      &-label {
+        font-size: 1.6rem;
+      }
+
+      &.border-bottom {
+        border-bottom: 1px solid $iron;
+      }
+
+      &.two {
+        .ant-form-item {
+          flex: 0 0 calc(50% - .8rem);
+          max-width: calc(50% - .8rem);
+        }
+      }
+    }
+
+    &-submit {
+      margin-top: 3rem;
+    }
+  }
+}
