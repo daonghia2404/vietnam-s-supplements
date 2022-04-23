@@ -72,6 +72,7 @@ const App: React.FC = () => {
             <PublicRoute path={Paths.News} component={Pages.News} />
             <PublicRoute path={Paths.Carts} component={Pages.Carts} />
             <PublicRoute path={Paths.Checkout} component={Pages.Checkout} />
+            <PublicRoute path={Paths.ProductSearch} component={Pages.ProductSearch} />
             <PublicRoute path={Paths.HandbookDetail()} component={Pages.HandbookDetail} />
             <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
             <PublicRoute path={Paths.Category()} component={Pages.Category} />

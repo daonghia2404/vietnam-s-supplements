@@ -1,0 +1,13 @@
+@import '../../assets/styles/global';
+
+.DropdownCustom {
+  &-overlay {
+    background: $white;
+    box-shadow: $common-shadow;
+    border-radius: 1rem;
+  }
+
+  &-body {
+    cursor: pointer;
+  }
+}

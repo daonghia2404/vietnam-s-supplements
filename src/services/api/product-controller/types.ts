@@ -14,6 +14,7 @@ export type TParamsGetProducts = {
   categoryId?: string;
   page: number;
   pageSize: number;
+  name?: string;
 };
 
 export type TGetProductsResponse = TPaginateResponse & {

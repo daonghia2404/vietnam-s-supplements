@@ -325,4 +325,45 @@
     top: 0;
     right: 0;
   }
+
+  &-search-wrapper {
+    min-width: 300px !important;
+
+    .Sidebar {
+      &-search {
+        padding: 2rem;
+
+        .ant-form-item {
+          margin-bottom: 0;
+
+          &:first-child {
+            flex: 1;
+          }
+        }
+
+        .Button {
+          .ant-btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            width: 5.2rem;
+            height: 5.2rem;
+            padding: 0;
+          }
+
+          &-icon {
+            .Icon {
+              width: 3rem;
+            }
+          }
+        }
+
+        .Input {
+          .ant-input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+        }
+      }
+    }
+  }
 }

@@ -11,6 +11,9 @@ import {
   TGetProductFailed,
   TGetProductRequest,
   TGetProductSuccess,
+  TGetProductsSearchFailed,
+  TGetProductsSearchRequest,
+  TGetProductsSearchSuccess,
 } from '@/redux/actions/product-controller/types';
 import {
   TParamsGetProductsFavorite,
@@ -61,6 +64,27 @@ export const getProductsAction = {
     EProductControllerAction.GET_PRODUCTS_FAILED,
     (resolve) =>
       (error: unknown): TGetProductsFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getProductsSearchAction = {
+  request: createActionCreator(
+    EProductControllerAction.GET_PRODUCTS_SEARCH_REQUEST,
+    (resolve) =>
+      (params: TParamsGetProducts, cb?: (response: TGetProductsResponse) => void): TGetProductsSearchRequest =>
+        resolve({ params, cb }),
+  ),
+  success: createActionCreator(
+    EProductControllerAction.GET_PRODUCTS_SEARCH_SUCCESS,
+    (resolve) =>
+      (response: TGetProductsResponse): TGetProductsSearchSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EProductControllerAction.GET_PRODUCTS_SEARCH_FAILED,
+    (resolve) =>
+      (error: unknown): TGetProductsSearchFailed =>
         resolve({ error }),
   ),
 };

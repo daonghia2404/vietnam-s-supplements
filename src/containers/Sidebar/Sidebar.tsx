@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Menu } from 'antd';
+import { Form, Menu } from 'antd';
 import { Link, globalHistory, navigate } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
@@ -16,8 +16,11 @@ import AuthHelpers from '@/services/helpers';
 import Modal from '@/components/Modal';
 import { getCartAction, getCategorysAction, getInfoAction } from '@/redux/actions';
 import { DEFAULT_PAGE } from '@/common/constants';
-import { showNotification } from '@/utils/functions';
+import { showNotification, validationRules } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
+import DropdownCustom from '@/components/DropdownCustom';
+import Input from '@/components/Input';
+import Button from '@/components/Button';
 
 import './Sidebar.scss';
 
@@ -25,6 +28,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const dispatch = useDispatch();
   const [pathName, setPathName] = useState<string>('');
   const pathNameArray = pathName.split('/');
+  const [form] = Form.useForm();
 
   const userInfo = useSelector((state: TRootState) => state.authReducer.user);
   const atk = userInfo?.id;
@@ -45,6 +49,8 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   }>({
     visible: false,
   });
+
+  const [visibleDropdownSearch, setVisibleDropdownSearch] = useState<boolean>(false);
 
   const renderDataMenu = (): TSidebarData[] => {
     if (isShowProfileMenu) return dataProfileMenu(authState);
@@ -97,6 +103,26 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
     }
   };
 
+  const handleSearchProduct = (values: any): void => {
+    navigate(`${Paths.ProductSearch}?keyword=${values.keyword}`);
+    setVisibleDropdownSearch(false);
+  };
+
+  const renderDropdownSearchProduct = (): React.ReactElement => {
+    return (
+      <div className="Sidebar-search">
+        <Form form={form} className="flex items-start" onFinish={handleSearchProduct}>
+          <Form.Item name="keyword" rules={[validationRules.required()]}>
+            <Input placeholder="Nhập tên sản phẩm" />
+          </Form.Item>
+          <Form.Item>
+            <Button iconName={EIconName.SearchSvg} type="primary" htmlType="submit" iconColor={EIconColor.WHITE} />
+          </Form.Item>
+        </Form>
+      </div>
+    );
+  };
+
   const getCategoriesData = useCallback(() => {
     const params = {
       page: DEFAULT_PAGE,
@@ -133,9 +159,16 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
         <div className="Sidebar-item-icon" onClick={onClickMenuBars}>
           <Icon name={EIconName.Bars} />
         </div>
-        <div className="Sidebar-item-icon disabled">
-          <Icon name={EIconName.Search} />
-        </div>
+        <DropdownCustom
+          visible={visibleDropdownSearch}
+          onVisibleChange={setVisibleDropdownSearch}
+          overlayClassName="Sidebar-search-wrapper"
+          overlay={renderDropdownSearchProduct()}
+        >
+          <div className="Sidebar-item-icon">
+            <Icon name={EIconName.Search} />
+          </div>
+        </DropdownCustom>
         <div className="Sidebar-item-icon" onClick={handleNavigateCarts}>
           <Icon name={EIconName.Cart} />
           {atk && <div className="Sidebar-item-icon-badge">{cartState?.cart?.length || 0}</div>}

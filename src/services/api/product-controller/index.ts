@@ -18,6 +18,11 @@ class Controller {
     return response.data;
   };
 
+  getProductsSearch = async (params: TParamsGetProducts): Promise<TGetProductsResponse> => {
+    const response = await Service.get('/product/search', { params });
+    return response.data;
+  };
+
   getProduct = async (id: string): Promise<TGetProductResponse> => {
     const response = await Service.get(`/product/${id}`);
     return response.data;

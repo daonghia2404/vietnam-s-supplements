@@ -39,6 +39,7 @@ import Logout from './Logout';
 import Share from './Share';
 import CloudDownload from './CloudDownload';
 import Minus from './Minus';
+import SearchSvg from './SearchSvg';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -111,7 +112,8 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <CloudDownload color={color} />;
       case EIconName.Minus:
         return <Minus color={color} />;
-
+      case EIconName.SearchSvg:
+        return <SearchSvg color={color} />;
       default:
         return <></>;
     }

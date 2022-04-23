@@ -33,6 +33,7 @@ export enum EIconName {
   Share = 'Share',
   CloudDownload = 'CloudDownload',
   Minus = 'Minus',
+  SearchSvg = 'SearchSvg',
 }
 
 export enum EIconColor {

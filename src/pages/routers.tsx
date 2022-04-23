@@ -79,6 +79,7 @@ const Category = lazy(() => retryLoadComponent(() => import('@/pages/Category'))
 const Product = lazy(() => retryLoadComponent(() => import('@/pages/Product')));
 const Carts = lazy(() => retryLoadComponent(() => import('@/pages/Carts')));
 const Checkout = lazy(() => retryLoadComponent(() => import('@/pages/Checkout')));
+const ProductSearch = lazy(() => retryLoadComponent(() => import('@/pages/ProductSearch')));
 
 export const LayoutPaths = {
   Guest: '/',
@@ -155,6 +156,7 @@ export const Paths = {
   Product: (id?: string): string => `/san-pham/${id || ':id'}`,
   Carts: ModulePaths.Carts,
   Checkout: `/thanh-toan`,
+  ProductSearch: `tim-kiem-san-pham`,
 
   Dashboard: '/',
   ListPage: '/danh-sach',
@@ -219,6 +221,7 @@ export const Pages = {
   Product,
   Carts,
   Checkout,
+  ProductSearch,
 
   Dashboard,
   ListPage,

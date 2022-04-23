@@ -17,6 +17,10 @@
     background: $white;
     position: relative;
 
+    .ant-form-item {
+      margin-bottom: 0;
+    }
+
     &-title {
       font-size: 1.8rem;
       font-weight: 500;

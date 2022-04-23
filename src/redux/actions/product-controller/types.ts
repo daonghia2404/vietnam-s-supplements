@@ -43,6 +43,24 @@ export type TGetProductsFailed = {
   payload: { error: unknown };
 };
 
+export type TGetProductsSearchRequest = {
+  type: EProductControllerAction.GET_PRODUCTS_SEARCH_REQUEST;
+  payload: {
+    params: TParamsGetProducts;
+    cb?: (response: TGetProductsResponse) => void;
+  };
+};
+
+export type TGetProductsSearchSuccess = {
+  type: EProductControllerAction.GET_PRODUCTS_SEARCH_SUCCESS;
+  payload: { response: TGetProductsResponse };
+};
+
+export type TGetProductsSearchFailed = {
+  type: EProductControllerAction.GET_PRODUCTS_SEARCH_FAILED;
+  payload: { error: unknown };
+};
+
 export type TGetProductRequest = {
   type: EProductControllerAction.GET_PRODUCT_REQUEST;
   payload: {

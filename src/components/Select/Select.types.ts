@@ -5,7 +5,17 @@ export type TSelectProps = {
   options?: TSelectOption[];
   showSearch?: boolean;
   disabled?: boolean;
-  onChange?: (option: TSelectOption) => void;
+  defaultValue?: TSelectOption;
+  allowClear?: boolean;
+  dropdownClassName?: string;
+  onSearch?: (keyword: string) => void;
+  paginate?: {
+    page: number;
+    pageSize: number;
+    total: number;
+  };
+  onLoadMore?: () => void;
+  onChange?: (option: TSelectOption | null) => void;
 };
 
 export type TSelectOption = {

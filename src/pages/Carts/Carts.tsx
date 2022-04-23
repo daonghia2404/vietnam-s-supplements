@@ -21,7 +21,7 @@ import { EFormatDate } from '@/common/enums';
 import { deleteCartAction, getAddressAction, getCartAction, getVouchersAction, patchCartAction } from '@/redux/actions';
 
 import './Carts.scss';
-import Select from '@/components/Select';
+import Select, { TSelectOption } from '@/components/Select';
 import Input from '@/components/Input';
 import Radio from '@/components/Radio';
 import { dataPaymentMethodOptions } from '@/pages/Carts/Carts.data';
@@ -43,10 +43,12 @@ const Carts: React.FC = () => {
   const deleteCartLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.DELETE_CART]);
   const isEmpty = carts?.cart?.length === 0;
 
+  const voucherTotalState = useSelector((state: TRootState) => state.voucherReducer.vouchers?.total);
   const [getVouchersParamsRequest, setGetVouchersParamsRequest] = useState<TParamsGetVouchers>({
     page: DEFAULT_PAGE,
     pageSize: DEFAULT_PAGE_SIZE,
   });
+  const [voucherOptions, setVoucherOptions] = useState<TSelectOption[]>([]);
 
   const handleCheckCart = (checked: boolean, data: TCartResponse): void => {
     if (checked) setCartsChecked([...cartsChecked, data]);
@@ -87,12 +89,28 @@ const Carts: React.FC = () => {
     return total;
   };
 
+  const handleLoadMoreVoucher = (): void => {
+    setGetVouchersParamsRequest({
+      ...getVouchersParamsRequest,
+      page: getVouchersParamsRequest.page + 1,
+    });
+  };
+
   const getCartsData = useCallback(() => {
     if (atk) dispatch(getCartAction.request());
   }, [atk, dispatch]);
 
   const getVouchersData = useCallback(() => {
-    if (atk) dispatch(getVouchersAction.request(getVouchersParamsRequest));
+    if (atk)
+      dispatch(
+        getVouchersAction.request(getVouchersParamsRequest, () => {
+          const isFirstFetching = getVouchersParamsRequest.page === DEFAULT_PAGE;
+          const options: any = [];
+          setVoucherOptions(isFirstFetching ? options : [...voucherOptions, ...options]);
+        }),
+      );
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [atk, getVouchersParamsRequest, dispatch]);
 
   const getAddressData = useCallback(() => {
@@ -195,7 +213,17 @@ const Carts: React.FC = () => {
                   <Form form={form} onFinish={handleSubmitCart}>
                     <div className="Carts-card-title">Voucher</div>
                     <Form.Item name="voucher">
-                      <Select placeholder="Chọn Voucher" options={[]} />
+                      <Select
+                        placeholder="Chọn Voucher"
+                        options={voucherOptions}
+                        onLoadMore={handleLoadMoreVoucher}
+                        paginate={{
+                          page: getVouchersParamsRequest.page,
+                          pageSize: getVouchersParamsRequest.pageSize,
+                          total: voucherTotalState || 0,
+                        }}
+                        allowClear
+                      />
                     </Form.Item>
 
                     <div className="Carts-card-title">Địa chỉ của bạn</div>

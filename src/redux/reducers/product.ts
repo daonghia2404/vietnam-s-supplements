@@ -1,6 +1,11 @@
 import { createReducer } from 'deox';
 
-import { getProductAction, getProductsAction, getProductsFavoriteAction } from '@/redux/actions';
+import {
+  getProductAction,
+  getProductsAction,
+  getProductsFavoriteAction,
+  getProductsSearchAction,
+} from '@/redux/actions';
 import {
   TGetProductResponse,
   TGetProductsFavoriteResponse,
@@ -10,6 +15,7 @@ import {
 export interface IUIState {
   productsFavorite?: TGetProductsFavoriteResponse;
   products?: TGetProductsResponse;
+  productsSearch?: TGetProductsResponse;
   product?: TGetProductResponse;
 }
 const initialState: IUIState = {
@@ -29,6 +35,13 @@ const reducer = createReducer(initialState, (handleAction) => [
     return {
       ...state,
       products: response,
+    };
+  }),
+  handleAction(getProductsSearchAction.success, (state, { payload }) => {
+    const { response } = payload;
+    return {
+      ...state,
+      productsSearch: response,
     };
   }),
   handleAction(getProductAction.success, (state, { payload }) => {
