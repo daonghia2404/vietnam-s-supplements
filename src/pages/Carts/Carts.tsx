@@ -13,12 +13,25 @@ import { TRootState } from '@/redux/reducers';
 import { ECartControllerAction } from '@/redux/actions/cart-controller/constants';
 import PageLoading from '@/components/PageLoading';
 import EmptyBox from '@/components/EmptyBox';
-import { Paths } from '@/pages/routers';
+import { LayoutPaths, Paths } from '@/pages/routers';
 import { TCartResponse } from '@/services/api/cart-controller/types';
-import { caculatorSalePrice, formatISODateToDateTime, formatMoneyVND, validationRules } from '@/utils/functions';
+import {
+  caculatorSalePrice,
+  formatISODateToDateTime,
+  formatMoneyVND,
+  showNotification,
+  validationRules,
+} from '@/utils/functions';
 import Checkbox from '@/components/Checkbox';
-import { EFormatDate } from '@/common/enums';
-import { deleteCartAction, getAddressAction, getCartAction, getVouchersAction, patchCartAction } from '@/redux/actions';
+import { EFormatDate, ETypeNotification } from '@/common/enums';
+import {
+  createOrderAction,
+  deleteCartAction,
+  getAddressAction,
+  getCartAction,
+  getVouchersAction,
+  patchCartAction,
+} from '@/redux/actions';
 
 import './Carts.scss';
 import Select, { TSelectOption } from '@/components/Select';
@@ -27,6 +40,7 @@ import Radio from '@/components/Radio';
 import { dataPaymentMethodOptions } from '@/pages/Carts/Carts.data';
 import { TParamsGetVouchers } from '@/services/api/voucher-controller/types';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
+import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
 
 const Carts: React.FC = () => {
   const dispatch = useDispatch();
@@ -41,6 +55,9 @@ const Carts: React.FC = () => {
   const getCartsLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.GET_CART]);
   const patchCartLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.PATCH_CART]);
   const deleteCartLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.DELETE_CART]);
+  const createOrderLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EOrderControllerAction.CREATE_ORDER],
+  );
   const isEmpty = carts?.cart?.length === 0;
 
   const voucherTotalState = useSelector((state: TRootState) => state.voucherReducer.vouchers?.total);
@@ -73,8 +90,29 @@ const Carts: React.FC = () => {
     navigate(Paths.Home);
   };
 
-  const handleSubmitCart = (): void => {
-    navigate(Paths.Checkout);
+  const handleSubmitCart = (values: any): void => {
+    const body = {
+      typePayment: values?.typePayment?.value,
+      referCode: values?.referCode || '',
+      idCardBackCard: userInfo?.backIdCard,
+      idCardFontCard: userInfo?.frontIdCard,
+      address: userInfo?.address,
+      phoneRevicer: userInfo?.phone,
+      nameReceiver: userInfo?.fullName,
+      district: userInfo?.district,
+      city: userInfo?.city,
+    };
+
+    dispatch(createOrderAction.request(body, handleCreateOrderSuccess));
+  };
+
+  const handleCreateOrderSuccess = (response: any): void => {
+    if (response === 'not enough money') {
+      showNotification(ETypeNotification.ERROR, 'Bạn không đủ tiền để thực hiện');
+    } else {
+      showNotification(ETypeNotification.SUCCESS, 'Tạo đơn hàng thành công');
+      navigate(`${LayoutPaths.Profile}${Paths.Cart}`);
+    }
   };
 
   const caculatorTotalPrice = (): number => {
@@ -137,6 +175,10 @@ const Carts: React.FC = () => {
     getVouchersData();
   }, [getVouchersData]);
 
+  useEffect(() => {
+    setCartsChecked(carts?.cart || []);
+  }, [carts]);
+
   return (
     <div className="Carts">
       <HeaderSkew title="Giỏ hàng" />
@@ -162,12 +204,12 @@ const Carts: React.FC = () => {
                       >
                         <Icon name={EIconName.Close} />
                       </div>
-                      <div className="Carts-orders-item-check">
+                      {/* <div className="Carts-orders-item-check">
                         <Checkbox
                           value={cartsChecked.map((cart) => cart.id).includes(item.id)}
                           onChange={(checked): void => handleCheckCart(checked, item)}
                         />
-                      </div>
+                      </div> */}
                       <div className="Carts-orders-item-image">
                         <img src={item.product.image} alt="" />
                       </div>
@@ -236,7 +278,7 @@ const Carts: React.FC = () => {
                     </div>
                     <div className="Carts-card-title">Phương thức thanh toán</div>
 
-                    <Form.Item name="paymentMethod" rules={[validationRules.required()]}>
+                    <Form.Item name="typePayment" rules={[validationRules.required()]}>
                       <Radio options={dataPaymentMethodOptions} />
                     </Form.Item>
                     <div className="Carts-card-title">Mã giới thiệu</div>
@@ -263,7 +305,13 @@ const Carts: React.FC = () => {
                         </div>
                       </div>
                       <div className="Carts-row-submit">
-                        <Button type="primary" title="Đặt hàng" size="large" htmlType="submit" />
+                        <Button
+                          type="primary"
+                          title="Đặt hàng"
+                          size="large"
+                          htmlType="submit"
+                          loading={createOrderLoading}
+                        />
                       </div>
                     </div>
                   </Form>

@@ -5,6 +5,9 @@ import {
   TGetProductsResponse,
   TParamsGetProducts,
   TGetProductResponse,
+  TLikeProductResponse,
+  TUnlikeProductResponse,
+  TIsFavoriteProductResponse,
 } from '@/services/api/product-controller/types';
 
 export type TGetProductsFavoriteRequest = {
@@ -76,5 +79,59 @@ export type TGetProductSuccess = {
 
 export type TGetProductFailed = {
   type: EProductControllerAction.GET_PRODUCT_FAILED;
+  payload: { error: unknown };
+};
+
+export type TLikeProductRequest = {
+  type: EProductControllerAction.LIKE_PRODUCT_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TLikeProductResponse) => void;
+  };
+};
+
+export type TLikeProductSuccess = {
+  type: EProductControllerAction.LIKE_PRODUCT_SUCCESS;
+  payload: { response: TLikeProductResponse };
+};
+
+export type TLikeProductFailed = {
+  type: EProductControllerAction.LIKE_PRODUCT_FAILED;
+  payload: { error: unknown };
+};
+
+export type TUnlikeProductRequest = {
+  type: EProductControllerAction.UNLIKE_PRODUCT_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TUnlikeProductResponse) => void;
+  };
+};
+
+export type TUnlikeProductSuccess = {
+  type: EProductControllerAction.UNLIKE_PRODUCT_SUCCESS;
+  payload: { response: TUnlikeProductResponse };
+};
+
+export type TUnlikeProductFailed = {
+  type: EProductControllerAction.UNLIKE_PRODUCT_FAILED;
+  payload: { error: unknown };
+};
+
+export type TIsFavoriteProductRequest = {
+  type: EProductControllerAction.IS_FAVORITE_PRODUCT_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TIsFavoriteProductResponse) => void;
+  };
+};
+
+export type TIsFavoriteProductSuccess = {
+  type: EProductControllerAction.IS_FAVORITE_PRODUCT_SUCCESS;
+  payload: { response: TIsFavoriteProductResponse };
+};
+
+export type TIsFavoriteProductFailed = {
+  type: EProductControllerAction.IS_FAVORITE_PRODUCT_FAILED;
   payload: { error: unknown };
 };

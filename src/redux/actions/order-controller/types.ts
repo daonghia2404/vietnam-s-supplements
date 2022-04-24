@@ -1,5 +1,11 @@
 import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
-import { TGetOrderResponse, TGetOrdersResponse, TParamsGetOrders } from '@/services/api/order-controller/types';
+import {
+  TCreateOrderBody,
+  TCreateOrderResponse,
+  TGetOrderResponse,
+  TGetOrdersResponse,
+  TParamsGetOrders,
+} from '@/services/api/order-controller/types';
 
 export type TGetOrdersRequest = {
   type: EOrderControllerAction.GET_ORDERS_REQUEST;
@@ -30,3 +36,18 @@ export type TGetOrderSuccess = {
 };
 
 export type TGetOrderFailed = { type: EOrderControllerAction.GET_ORDER_FAILED; payload: { error: unknown } };
+
+export type TCreateOrderRequest = {
+  type: EOrderControllerAction.CREATE_ORDER_REQUEST;
+  payload: {
+    body: TCreateOrderBody;
+    cb?: (response: TCreateOrderResponse) => void;
+  };
+};
+
+export type TCreateOrderSuccess = {
+  type: EOrderControllerAction.CREATE_ORDER_SUCCESS;
+  payload: { response: TCreateOrderResponse };
+};
+
+export type TCreateOrderFailed = { type: EOrderControllerAction.CREATE_ORDER_FAILED; payload: { error: unknown } };

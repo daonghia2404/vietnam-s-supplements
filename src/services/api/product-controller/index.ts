@@ -5,6 +5,9 @@ import {
   TGetProductResponse,
   TGetProductsResponse,
   TParamsGetProducts,
+  TLikeProductResponse,
+  TUnlikeProductResponse,
+  TIsFavoriteProductResponse,
 } from '@/services/api/product-controller/types';
 
 class Controller {
@@ -25,6 +28,21 @@ class Controller {
 
   getProduct = async (id: string): Promise<TGetProductResponse> => {
     const response = await Service.get(`/product/${id}`);
+    return response.data;
+  };
+
+  likeProduct = async (id: string): Promise<TLikeProductResponse> => {
+    const response = await Service.get(`/product/favorite/like/${id}`);
+    return response.data;
+  };
+
+  unlikeProduct = async (id: string): Promise<TUnlikeProductResponse> => {
+    const response = await Service.get(`/product/favorite/unlike/${id}`);
+    return response.data;
+  };
+
+  isFavoriteProduct = async (id: string): Promise<TIsFavoriteProductResponse> => {
+    const response = await Service.get(`/product/is-favorite/${id}`);
     return response.data;
   };
 }

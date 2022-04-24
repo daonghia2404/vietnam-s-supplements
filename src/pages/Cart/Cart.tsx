@@ -16,6 +16,7 @@ import { cartFilterTabOptions } from '@/pages/Cart/Cart.data';
 import PageLoading from '@/components/PageLoading';
 
 import './Cart.scss';
+import { formatMoneyVND } from '@/utils/functions';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,12 @@ const Cart: React.FC = () => {
   };
 
   const getOrdersData = useCallback(() => {
-    dispatch(getOrdersAction.request(getOrdersParamsRequest));
+    dispatch(
+      getOrdersAction.request({
+        ...getOrdersParamsRequest,
+        status: getOrdersParamsRequest?.status || undefined,
+      }),
+    );
   }, [dispatch, getOrdersParamsRequest]);
 
   useEffect(() => {
@@ -81,28 +87,36 @@ const Cart: React.FC = () => {
               <PageLoading />
             ) : (
               <>
-                {ordersState?.records.map((item) => (
-                  <div key={item} className="Cart-card">
-                    <div className="Cart-card-row flex justify-between">
-                      <div className="Cart-card-text bold">Mã đơn hàng</div>
-                      <div className="Cart-card-text">ABC 123456</div>
-                    </div>
-                    <div className="Cart-card-row flex justify-between">
-                      <div className="Cart-card-text success">Hoàn thành</div>
-                    </div>
-                    <div className="Cart-card-row flex justify-between">
-                      <div className="Cart-card-text bold">1 sản phẩm</div>
-                      <div className="Cart-card-text hightlight">900.000 đ</div>
-                    </div>
+                {ordersState?.records.map((item) => {
+                  const statusOrder = cartFilterTabOptions.find(
+                    (option) => String(option.value) === String(item.status),
+                  );
 
-                    <div className="Cart-card-footer">
+                  return (
+                    <div key={item.id} className="Cart-card">
                       <div className="Cart-card-row flex justify-between">
-                        <div className="Cart-card-text">Tích điểm</div>
-                        <div className="Cart-card-text">+ 100 điểm</div>
+                        <div className="Cart-card-text bold">Mã đơn hàng</div>
+                        <div className="Cart-card-text">{item.orderCode}</div>
+                      </div>
+                      <div className="Cart-card-row flex justify-between">
+                        <div className={classNames('Cart-card-text', statusOrder?.color)}>{statusOrder?.label}</div>
+                      </div>
+                      <div className="Cart-card-row flex justify-between">
+                        <div className="Cart-card-text bold">{item.amount || 0} sản phẩm</div>
+                        <div className="Cart-card-text hightlight">
+                          {formatMoneyVND({ amount: item.totalprice || 0, showSuffix: true })}
+                        </div>
+                      </div>
+
+                      <div className="Cart-card-footer">
+                        <div className="Cart-card-row flex justify-between">
+                          <div className="Cart-card-text">Tích điểm</div>
+                          <div className="Cart-card-text">+ {item.point} điểm</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </>
             )}
 

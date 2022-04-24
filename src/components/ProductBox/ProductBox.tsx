@@ -66,6 +66,9 @@ const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title,
   return (
     <div className={classNames('ProductBox', className, { background: hasBg })}>
       {sale && <div className="ProductBox-badge">{sale}%</div>}
+      {/* <div className={classNames('ProductBox-heart', { disabled: favoriteLoading })} onClick={handleClickFavorite}>
+        <Icon name={EIconName.Heart} />
+      </div> */}
       <div className="ProductBox-image" onClick={handleNavigateProductDetail}>
         <img src={image} alt="" />
       </div>

@@ -1,7 +1,13 @@
 import { createActionCreator } from 'deox';
 
 import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
-import { TGetOrderResponse, TGetOrdersResponse, TParamsGetOrders } from '@/services/api/order-controller/types';
+import {
+  TCreateOrderBody,
+  TCreateOrderResponse,
+  TGetOrderResponse,
+  TGetOrdersResponse,
+  TParamsGetOrders,
+} from '@/services/api/order-controller/types';
 import {
   TGetOrdersRequest,
   TGetOrdersSuccess,
@@ -9,6 +15,9 @@ import {
   TGetOrderFailed,
   TGetOrderRequest,
   TGetOrderSuccess,
+  TCreateOrderFailed,
+  TCreateOrderRequest,
+  TCreateOrderSuccess,
 } from '@/redux/actions/order-controller/types';
 
 export const getOrdersAction = {
@@ -49,6 +58,27 @@ export const getOrderAction = {
     EOrderControllerAction.GET_ORDER_FAILED,
     (resolve) =>
       (error: unknown): TGetOrderFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const createOrderAction = {
+  request: createActionCreator(
+    EOrderControllerAction.CREATE_ORDER_REQUEST,
+    (resolve) =>
+      (body: TCreateOrderBody, cb?: (response: TCreateOrderResponse) => void): TCreateOrderRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    EOrderControllerAction.CREATE_ORDER_SUCCESS,
+    (resolve) =>
+      (response: TCreateOrderResponse): TCreateOrderSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EOrderControllerAction.CREATE_ORDER_FAILED,
+    (resolve) =>
+      (error: unknown): TCreateOrderFailed =>
         resolve({ error }),
   ),
 };

@@ -66,6 +66,18 @@
     }
   }
 
+  &-heart {
+    position: absolute;
+    top: 3rem;
+    right: 2rem;
+    width: 3rem;
+
+    &.disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
   &-info {
     &-title {
       font-size: 2.2rem;

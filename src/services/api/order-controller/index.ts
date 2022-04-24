@@ -1,5 +1,11 @@
 import Service from '@/services/api';
-import { TParamsGetOrders, TGetOrdersResponse, TGetOrderResponse } from '@/services/api/order-controller/types';
+import {
+  TParamsGetOrders,
+  TGetOrdersResponse,
+  TGetOrderResponse,
+  TCreateOrderBody,
+  TCreateOrderResponse,
+} from '@/services/api/order-controller/types';
 
 class Controller {
   getOrders = async (params: TParamsGetOrders): Promise<TGetOrdersResponse> => {
@@ -9,6 +15,11 @@ class Controller {
 
   getOrder = async (id: string): Promise<TGetOrderResponse> => {
     const response = await Service.get(`/order/${id}`);
+    return response.data;
+  };
+
+  createOrder = async (body: TCreateOrderBody): Promise<TCreateOrderResponse> => {
+    const response = await Service.post(`/order/create-oder`, body);
     return response.data;
   };
 }

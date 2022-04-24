@@ -7,7 +7,7 @@ export type TParamsGetProductsFavorite = {
   categoryId: string | null;
 };
 export type TGetProductsFavoriteResponse = TPaginateResponse & {
-  records: any;
+  records: TProductResponse[];
 };
 
 export type TParamsGetProducts = {
@@ -61,3 +61,9 @@ export type TProductObject = {
 };
 
 export type TGetProductResponse = TProductResponse;
+
+export type TLikeProductResponse = unknown;
+export type TUnlikeProductResponse = unknown;
+export type TIsFavoriteProductResponse = {
+  message: boolean;
+};

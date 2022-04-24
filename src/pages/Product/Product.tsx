@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 import ImageCertificate1 from '@/assets/images/image-certificate-1.png';
 import ImageCart from '@/assets/images/image-cart.png';
@@ -10,19 +11,26 @@ import ImageProduct2 from '@/assets/images/image-product-2.jpeg';
 import { TRootState } from '@/redux/reducers';
 import { EProductControllerAction } from '@/redux/actions/product-controller/constants';
 import PageLoading from '@/components/PageLoading';
-import { getProductAction, getProductsAction } from '@/redux/actions';
+import {
+  getProductAction,
+  getProductsAction,
+  isFavoriteProductAction,
+  likeProductAction,
+  unlikeProductAction,
+} from '@/redux/actions';
 import ProductBox from '@/components/ProductBox';
-import Icon, { EIconName } from '@/components/Icon';
+import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Carousels, { TCarouselsProps } from '@/components/Carousels';
 import { EDeviceType } from '@/redux/reducers/ui';
-import { caculatorSalePrice, formatMoneyVND } from '@/utils/functions';
+import { caculatorSalePrice, formatMoneyVND, showNotification } from '@/utils/functions';
 import { DEFAULT_PAGE } from '@/common/constants';
 import { Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
 import DistributionProductModal from '@/pages/Product/DistributionProductModal';
+import { TProductResponse } from '@/services/api/product-controller/types';
+import { ETypeNotification } from '@/common/enums';
 
 import './Product.scss';
-import { TProductResponse } from '@/services/api/product-controller/types';
 
 const Product: React.FC = () => {
   const { id } = useParams();
@@ -42,6 +50,17 @@ const Product: React.FC = () => {
     (state: TRootState) => state.loadingReducer[EProductControllerAction.GET_PRODUCT],
   );
   const productsState = useSelector((state: TRootState) => state.productReducer.products);
+
+  const likeProductLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EProductControllerAction.LIKE_PRODUCT],
+  );
+  const unlikeProductLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EProductControllerAction.UNLIKE_PRODUCT],
+  );
+  const isFavoriteProductState = useSelector((state: TRootState) => state.productReducer.isFavoriteProduct?.message);
+
+  const favoriteLoading = likeProductLoading || unlikeProductLoading;
+
   const isEmpty = productsState?.records.length === 0;
 
   const handleOpenDistributionProductModal = (): void => {
@@ -49,6 +68,26 @@ const Product: React.FC = () => {
   };
   const handleCloseDistributionProductModal = (): void => {
     setDistributionProductModalState({ visible: false });
+  };
+
+  const handleClickFavoriteProduct = (): void => {
+    if (!favoriteLoading) {
+      if (isFavoriteProductState) {
+        dispatch(unlikeProductAction.request(id, handleFavoriteProductSuccess));
+      } else {
+        dispatch(likeProductAction.request(id, handleFavoriteProductSuccess));
+      }
+    }
+  };
+
+  const handleFavoriteProductSuccess = (): void => {
+    if (isFavoriteProductState) {
+      showNotification(ETypeNotification.SUCCESS, 'Đã bỏ sản phẩm khỏi danh sách yêu thích');
+      dispatch(isFavoriteProductAction.success({ message: false }));
+    } else {
+      showNotification(ETypeNotification.SUCCESS, 'Đã thêm sản phẩm vào danh sách yêu thích');
+      dispatch(isFavoriteProductAction.success({ message: true }));
+    }
   };
 
   const carouselProps = (): TCarouselsProps => {
@@ -81,6 +120,14 @@ const Product: React.FC = () => {
       );
   }, [dispatch, productState?.category?.id]);
 
+  const getIsFavoriteProductData = useCallback(() => {
+    if (id) dispatch(isFavoriteProductAction.request(id));
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    getIsFavoriteProductData();
+  }, [getIsFavoriteProductData]);
+
   useEffect(() => {
     getProductsByCategory();
   }, [getProductsByCategory]);
@@ -96,6 +143,12 @@ const Product: React.FC = () => {
       ) : (
         <div className="Product-wrapper">
           <div className="Product-banner flex flex-wrap">
+            <div
+              className={classNames('Product-banner-favorite', { disabled: favoriteLoading })}
+              onClick={handleClickFavoriteProduct}
+            >
+              <Icon name={EIconName.Heart} color={isFavoriteProductState ? EIconColor.RED : EIconColor.BLACK} />
+            </div>
             <div className="Product-banner-item flex justify-center">
               <div className="Product-banner-image">
                 <img src={productState?.image} alt="" />

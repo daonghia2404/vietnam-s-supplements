@@ -73,6 +73,10 @@
         color: $buddha-gold;
       }
 
+      &.error {
+        color: $red;
+      }
+
       &.disabled {
         color: $boulder;
       }

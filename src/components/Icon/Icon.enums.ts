@@ -44,4 +44,5 @@ export enum EIconColor {
   ELECTRIC_VIOLET = '#6338FA',
   BUDDHA_GOLD = '#d79d00',
   INTERNATIONAL_KLEIN_BLUE = '#021EAE',
+  RED = '#ff0000',
 }

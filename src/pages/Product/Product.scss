@@ -6,6 +6,20 @@
     background: url('../../assets/images/bg-product.png');
     background-size: cover;
     background-position: center;
+    position: relative;
+
+    &-favorite {
+      position: absolute;
+      top: 3rem;
+      right: 3rem;
+      width: 4rem;
+      cursor: pointer;
+
+      &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
 
     &-item {
       flex: 0 0 50%;
