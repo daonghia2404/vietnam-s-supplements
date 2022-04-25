@@ -42,7 +42,7 @@ const Register: React.FC = () => {
         body: {
           password: values.password,
           phone: values.phone,
-          inviteCode: values.inviteCode,
+          inviteCode: values.inviteCode || '',
         },
       },
     });

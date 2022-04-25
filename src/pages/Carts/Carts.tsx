@@ -94,13 +94,13 @@ const Carts: React.FC = () => {
     const body = {
       typePayment: values?.typePayment?.value,
       referCode: values?.referCode || '',
-      idCardBackCard: userInfo?.backIdCard,
-      idCardFontCard: userInfo?.frontIdCard,
-      address: userInfo?.address,
-      phoneRevicer: userInfo?.phone,
-      nameReceiver: userInfo?.fullName,
-      district: userInfo?.district,
-      city: userInfo?.city,
+      idCardBackCard: userInfo?.backIdCard || '',
+      idCardFontCard: userInfo?.frontIdCard || '',
+      address: userInfo?.address || '',
+      phoneRevicer: userInfo?.phone || '',
+      nameReceiver: userInfo?.fullName || '',
+      district: userInfo?.district || '',
+      city: userInfo?.city || '',
     };
 
     dispatch(createOrderAction.request(body, handleCreateOrderSuccess));

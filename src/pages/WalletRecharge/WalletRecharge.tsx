@@ -133,11 +133,11 @@ const WalletRecharge: React.FC = () => {
               <Select placeholder="Phương thức thanh toán" />
             </Form.Item> */}
 
-            <div className="WalletRecharge-text bold">Lưu ý</div>
+            {/* <div className="WalletRecharge-text bold">Lưu ý</div>
             <div className="WalletRecharge-text gray">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
               industrys standard dummy text ever since the 1500s
-            </div>
+            </div> */}
 
             <div className="WalletRecharge-submit flex justify-center">
               <Button type="primary" htmlType="submit" title="Nạp tiền" />
@@ -158,7 +158,7 @@ const WalletRecharge: React.FC = () => {
         <div className="Modal-body-description">
           Bạn có chắc chắn muốn nạp{' '}
           <strong>{formatMoneyVND({ amount: confirmRechargeModalState?.data?.amount || 0, showSuffix: true })}</strong>{' '}
-          vào ví VN Supplements thanh toán qua phương thức <strong>{`{{PHUONG_THUC}}`}</strong> không?
+          vào ví VN Supplements thanh toán qua phương thức <strong>Appotapay</strong> không?
         </div>
       </Modal>
 
