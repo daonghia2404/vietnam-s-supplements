@@ -79,11 +79,21 @@ const ProfileInformation: React.FC = () => {
   };
 
   const getAddressWithExistedCity = (): void => {
-    dispatch(getAddressAction.request({ cityCode: authInfoState.city, districtCode: null }));
+    dispatch(
+      getAddressAction.request({
+        cityCode: getAddressParamsRequest.cityCode || authInfoState.city,
+        districtCode: null,
+      }),
+    );
   };
 
   const getAddressWithExistedCityAndDistrict = (): void => {
-    dispatch(getAddressAction.request({ cityCode: authInfoState.city, districtCode: authInfoState.district }));
+    dispatch(
+      getAddressAction.request({
+        cityCode: getAddressParamsRequest.cityCode || authInfoState.city,
+        districtCode: getAddressParamsRequest.districtCode || authInfoState.district,
+      }),
+    );
   };
 
   useEffect(() => {
@@ -108,7 +118,7 @@ const ProfileInformation: React.FC = () => {
       setIsAvaiableSetDefaultValue(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [form, authInfoState, addressState]);
+  }, [form, authInfoState, addressState, isAvaiableSetDefaultValue]);
 
   useEffect(() => {
     if (!isAvaiableSetDefaultValue) getAddressData();

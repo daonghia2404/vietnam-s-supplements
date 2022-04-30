@@ -5,7 +5,6 @@ import TradeMark from '@/containers/TradeMark';
 import ProductsCarousel from '@/containers/ProductsCarousel';
 import ReviewsCarousel from '@/containers/ReviewsCarousel';
 import QuanlityStandards from '@/containers/QualityStandards';
-import Footer from '@/containers/Footer';
 
 const Home: React.FC = () => {
   return (
@@ -15,7 +14,6 @@ const Home: React.FC = () => {
       <ProductsCarousel title="Sản phẩm" />
       <ReviewsCarousel />
       <QuanlityStandards />
-      <Footer />
     </div>
   );
 };

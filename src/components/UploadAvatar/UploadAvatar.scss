@@ -9,6 +9,11 @@
   cursor: pointer;
   margin: auto;
 
+  .Upload,
+  .Upload-wrapper {
+    height: 100%;
+  }
+
   &-image {
     position: relative;
     width: 100%;

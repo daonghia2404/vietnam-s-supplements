@@ -256,9 +256,9 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
           <div className="Sidebar-item-subcrible">
             <div className="Sidebar-item-subcrible-title">Subcrible</div>
             <a
-              href="https://google.com.vn"
+              href="https://www.facebook.com/supplementsvietnam?gidzl=gBSK4YzMb1QbhHOMBqcM4AYf41CvIC8HjgH17pr1a1YwfX8NCq6G4xkZ6nKoHPWIwF5E736_rRCs9bkG5m"
               target="_blank"
-              className="Sidebar-item-subcrible-link flex items-center disabled"
+              className="Sidebar-item-subcrible-link flex items-center"
               rel="noreferrer"
               onClick={(e): void => e.preventDefault()}
             >
@@ -266,25 +266,27 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
               Facebook
             </a>
             <a
-              href="https://google.com.vn"
+              href="https://www.instagram.com/vnsupplements/"
               target="_blank"
-              className="Sidebar-item-subcrible-link flex items-center disabled"
+              className="Sidebar-item-subcrible-link flex items-center"
               rel="noreferrer"
-              onClick={(e): void => e.preventDefault()}
             >
               <Icon name={EIconName.Instagram} />
               Instagram
             </a>
             <a
-              href="https://google.com.vn"
+              href="https://www.tiktok.com/@vnsupplements"
               target="_blank"
-              className="Sidebar-item-subcrible-link flex items-center disabled"
+              className="Sidebar-item-subcrible-link flex items-center"
               rel="noreferrer"
-              onClick={(e): void => e.preventDefault()}
             >
-              <Icon name={EIconName.Edit} />
-              Đăng ký tư vấn
+              <Icon name={EIconName.Tiktok} />
+              Tiktok
             </a>
+            <Link to={Paths.Contact} target="_blank" className="Sidebar-item-subcrible-link flex items-center">
+              <Icon className="stroke" name={EIconName.Edit} />
+              Đăng ký tư vấn
+            </Link>
           </div>
         )}
       </div>

@@ -50,12 +50,30 @@ const Footer: React.FC = () => {
             <div className="Footer-title italic">Về chúng tôi</div>
             <br />
             <div className="Footer-socials flex flex-wrap">
-              <div className="Footer-socials-item">
+              <a
+                href="https://www.facebook.com/supplementsvietnam?gidzl=gBSK4YzMb1QbhHOMBqcM4AYf41CvIC8HjgH17pr1a1YwfX8NCq6G4xkZ6nKoHPWIwF5E736_rRCs9bkG5m"
+                target="_blank"
+                className="Footer-socials-item"
+                rel="noreferrer"
+              >
                 <Icon name={EIconName.Facebook} color={EIconColor.WHITE} />
-              </div>
-              <div className="Footer-socials-item">
+              </a>
+              <a
+                href="https://www.instagram.com/vnsupplements/"
+                target="_blank"
+                className="Footer-socials-item"
+                rel="noreferrer"
+              >
                 <Icon name={EIconName.Instagram} color={EIconColor.WHITE} />
-              </div>
+              </a>
+              <a
+                href="https://www.tiktok.com/@vnsupplements"
+                target="_blank"
+                className="Footer-socials-item"
+                rel="noreferrer"
+              >
+                <Icon name={EIconName.Tiktok} color={EIconColor.WHITE} />
+              </a>
             </div>
             <br />
             <div className="Footer-gov">

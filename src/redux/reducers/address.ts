@@ -16,7 +16,7 @@ const initialState: IUIState = {
 };
 
 const parseToOptions = (data: TAddressResponse[]): TSelectOption[] =>
-  data.map((item) => ({ label: item.name_with_type, value: item.code }));
+  data?.map((item) => ({ label: item.name_with_type, value: item.code })) || [];
 
 const reducer = createReducer(initialState, (handleAction) => [
   handleAction(getAddressAction.success, (state, { payload }) => {

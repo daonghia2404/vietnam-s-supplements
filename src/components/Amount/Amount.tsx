@@ -38,11 +38,11 @@ const Amount: React.FC<TAmountProps> = ({ value, step = 1, onChange, min = 1, ma
 
   return (
     <div className={classNames('Amount flex items-center', { disabled })}>
-      <div className={classNames('Amount-minus', { disabled: value === min })} onClick={handleMinus}>
+      <div className={classNames('Amount-minus', { disabled: currentValue === min })} onClick={handleMinus}>
         <Icon name={EIconName.Minus} color={EIconColor.WHITE} />
       </div>
       <span>{currentValue}</span>
-      <div className={classNames('Amount-plus', { disabled: value === max })} onClick={handlePlus}>
+      <div className={classNames('Amount-plus', { disabled: max && currentValue === max })} onClick={handlePlus}>
         <Icon name={EIconName.Plus} color={EIconColor.WHITE} />
       </div>
     </div>

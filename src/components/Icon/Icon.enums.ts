@@ -34,6 +34,7 @@ export enum EIconName {
   CloudDownload = 'CloudDownload',
   Minus = 'Minus',
   SearchSvg = 'SearchSvg',
+  Tiktok = 'Tiktok',
 }
 
 export enum EIconColor {
