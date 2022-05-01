@@ -14,9 +14,9 @@ import Pagination from '@/components/Pagination';
 import EmptyBox from '@/components/EmptyBox';
 import { cartFilterTabOptions } from '@/pages/Cart/Cart.data';
 import PageLoading from '@/components/PageLoading';
+import { formatMoneyVND } from '@/utils/functions';
 
 import './Cart.scss';
-import { formatMoneyVND } from '@/utils/functions';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();

@@ -22,7 +22,6 @@ import {
   showNotification,
   validationRules,
 } from '@/utils/functions';
-import Checkbox from '@/components/Checkbox';
 import { EFormatDate, ETypeNotification } from '@/common/enums';
 import {
   createOrderAction,
@@ -31,6 +30,7 @@ import {
   getCartAction,
   getVouchersAction,
   patchCartAction,
+  uiActions,
 } from '@/redux/actions';
 
 import './Carts.scss';
@@ -41,6 +41,7 @@ import { dataPaymentMethodOptions } from '@/pages/Carts/Carts.data';
 import { TParamsGetVouchers } from '@/services/api/voucher-controller/types';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
 import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
+import { handleChangeAmountCartLocalStorage, handleDeleteCartLocalStorage } from '@/utils/cart';
 
 const Carts: React.FC = () => {
   const dispatch = useDispatch();
@@ -51,14 +52,17 @@ const Carts: React.FC = () => {
   const userInfo = useSelector((state: TRootState) => state.authReducer.user);
   const addressState = useSelector((state: TRootState) => state.addressReducer);
 
-  const carts = useSelector((state: TRootState) => state.cartReducer.cart);
+  const cartsDatabase = useSelector((state: TRootState) => state.cartReducer.cart?.cart);
+  const cartsStorage = useSelector((state: TRootState) => state.uiReducer.cartsStorage) || [];
+  const carts = atk ? cartsDatabase : cartsStorage;
+
   const getCartsLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.GET_CART]);
   const patchCartLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.PATCH_CART]);
   const deleteCartLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.DELETE_CART]);
   const createOrderLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EOrderControllerAction.CREATE_ORDER],
   );
-  const isEmpty = carts?.cart?.length === 0;
+  const isEmpty = carts?.length === 0;
 
   const voucherTotalState = useSelector((state: TRootState) => state.voucherReducer.vouchers?.total);
   const [getVouchersParamsRequest, setGetVouchersParamsRequest] = useState<TParamsGetVouchers>({
@@ -67,23 +71,40 @@ const Carts: React.FC = () => {
   });
   const [voucherOptions, setVoucherOptions] = useState<TSelectOption[]>([]);
 
-  const handleCheckCart = (checked: boolean, data: TCartResponse): void => {
-    if (checked) setCartsChecked([...cartsChecked, data]);
-    else setCartsChecked(cartsChecked.filter((cart) => cart.id !== data.id));
-  };
+  // const handleCheckCart = (checked: boolean, data: TCartResponse): void => {
+  //   if (checked) setCartsChecked([...cartsChecked, data]);
+  //   else setCartsChecked(cartsChecked.filter((cart) => cart.id !== data.id));
+  // };
 
   const handleChangeAmount = (amount: number, data: TCartResponse): void => {
-    if (!patchCartLoading) {
-      const patchBody = {
-        amount,
-      };
+    if (atk) {
+      if (!patchCartLoading) {
+        const patchBody = {
+          amount,
+        };
 
-      dispatch(patchCartAction.request(data.id, patchBody, getCartsData));
+        dispatch(patchCartAction.request(data.id, patchBody, getCartsData));
+      }
+    } else {
+      const newCartsData = handleChangeAmountCartLocalStorage(cartsStorage, data.id, amount);
+      dispatch(uiActions.setCartsStorage(newCartsData));
     }
   };
 
   const handleRemoveCart = (data: TCartResponse): void => {
-    if (!deleteCartLoading) dispatch(deleteCartAction.request(data.id, getCartsData));
+    if (atk) {
+      if (!deleteCartLoading) {
+        dispatch(
+          deleteCartAction.request(data.id, (): void => {
+            showNotification(ETypeNotification.SUCCESS, 'Xóa sản phẩm khỏi giỏ hàng thành công');
+            getCartsData();
+          }),
+        );
+      }
+    } else {
+      const newCartsData = handleDeleteCartLocalStorage(cartsStorage, data.id);
+      dispatch(uiActions.setCartsStorage(newCartsData));
+    }
   };
 
   const handleClickContinueShopping = (): void => {
@@ -91,19 +112,23 @@ const Carts: React.FC = () => {
   };
 
   const handleSubmitCart = (values: any): void => {
-    const body = {
-      typePayment: values?.typePayment?.value,
-      referCode: values?.referCode || '',
-      idCardBackCard: userInfo?.backIdCard || '',
-      idCardFontCard: userInfo?.frontIdCard || '',
-      address: userInfo?.address || '',
-      phoneRevicer: userInfo?.phone || '',
-      nameReceiver: userInfo?.fullName || '',
-      district: userInfo?.district || '',
-      city: userInfo?.city || '',
-    };
+    if (atk) {
+      const body = {
+        typePayment: values?.typePayment?.value,
+        referCode: values?.referCode || '',
+        idCardBackCard: userInfo?.backIdCard || '',
+        idCardFontCard: userInfo?.frontIdCard || '',
+        address: userInfo?.address || '',
+        phoneRevicer: userInfo?.phone || '',
+        nameReceiver: userInfo?.fullName || '',
+        district: userInfo?.district || '',
+        city: userInfo?.city || '',
+      };
 
-    dispatch(createOrderAction.request(body, handleCreateOrderSuccess));
+      dispatch(createOrderAction.request(body, handleCreateOrderSuccess));
+    } else {
+      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động');
+    }
   };
 
   const handleCreateOrderSuccess = (response: any): void => {
@@ -176,7 +201,7 @@ const Carts: React.FC = () => {
   }, [getVouchersData]);
 
   useEffect(() => {
-    setCartsChecked(carts?.cart || []);
+    setCartsChecked(carts || []);
   }, [carts]);
 
   return (
@@ -196,7 +221,7 @@ const Carts: React.FC = () => {
             <div className="Carts-wrapper flex justify-between">
               <div className="Carts-wrapper-item">
                 <div className="Carts-orders">
-                  {carts?.cart.map((item) => (
+                  {carts?.map((item) => (
                     <div key={item.id} className="Carts-orders-item flex items-start justify-between">
                       <div
                         className={classNames('Carts-orders-item-remove', { loading: deleteCartLoading })}

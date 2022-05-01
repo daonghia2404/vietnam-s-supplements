@@ -1,7 +1,9 @@
 import { createActionCreator } from 'deox';
 
+import { TCartResponse } from '@/services/api/cart-controller/types';
+
 import { EUIAction } from './constants';
-import { TResetActionStatus, TSetDevice } from './types';
+import { TResetActionStatus, TSetCartsStorage, TSetDevice } from './types';
 
 export const uiActions = {
   setDevice: createActionCreator(
@@ -15,5 +17,11 @@ export const uiActions = {
     (resolve) =>
       (actionName: string): TResetActionStatus =>
         resolve({ actionName: actionName.replace('_REQUEST', '') }),
+  ),
+  setCartsStorage: createActionCreator(
+    EUIAction.SET_CARTS_STORAGE,
+    (resolve) =>
+      (data: TCartResponse[]): TSetCartsStorage =>
+        resolve({ data }),
   ),
 };

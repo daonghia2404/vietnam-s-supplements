@@ -10,10 +10,10 @@ import Amount from '@/components/Amount';
 import Button from '@/components/Button';
 import { ECartControllerAction } from '@/redux/actions/cart-controller/constants';
 import { TRootState } from '@/redux/reducers';
+import { validationRules } from '@/utils/functions';
 
 import { TAddCartModalProps } from './AddCartModal.types';
 import './AddCartModal.scss';
-import { validationRules } from '@/utils/functions';
 
 const AddCartModal: React.FC<TAddCartModalProps> = ({ visible, data, onClose, onSubmit }) => {
   const [form] = Form.useForm();
@@ -24,7 +24,7 @@ const AddCartModal: React.FC<TAddCartModalProps> = ({ visible, data, onClose, on
 
   const handleSubmit = (values: any): void => {
     const body = {
-      amount: values.amount,
+      amount: values.amount || 1,
       dateStartEat: values?.dateStartEat ? moment(values?.dateStartEat).toISOString() : undefined,
       dateEndEat: values?.dateEndEat ? moment(values?.dateEndEat).toISOString() : undefined,
     };

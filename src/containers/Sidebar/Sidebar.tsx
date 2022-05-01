@@ -14,15 +14,15 @@ import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/helpers';
 import Modal from '@/components/Modal';
-import { getCartAction, getCategorysAction, getInfoAction } from '@/redux/actions';
+import { addCartAction, getCartAction, getCategorysAction, getInfoAction, uiActions } from '@/redux/actions';
 import { DEFAULT_PAGE } from '@/common/constants';
-import { showNotification, validationRules } from '@/utils/functions';
-import { ETypeNotification } from '@/common/enums';
+import { validationRules } from '@/utils/functions';
 import DropdownCustom from '@/components/DropdownCustom';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 
 import './Sidebar.scss';
+import { syncCartsLocalStorageAndCartsDatabase } from '@/utils/cart';
 
 const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const dispatch = useDispatch();
@@ -42,7 +42,8 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const authState = useSelector((state: TRootState) => state.authReducer.user);
   const categorysState = useSelector((state: TRootState) => state.categoryReducer.categorys);
 
-  const cartState = useSelector((state: TRootState) => state.cartReducer.cart);
+  const cartState = useSelector((state: TRootState) => state.cartReducer.cart?.cart) || [];
+  const cartStorageState = useSelector((state: TRootState) => state.uiReducer.cartsStorage) || [];
 
   const [confirmLogoutModalState, setConfirmLogoutModalState] = useState<{
     visible: boolean;
@@ -65,7 +66,13 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   };
 
   const getCartData = useCallback((): void => {
-    if (userInfo) dispatch(getCartAction.request());
+    if (userInfo)
+      dispatch(
+        getCartAction.request((): void => {
+          handleSyncCarts();
+        }),
+      );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, userInfo]);
 
   const handleOpenConfirmLogoutModal = (): void => {
@@ -96,11 +103,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   };
 
   const handleNavigateCarts = (): void => {
-    if (atk) navigate(Paths.Carts);
-    else {
-      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để tiếp tục thực hiện hành động');
-      navigate(LayoutPaths.Auth);
-    }
+    navigate(Paths.Carts);
   };
 
   const handleSearchProduct = (values: any): void => {
@@ -121,6 +124,21 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
         </Form>
       </div>
     );
+  };
+
+  const handleSyncCarts = (): void => {
+    const syncCarts = syncCartsLocalStorageAndCartsDatabase(cartStorageState, cartState);
+    syncCarts.forEach((item) => {
+      const body = {
+        ...item,
+        product: item.product.id,
+      };
+      dispatch(
+        addCartAction.request(body, (): void => {
+          dispatch(uiActions.setCartsStorage([]));
+        }),
+      );
+    });
   };
 
   const getCategoriesData = useCallback(() => {
@@ -171,7 +189,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
         </DropdownCustom>
         <div className="Sidebar-item-icon" onClick={handleNavigateCarts}>
           <Icon name={EIconName.Cart} />
-          {atk && <div className="Sidebar-item-icon-badge">{cartState?.cart?.length || 0}</div>}
+          <div className="Sidebar-item-icon-badge">{atk ? cartState?.length || 0 : cartStorageState?.length || 0}</div>
         </div>
         <Link to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} className="Sidebar-item-icon">
           <Icon name={EIconName.UserSquare} color={EIconColor.SCARPA_FLOW} />

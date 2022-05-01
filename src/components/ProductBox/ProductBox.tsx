@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { navigate } from '@reach/router';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { caculatorSalePrice, formatMoneyVND, showNotification } from '@/utils/functions';
 import AuthHelpers from '@/services/helpers';
 import { ETypeNotification } from '@/common/enums';
-import { addCartAction, getCartAction } from '@/redux/actions';
+import { addCartAction, getCartAction, uiActions } from '@/redux/actions';
 import AddCartModal from '@/containers/AddCartModal';
+import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
+import { TRootState } from '@/redux/reducers';
 
 import { TProductBoxProps } from './ProductBox.types';
 import './ProductBox.scss';
@@ -15,6 +17,8 @@ import './ProductBox.scss';
 const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title, price, hasBg, link, id, type }) => {
   const atk = AuthHelpers.getAccessToken();
   const dispatch = useDispatch();
+
+  const cartsStorage = useSelector((state: TRootState) => state.uiReducer.cartsStorage) || [];
 
   const [addCartModalState, setAddCartModalState] = useState<{
     visible: boolean;
@@ -24,17 +28,13 @@ const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title,
   });
 
   const handleOpenAddCartModal = (): void => {
-    if (atk) {
-      setAddCartModalState({
-        visible: true,
-        data: {
-          id,
-          type,
-        },
-      });
-    } else {
-      showNotification(ETypeNotification.WARNING, 'Vui lòng đăng nhập để thực hiện hành động');
-    }
+    setAddCartModalState({
+      visible: true,
+      data: {
+        id,
+        type,
+      },
+    });
   };
   const handleCloseAddCartModal = (): void => {
     setAddCartModalState({
@@ -46,7 +46,26 @@ const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title,
       ...values,
       product: id,
     };
-    dispatch(addCartAction.request(body, handleAddCartSuccess));
+
+    if (atk) {
+      dispatch(addCartAction.request(body, handleAddCartSuccess));
+    } else {
+      const newCartsData = handleAddNewCartLocalStorage(
+        cartsStorage,
+        parseCartData({
+          ...values,
+          product: {
+            id,
+            name: title,
+            price,
+            sale,
+            image,
+          },
+        }),
+      );
+      dispatch(uiActions.setCartsStorage(newCartsData));
+      handleCloseAddCartModal();
+    }
   };
 
   const handleNavigateProductDetail = (): void => {
