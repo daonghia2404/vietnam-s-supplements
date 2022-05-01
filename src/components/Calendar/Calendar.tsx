@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -9,7 +8,7 @@ import { TCalendarProps } from './Calendar.types';
 
 import './Calendar.scss';
 
-const Calendar: React.FC<TCalendarProps> = ({ value = [moment(), moment()], onChange }) => {
+const Calendar: React.FC<TCalendarProps> = ({ value = [], onChange }) => {
   const handleCalendarChange = (minDate: any, maxDate: any): void => {
     onChange?.([minDate, maxDate]);
   };

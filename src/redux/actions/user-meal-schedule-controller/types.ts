@@ -5,6 +5,8 @@ import {
   TCreateUserInfoBodyResponse,
   TCreateUserMealScheduleResponse,
   TGetUserMealScheduleByDateResponse,
+  TGetUserMealScheduleFromTodayParams,
+  TGetUserMealScheduleFromTodayResponse,
   TGetUserMealScheduleResponse,
 } from '@/services/api/user-meal-schedule-controller/types';
 
@@ -40,6 +42,24 @@ export type TGetUserMealScheduleByDateSuccess = {
 
 export type TGetUserMealScheduleByDateFailed = {
   type: EUserMealScheduleControllerAction.GET_USER_MEAL_SCHEDULE_BY_DATE_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetUserMealScheduleFromTodayRequest = {
+  type: EUserMealScheduleControllerAction.GET_USER_MEAL_SCHEDULE_FROM_TODAY_REQUEST;
+  payload: {
+    params: TGetUserMealScheduleFromTodayParams;
+    cb?: (response: TGetUserMealScheduleFromTodayResponse) => void;
+  };
+};
+
+export type TGetUserMealScheduleFromTodaySuccess = {
+  type: EUserMealScheduleControllerAction.GET_USER_MEAL_SCHEDULE_FROM_TODAY_SUCCESS;
+  payload: { response: TGetUserMealScheduleFromTodayResponse };
+};
+
+export type TGetUserMealScheduleFromTodayFailed = {
+  type: EUserMealScheduleControllerAction.GET_USER_MEAL_SCHEDULE_FROM_TODAY_FAILED;
   payload: { error: unknown };
 };
 

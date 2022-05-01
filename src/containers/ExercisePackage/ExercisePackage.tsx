@@ -18,7 +18,14 @@ import { EPackPtOnlineControllerAction } from '@/redux/actions/pack-pt-online-co
 import './ExercisePackage.scss';
 import { ETypeExercisePackage } from '@/containers/ExercisePackage/ExercisePackage.enums';
 
-const ExercisePackage: React.FC<TExercisePackageProps> = ({ type, title, paginate, dataSource = [], onPageChange }) => {
+const ExercisePackage: React.FC<TExercisePackageProps> = ({
+  type,
+  owner,
+  title,
+  paginate,
+  dataSource = [],
+  onPageChange,
+}) => {
   const dispatch = useDispatch();
   const isPackExercisePage = type === ETypeExercisePackage.EXERCISE;
   const isPackPtOnlinePage = type === ETypeExercisePackage.PT_ONLINE;
@@ -146,6 +153,7 @@ const ExercisePackage: React.FC<TExercisePackageProps> = ({ type, title, paginat
               <ExercisePackageBox
                 key={item.id}
                 image={item.image}
+                owner={owner}
                 title={item.title || item.name}
                 description={item.description}
                 onBuy={(): void => handleOpenConfirmExercisePackageModal(item)}

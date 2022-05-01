@@ -5,6 +5,8 @@ import {
   TCreateUserInfoBodyResponse,
   TCreateUserMealScheduleResponse,
   TGetUserMealScheduleByDateResponse,
+  TGetUserMealScheduleFromTodayParams,
+  TGetUserMealScheduleFromTodayResponse,
   TGetUserMealScheduleResponse,
 } from '@/services/api/user-meal-schedule-controller/types';
 
@@ -21,6 +23,13 @@ class Controller {
 
   createUserInfoBody = async (body: TBodyCreateUserInfoBody): Promise<TCreateUserInfoBodyResponse> => {
     const response = await Service.post(`/info-body`, body);
+    return response.data;
+  };
+
+  getUserMealScheduleFromToday = async (
+    params: TGetUserMealScheduleFromTodayParams,
+  ): Promise<TGetUserMealScheduleFromTodayResponse> => {
+    const response = await Service.get(`/user-meal-schedule/detail/schedule-from-today`, { params });
     return response.data;
   };
 

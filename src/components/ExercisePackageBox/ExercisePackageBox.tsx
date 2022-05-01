@@ -10,6 +10,7 @@ const ExercisePackageBox: React.FC<TExercisePackageBoxProps> = ({
   className,
   image,
   title,
+  owner,
   description,
   onClickDetail,
   onBuy,
@@ -27,11 +28,13 @@ const ExercisePackageBox: React.FC<TExercisePackageBoxProps> = ({
         <div className="ExercisePackageBox-info-description" onClick={onClickDetail}>
           {description}
         </div>
-        <div className="ExercisePackageBox-info-btn flex">
-          <div className="ExercisePackageBox-info-cta" onClick={onBuy}>
-            Mua ngay
+        {!owner && (
+          <div className="ExercisePackageBox-info-btn flex">
+            <div className="ExercisePackageBox-info-cta" onClick={onBuy}>
+              Mua ngay
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

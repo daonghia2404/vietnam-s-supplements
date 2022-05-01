@@ -7,11 +7,13 @@ import {
   createUserMealScheduleAction,
   getUserMealScheduleAction,
   getUserMealScheduleByDateAction,
+  getUserMealScheduleFromTodayAction,
 } from '@/redux/actions';
 import {
   TCreateUserInfoBodyResponse,
   TCreateUserMealScheduleResponse,
   TGetUserMealScheduleByDateResponse,
+  TGetUserMealScheduleFromTodayResponse,
   TGetUserMealScheduleResponse,
 } from '@/services/api/user-meal-schedule-controller/types';
 
@@ -38,6 +40,23 @@ export function* getUserMealScheduleByDateSaga(
     cb?.(response);
   } catch (err) {
     yield put(getUserMealScheduleByDateAction.failure(err));
+  }
+}
+
+export function* getUserMealScheduleFromTodaySaga(
+  action: ActionType<typeof getUserMealScheduleFromTodayAction.request>,
+): Generator {
+  const { params, cb } = action.payload;
+  try {
+    const response = (yield call(
+      Instance.getUserMealScheduleFromToday,
+      params,
+    )) as TGetUserMealScheduleFromTodayResponse;
+
+    yield put(getUserMealScheduleFromTodayAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getUserMealScheduleFromTodayAction.failure(err));
   }
 }
 
@@ -72,6 +91,7 @@ export function* createUserInfoBodySaga(action: ActionType<typeof createUserInfo
 export default function* root(): Generator {
   yield all([takeLatest(getUserMealScheduleAction.request.type, getUserMealScheduleSaga)]);
   yield all([takeLatest(getUserMealScheduleByDateAction.request.type, getUserMealScheduleByDateSaga)]);
+  yield all([takeLatest(getUserMealScheduleFromTodayAction.request.type, getUserMealScheduleFromTodaySaga)]);
   yield all([takeLatest(createUserMealScheduleAction.request.type, createUserMealScheduleSaga)]);
   yield all([takeLatest(createUserInfoBodyAction.request.type, createUserInfoBodySaga)]);
 }

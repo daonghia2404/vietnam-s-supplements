@@ -18,6 +18,7 @@ import newControllerSaga from './new-controller';
 import categoryControllerSaga from './category-controller';
 import cartControllerSaga from './cart-controller';
 import voucherControllerSaga from './voucher-controller';
+import bannerControllerSaga from './banner-controller';
 
 const rootSaga = function* root(): Generator {
   yield all([
@@ -39,6 +40,7 @@ const rootSaga = function* root(): Generator {
     fork(categoryControllerSaga),
     fork(cartControllerSaga),
     fork(voucherControllerSaga),
+    fork(bannerControllerSaga),
   ]);
 };
 

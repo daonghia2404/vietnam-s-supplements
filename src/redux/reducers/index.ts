@@ -19,6 +19,7 @@ import newReducer from './new';
 import categoryReducer from './category';
 import cartReducer from './cart';
 import voucherReducer from './voucher';
+import bannerReducer from './banner';
 
 const rootReducer = combineReducers({
   loadingReducer,
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   categoryReducer,
   cartReducer,
   voucherReducer,
+  bannerReducer,
 });
 
 export default rootReducer;

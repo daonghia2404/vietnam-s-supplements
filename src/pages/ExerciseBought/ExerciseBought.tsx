@@ -61,6 +61,7 @@ const ExerciseBought: React.FC = () => {
             <ExercisePackage
               type={ETypeExercisePackage.EXERCISE}
               title="Các gói tập đã mua"
+              owner
               paginate={{ ...getPackExercisesParamsRequest, total: 0 }}
               dataSource={parsePackExercisesBought}
               onPageChange={handlePageChange}

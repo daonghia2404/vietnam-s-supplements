@@ -77,6 +77,7 @@ export enum EEmpty {
 
 export enum EFormatDate {
   COMMON = 'DD/MM/YYYY',
+  MM_DD_YYYY = 'MM/DD/YYYY',
   DATE_TIME = 'HH:MM - DD/MM/YYYY',
 }
 

@@ -5,7 +5,7 @@ import { TMealOverviewModalProps } from '@/containers/MealOverviewModal/MealOver
 
 import './MealOverviewModal.scss';
 
-const MealOverviewModal: React.FC<TMealOverviewModalProps> = ({ visible, onClose }) => {
+const MealOverviewModal: React.FC<TMealOverviewModalProps> = ({ visible, data, onClose }) => {
   return (
     <Modal
       closeable
@@ -16,24 +16,21 @@ const MealOverviewModal: React.FC<TMealOverviewModalProps> = ({ visible, onClose
       hideFooter
     >
       <div className="MealOverviewModal-header">
-        <div className="Modal-body-title text-center">Ngày 24/11/2021</div>
+        <div className="Modal-body-title text-center">Thông tin</div>
       </div>
 
       <div className="MealOverviewModal-body">
         <div className="MealOverviewModal-subtitle">Cách chế biến</div>
         <div className="MealOverviewModal-description">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys
-          standard dummy text ever since the 1500s
+          {data?.map((item) => `${item.dish.name}: ${item.dish.processing}`)}
         </div>
-        <div className="MealOverviewModal-subtitle">Khối lượng/số lượng</div>
+        <div className="MealOverviewModal-subtitle">Khối lượng / Số lượng</div>
         <div className="MealOverviewModal-description">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys
-          standard dummy text ever since the 1500s
+          {data?.map((item) => `${item.dish.name}: ${item.dish.weight}`)}
         </div>
         <div className="MealOverviewModal-subtitle">Kcal</div>
         <div className="MealOverviewModal-description">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys
-          standard dummy text ever since the 1500s
+          {data?.map((item) => `${item.dish.name}: ${item.dish.kcal}`)}
         </div>
       </div>
     </Modal>

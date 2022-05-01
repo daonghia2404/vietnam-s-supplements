@@ -6,15 +6,16 @@ export type TParamsGetPackPtOnlines = {
 };
 
 export type TPackPtOnlineResponse = {
-  name: string;
-  description: string;
-  image: string;
-  numberDate: number;
-  prePrice: number;
-  price: number;
-  point: number;
   active: boolean;
   createdAt: string;
+  description: string;
+  id: string;
+  image: string;
+  name: string;
+  numberDate: number;
+  point: number;
+  prePrice: number;
+  price: number;
   updatedAt: string;
 };
 

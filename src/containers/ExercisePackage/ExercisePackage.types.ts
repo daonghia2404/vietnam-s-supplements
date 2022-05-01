@@ -10,4 +10,5 @@ export type TExercisePackageProps = {
   title?: string;
   dataSource?: Array<any>;
   type: ETypeExercisePackage;
+  owner?: boolean;
 };
