@@ -218,7 +218,7 @@ const Carts: React.FC = () => {
               buttonProps={{ title: 'Tiếp tục mua sắm', onClick: handleClickContinueShopping }}
             />
           ) : (
-            <div className="Carts-wrapper flex justify-between">
+            <div className="Carts-wrapper flex justify-between flex-wrap">
               <div className="Carts-wrapper-item">
                 <div className="Carts-orders">
                   {carts?.map((item) => (

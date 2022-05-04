@@ -1,5 +1,6 @@
 import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
 import {
+  TCancelOrderResponse,
   TCreateOrderBody,
   TCreateOrderResponse,
   TGetOrderResponse,
@@ -51,3 +52,18 @@ export type TCreateOrderSuccess = {
 };
 
 export type TCreateOrderFailed = { type: EOrderControllerAction.CREATE_ORDER_FAILED; payload: { error: unknown } };
+
+export type TCancelOrderRequest = {
+  type: EOrderControllerAction.CANCEL_ORDER_REQUEST;
+  payload: {
+    id: string;
+    cb?: (response: TCancelOrderResponse) => void;
+  };
+};
+
+export type TCancelOrderSuccess = {
+  type: EOrderControllerAction.CANCEL_ORDER_SUCCESS;
+  payload: { response: TCancelOrderResponse };
+};
+
+export type TCancelOrderFailed = { type: EOrderControllerAction.CANCEL_ORDER_FAILED; payload: { error: unknown } };

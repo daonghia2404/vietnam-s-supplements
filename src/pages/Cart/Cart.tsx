@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
+import { navigate } from '@reach/router';
 
 import HeaderSkew from '@/components/HeaderSkew';
 import Button from '@/components/Button';
@@ -15,6 +16,7 @@ import EmptyBox from '@/components/EmptyBox';
 import { cartFilterTabOptions } from '@/pages/Cart/Cart.data';
 import PageLoading from '@/components/PageLoading';
 import { formatMoneyVND } from '@/utils/functions';
+import { LayoutPaths, Paths } from '@/pages/routers';
 
 import './Cart.scss';
 
@@ -31,6 +33,10 @@ const Cart: React.FC = () => {
     page: DEFAULT_PAGE,
     pageSize: DEFAULT_PAGE_SIZE,
   });
+
+  const handleNavigateCartDetail = (id: string): void => {
+    navigate(`${LayoutPaths.Profile}${Paths.CartDetail(id)}`);
+  };
 
   const handlePageChange = (page: number, pageSize?: number): void => {
     setGetOrdersParamsRequest({
@@ -93,7 +99,7 @@ const Cart: React.FC = () => {
                   );
 
                   return (
-                    <div key={item.id} className="Cart-card">
+                    <div key={item.id} className="Cart-card" onClick={(): void => handleNavigateCartDetail(item.id)}>
                       <div className="Cart-card-row flex justify-between">
                         <div className="Cart-card-text bold">Mã đơn hàng</div>
                         <div className="Cart-card-text">{item.orderCode}</div>
@@ -119,33 +125,6 @@ const Cart: React.FC = () => {
                 })}
               </>
             )}
-
-            {/* <div className="Cart-card">
-              <div className="Cart-card-row flex justify-between">
-                <div className="Cart-card-text bold">Mã đơn hàng</div>
-                <div className="Cart-card-text">ABC 123456</div>
-              </div>
-              <div className="Cart-card-row flex justify-between">
-                <div className="Cart-card-text warning">Chờ xác nhận</div>
-              </div>
-              <div className="Cart-card-row flex justify-between">
-                <div className="Cart-card-text bold">1 sản phẩm</div>
-                <div className="Cart-card-text hightlight">900.000 đ</div>
-              </div>
-            </div>
-            <div className="Cart-card">
-              <div className="Cart-card-row flex justify-between">
-                <div className="Cart-card-text bold">Mã đơn hàng</div>
-                <div className="Cart-card-text">ABC 123456</div>
-              </div>
-              <div className="Cart-card-row flex justify-between">
-                <div className="Cart-card-text disabled">Đã huỷ</div>
-              </div>
-              <div className="Cart-card-row flex justify-between">
-                <div className="Cart-card-text bold">1 sản phẩm</div>
-                <div className="Cart-card-text hightlight">900.000 đ</div>
-              </div>
-            </div> */}
           </div>
         )}
       </div>

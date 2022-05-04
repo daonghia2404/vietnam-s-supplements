@@ -11,13 +11,21 @@
     font-size: 1.6rem;
     line-height: 2;
 
+    &.hightlight {
+      color: $electric-violet;
+      font-weight: 700;
+    }
+
     &.success {
       color: $japanese-laurel;
     }
 
-    &.hightlight {
-      color: $electric-violet;
-      font-weight: 700;
+    &.warning {
+      color: $buddha-gold;
+    }
+
+    &.error {
+      color: $red;
     }
   }
 

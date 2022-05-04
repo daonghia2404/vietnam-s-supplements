@@ -1,4 +1,5 @@
 import { TPaginateResponse } from '@/common/types';
+import { TCartResponse } from '@/services/api/cart-controller/types';
 import { EOrderStatus } from '@/services/api/order-controller/enums';
 
 export type TParamsGetOrders = {
@@ -11,6 +12,7 @@ export type TOrderResponse = {
   address: string;
   amount: number;
   city: string;
+  cart?: TCartOrder;
   createdAt: string;
   district: string;
   id: string;
@@ -47,3 +49,12 @@ export type TCreateOrderBody = {
 };
 
 export type TCreateOrderResponse = unknown;
+
+export type TCartOrder = {
+  discount: number;
+  id: string;
+  items: TCartResponse[];
+  totalprice: number;
+};
+
+export type TCancelOrderResponse = unknown;

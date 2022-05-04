@@ -12,10 +12,13 @@ import { TRootState } from '@/redux/reducers';
 import { EProductControllerAction } from '@/redux/actions/product-controller/constants';
 import PageLoading from '@/components/PageLoading';
 import {
+  addCartAction,
+  getCartAction,
   getProductAction,
   getProductsAction,
   isFavoriteProductAction,
   likeProductAction,
+  uiActions,
   unlikeProductAction,
 } from '@/redux/actions';
 import ProductBox from '@/components/ProductBox';
@@ -29,18 +32,31 @@ import EmptyBox from '@/components/EmptyBox';
 import DistributionProductModal from '@/pages/Product/DistributionProductModal';
 import { TProductResponse } from '@/services/api/product-controller/types';
 import { ETypeNotification } from '@/common/enums';
+import AuthHelpers from '@/services/helpers';
 
 import './Product.scss';
+import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
+import AddCartModal from '@/containers/AddCartModal';
 
 const Product: React.FC = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const atk = AuthHelpers.getAccessToken();
   const window = useSelector((state: TRootState) => state.uiReducer.device.type);
   const isMobile = window === EDeviceType.MOBILE;
 
   const [distributionProductModalState, setDistributionProductModalState] = useState<{
     visible: boolean;
     data?: TProductResponse;
+  }>({
+    visible: false,
+  });
+
+  const cartsStorage = useSelector((state: TRootState) => state.uiReducer.cartsStorage) || [];
+
+  const [addCartModalState, setAddCartModalState] = useState<{
+    visible: boolean;
+    data?: { id: string; type: string };
   }>({
     visible: false,
   });
@@ -124,6 +140,54 @@ const Product: React.FC = () => {
     if (id) dispatch(isFavoriteProductAction.request(id));
   }, [id, dispatch]);
 
+  const handleOpenAddCartModal = (): void => {
+    setAddCartModalState({
+      visible: true,
+      data: {
+        id,
+        type: productState?.type || '',
+      },
+    });
+  };
+  const handleCloseAddCartModal = (): void => {
+    setAddCartModalState({
+      visible: false,
+    });
+  };
+  const handleSubmitAddCartModal = (values: any): void => {
+    const body = {
+      ...values,
+      product: id,
+    };
+
+    if (atk) {
+      dispatch(addCartAction.request(body, handleAddCartSuccess));
+    } else {
+      const newCartsData = handleAddNewCartLocalStorage(
+        cartsStorage,
+        parseCartData({
+          ...values,
+          product: {
+            id,
+            ...productState,
+          },
+        }),
+      );
+      dispatch(uiActions.setCartsStorage(newCartsData));
+      handleCloseAddCartModal();
+    }
+  };
+
+  const handleAddCartSuccess = (): void => {
+    showNotification(ETypeNotification.SUCCESS, 'Sản phẩm đã được thêm vào giỏ hàng');
+    getCartData();
+    handleCloseAddCartModal();
+  };
+
+  const getCartData = (): void => {
+    dispatch(getCartAction.request());
+  };
+
   useEffect(() => {
     getIsFavoriteProductData();
   }, [getIsFavoriteProductData]);
@@ -156,19 +220,16 @@ const Product: React.FC = () => {
             </div>
             <div className="Product-banner-item flex flex-col justify-center items-center">
               <div className="Product-banner-title">{productState?.name}</div>
-              {productState?.sale ? (
-                <>
-                  <del className="Product-banner-old-price">{formatMoneyVND({ amount: productState.price })} VND</del>
-                  <div className="Product-banner-price">
-                    {formatMoneyVND({ amount: caculatorSalePrice(productState.price, Number(productState.sale)) })} VND
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="Product-banner-price">{formatMoneyVND({ amount: productState?.price || 0 })} VND</div>
-                </>
+              {productState?.sale && (
+                <del className="Product-banner-old-price">
+                  {formatMoneyVND({ amount: caculatorSalePrice(productState.price, Number(productState.sale)) })} VND
+                </del>
               )}
-              <div className="Product-banner-button">Mua ngay</div>
+              <div className="Product-banner-price">{formatMoneyVND({ amount: productState?.price || 0 })} VND</div>
+
+              <div className="Product-banner-button" onClick={handleOpenAddCartModal}>
+                Mua ngay
+              </div>
               <div className="Product-banner-link" onClick={handleOpenDistributionProductModal}>
                 Đăng ký phân phối
               </div>
@@ -310,6 +371,8 @@ const Product: React.FC = () => {
       )}
 
       <DistributionProductModal {...distributionProductModalState} onClose={handleCloseDistributionProductModal} />
+
+      <AddCartModal {...addCartModalState} onClose={handleCloseAddCartModal} onSubmit={handleSubmitAddCartModal} />
     </div>
   );
 };

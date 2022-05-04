@@ -174,19 +174,24 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
         <Link to={LayoutPaths.Guest} className="Sidebar-item-favicon">
           <img src={ImageFavicon} alt="" />
         </Link>
-        <div className="Sidebar-item-icon" onClick={onClickMenuBars}>
+        <div className="Sidebar-item-icon" onClick={(): void => onClickMenuBars?.()}>
           <Icon name={EIconName.Bars} />
         </div>
-        <DropdownCustom
-          visible={visibleDropdownSearch}
-          onVisibleChange={setVisibleDropdownSearch}
-          overlayClassName="Sidebar-search-wrapper"
-          overlay={renderDropdownSearchProduct()}
-        >
-          <div className="Sidebar-item-icon">
+        <div className="Sidebar-item-icon">
+          <DropdownCustom
+            visible={visibleDropdownSearch}
+            placement={isMobile ? 'topRight' : 'bottomLeft'}
+            onVisibleChange={(visible): void => {
+              setVisibleDropdownSearch(visible);
+              if (!isMobile && visible) onClickMenuBars?.(true);
+            }}
+            overlayClassName="Sidebar-search-wrapper"
+            overlay={renderDropdownSearchProduct()}
+          >
             <Icon name={EIconName.Search} />
-          </div>
-        </DropdownCustom>
+          </DropdownCustom>
+        </div>
+
         <div className="Sidebar-item-icon" onClick={handleNavigateCarts}>
           <Icon name={EIconName.Cart} />
           <div className="Sidebar-item-icon-badge">{atk ? cartState?.length || 0 : cartStorageState?.length || 0}</div>
@@ -202,7 +207,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
             <img src={ImageLogo} alt="" />
           </Link>
         ) : (
-          <div className="Sidebar-close" onClick={onClickMenuBars}>
+          <div className="Sidebar-close" onClick={(): void => onClickMenuBars?.()}>
             <Icon name={EIconName.Close} color={EIconColor.BOULDER} />
           </div>
         )}
@@ -323,7 +328,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
         </div>
       </Modal>
 
-      {!isDesktop && <div className="Sidebar-overlay" onClick={onClickMenuBars} />}
+      {!isDesktop && <div className="Sidebar-overlay" onClick={(): void => onClickMenuBars?.()} />}
     </div>
   );
 };

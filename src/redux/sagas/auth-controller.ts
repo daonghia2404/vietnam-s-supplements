@@ -5,6 +5,7 @@ import authHelpers from '@/services/helpers';
 import AuthControllerInstance from '@/services/api/auth-controller';
 import {
   changePasswordAction,
+  confirmOtpForgotPasswordAction,
   forgotPasswordAction,
   getInfoAction,
   loginAction,
@@ -14,6 +15,7 @@ import {
 } from '@/redux/actions';
 import {
   TChangePasswordResponse,
+  TConfirmOtpForgotPasswordResponse,
   TForgotPasswordResponse,
   TGetInfoResponse,
   TLoginResponse,
@@ -109,6 +111,23 @@ export function* updateInfoSaga(action: ActionType<typeof updateInfoAction.reque
   }
 }
 
+export function* confirmOtpForgotPasswordSaga(
+  action: ActionType<typeof confirmOtpForgotPasswordAction.request>,
+): Generator {
+  const { body, cb } = action.payload;
+  try {
+    const response = (yield call(
+      AuthControllerInstance.confirmOtpForgotPassword,
+      body,
+    )) as TConfirmOtpForgotPasswordResponse;
+
+    yield put(confirmOtpForgotPasswordAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(confirmOtpForgotPasswordAction.failure(err));
+  }
+}
+
 export default function* root(): Generator {
   yield all([takeLatest(loginAction.request.type, loginSaga)]);
   yield all([takeLatest(registerAction.request.type, registerSaga)]);
@@ -117,4 +136,5 @@ export default function* root(): Generator {
   yield all([takeLatest(changePasswordAction.request.type, changePasswordSaga)]);
   yield all([takeLatest(getInfoAction.request.type, getInfoSaga)]);
   yield all([takeLatest(updateInfoAction.request.type, updateInfoSaga)]);
+  yield all([takeLatest(confirmOtpForgotPasswordAction.request.type, confirmOtpForgotPasswordSaga)]);
 }

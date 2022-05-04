@@ -45,6 +45,12 @@
     border-radius: 1rem;
     border: 1px solid $iron;
     padding: 1rem 0;
+    cursor: pointer;
+    transition: $common-transition;
+
+    &:hover {
+      background: rgba($black, 0.01);
+    }
 
     &:not(:last-child) {
       margin-bottom: 2rem;

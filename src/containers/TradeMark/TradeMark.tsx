@@ -1,9 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import { navigate } from '@reach/router';
 
 import ImageTradeMark1 from '@/assets/images/image-trademark-1.png';
 import ImageTradeMark2 from '@/assets/images/image-trademark-2.png';
 import ImageTradeMark3 from '@/assets/images/image-trademark-3.png';
+import { Paths } from '@/pages/routers';
 
 import './TradeMark.scss';
 
@@ -20,7 +22,14 @@ const TradeMark: React.FC = () => {
               Tiên phong trong lĩnh vực thực phẩm bảo vệ sức khoẻ...
             </div>
             <div className="TradeMark-wrapper-item-btn flex justify-center">
-              <div className="TradeMark-wrapper-item-cta">Xem thêm</div>
+              <div
+                className="TradeMark-wrapper-item-cta"
+                onClick={(): void => {
+                  navigate(Paths.AboutUs);
+                }}
+              >
+                Xem thêm
+              </div>
             </div>
           </div>
 

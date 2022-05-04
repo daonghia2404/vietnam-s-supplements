@@ -23,8 +23,8 @@ const App: React.FC = () => {
   const deviceType = useSelector((state: TRootState) => state.uiReducer.device.type);
   const atk = AuthHelpers.getAccessToken();
 
-  const handleToggleVisibleSidebar = (): void => {
-    setVisibleSidebar(!visibleSidebar);
+  const handleToggleVisibleSidebar = (visible?: boolean): void => {
+    setVisibleSidebar(typeof visible !== 'undefined' ? visible : !visibleSidebar);
   };
 
   useEffect(() => {

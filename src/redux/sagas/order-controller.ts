@@ -2,8 +2,18 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { ActionType } from 'deox';
 
 import Instance from '@/services/api/order-controller';
-import { createOrderAction, getOrderAction, getOrdersAction } from '@/redux/actions/order-controller';
-import { TCreateOrderResponse, TGetOrderResponse, TGetOrdersResponse } from '@/services/api/order-controller/types';
+import {
+  cancelOrderAction,
+  createOrderAction,
+  getOrderAction,
+  getOrdersAction,
+} from '@/redux/actions/order-controller';
+import {
+  TCancelOrderResponse,
+  TCreateOrderResponse,
+  TGetOrderResponse,
+  TGetOrdersResponse,
+} from '@/services/api/order-controller/types';
 
 export function* getOrdersSaga(action: ActionType<typeof getOrdersAction.request>): Generator {
   const { params, cb } = action.payload;
@@ -40,8 +50,21 @@ export function* createOrderSaga(action: ActionType<typeof createOrderAction.req
   }
 }
 
+export function* cancelOrderSaga(action: ActionType<typeof cancelOrderAction.request>): Generator {
+  const { id, cb } = action.payload;
+  try {
+    const response = (yield call(Instance.cancelOrder, id)) as TCancelOrderResponse;
+
+    yield put(cancelOrderAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(cancelOrderAction.failure(err));
+  }
+}
+
 export default function* root(): Generator {
   yield all([takeLatest(getOrdersAction.request.type, getOrdersSaga)]);
   yield all([takeLatest(getOrderAction.request.type, getOrderSaga)]);
   yield all([takeLatest(createOrderAction.request.type, createOrderSaga)]);
+  yield all([takeLatest(cancelOrderAction.request.type, cancelOrderSaga)]);
 }

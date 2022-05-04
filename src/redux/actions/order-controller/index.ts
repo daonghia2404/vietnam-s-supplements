@@ -2,6 +2,7 @@ import { createActionCreator } from 'deox';
 
 import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
 import {
+  TCancelOrderResponse,
   TCreateOrderBody,
   TCreateOrderResponse,
   TGetOrderResponse,
@@ -18,6 +19,9 @@ import {
   TCreateOrderFailed,
   TCreateOrderRequest,
   TCreateOrderSuccess,
+  TCancelOrderFailed,
+  TCancelOrderRequest,
+  TCancelOrderSuccess,
 } from '@/redux/actions/order-controller/types';
 
 export const getOrdersAction = {
@@ -79,6 +83,27 @@ export const createOrderAction = {
     EOrderControllerAction.CREATE_ORDER_FAILED,
     (resolve) =>
       (error: unknown): TCreateOrderFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const cancelOrderAction = {
+  request: createActionCreator(
+    EOrderControllerAction.CANCEL_ORDER_REQUEST,
+    (resolve) =>
+      (id: string, cb?: (response: TCancelOrderResponse) => void): TCancelOrderRequest =>
+        resolve({ id, cb }),
+  ),
+  success: createActionCreator(
+    EOrderControllerAction.CANCEL_ORDER_SUCCESS,
+    (resolve) =>
+      (response: TCancelOrderResponse): TCancelOrderSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EOrderControllerAction.CANCEL_ORDER_FAILED,
+    (resolve) =>
+      (error: unknown): TCancelOrderFailed =>
         resolve({ error }),
   ),
 };
