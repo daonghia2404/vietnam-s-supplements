@@ -33,10 +33,10 @@ import DistributionProductModal from '@/pages/Product/DistributionProductModal';
 import { TProductResponse } from '@/services/api/product-controller/types';
 import { ETypeNotification } from '@/common/enums';
 import AuthHelpers from '@/services/helpers';
-
-import './Product.scss';
 import { handleAddNewCartLocalStorage, parseCartData } from '@/utils/cart';
 import AddCartModal from '@/containers/AddCartModal';
+
+import './Product.scss';
 
 const Product: React.FC = () => {
   const { id } = useParams();
@@ -137,8 +137,8 @@ const Product: React.FC = () => {
   }, [dispatch, productState?.category?.id]);
 
   const getIsFavoriteProductData = useCallback(() => {
-    if (id) dispatch(isFavoriteProductAction.request(id));
-  }, [id, dispatch]);
+    if (id && atk) dispatch(isFavoriteProductAction.request(id));
+  }, [atk, id, dispatch]);
 
   const handleOpenAddCartModal = (): void => {
     setAddCartModalState({
