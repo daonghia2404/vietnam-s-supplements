@@ -14,6 +14,7 @@ import PageLoading from '@/components/PageLoading';
 import EmptyBox from '@/components/EmptyBox';
 
 import './News.scss';
+import { Paths } from '@/pages/routers';
 
 const News: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,14 @@ const News: React.FC = () => {
   const news = useSelector((state: TRootState) => state.newReducer.news);
   const newsTotal = useSelector((state: TRootState) => state.newReducer.news?.total);
   const isEmpty = news?.records.length === 0;
+
+  const newsCarouselData = [...(news?.records || [])]?.splice(0, 3)?.map((item) => ({
+    id: String(item.id),
+    title: item.title,
+    image: item.image,
+    description: item.description,
+    shareUrl: `${Paths.HandbookDetail(String(item.id))}`,
+  }));
 
   const getNewsLoading = useSelector((state: TRootState) => state.loadingReducer[ENewControllerAction.GET_NEWS]);
 
@@ -51,7 +60,7 @@ const News: React.FC = () => {
         <div className="News-wrapper">
           <HeaderSkew title="Tin tức" />
 
-          <NewsCarousel />
+          <NewsCarousel data={newsCarouselData} />
 
           <div className="News-title">Tin tức</div>
           {isEmpty ? (
@@ -60,7 +69,12 @@ const News: React.FC = () => {
             <div className="News-list flex flex-wrap">
               {news?.records?.map((item) => (
                 <div key={item.id} className="News-list-item">
-                  <NewBlock image={item.image} title={item.title} description={item.description} />
+                  <NewBlock
+                    image={item.image}
+                    title={item.title}
+                    description={item.description}
+                    url={Paths.NewDetail(String(item.id))}
+                  />
                 </div>
               ))}
             </div>

@@ -11,10 +11,10 @@ import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
 import { TRootState } from '@/redux/reducers';
 import { EHandbookControllerAction } from '@/redux/actions/handbook-controller/constants';
 import PageLoading from '@/components/PageLoading';
-
-import './Handbooks.scss';
 import EmptyBox from '@/components/EmptyBox';
 import { Paths } from '@/pages/routers';
+
+import './Handbooks.scss';
 
 const Handbooks: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,6 +25,14 @@ const Handbooks: React.FC = () => {
   const handbooks = useSelector((state: TRootState) => state.handbookReducer.handbooks);
   const handbooksTotal = useSelector((state: TRootState) => state.handbookReducer.handbooks?.total);
   const isEmpty = handbooks?.records?.length === 0;
+
+  const handbooksCarouselData = [...(handbooks?.records || [])]?.splice(0, 3)?.map((item) => ({
+    id: String(item.id),
+    title: item.title,
+    image: item.image,
+    description: item.description,
+    shareUrl: `${Paths.HandbookDetail(String(item.id))}`,
+  }));
 
   const getHandbooksLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EHandbookControllerAction.GET_HANDBOOKS],
@@ -54,7 +62,7 @@ const Handbooks: React.FC = () => {
         <div className="Handbooks-wrapper">
           <HeaderSkew title="Cẩm nang" />
 
-          <NewsCarousel />
+          <NewsCarousel data={handbooksCarouselData} />
 
           <div className="Handbooks-title">Cẩm nang</div>
           {isEmpty ? (

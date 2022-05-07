@@ -8,7 +8,7 @@ class Controller {
   };
 
   getNew = async (id: string): Promise<TGetNewResponse> => {
-    const response = await Service.get(`/new/${id}`);
+    const response = await Service.get(`/news/${id}`);
     return response.data;
   };
 }

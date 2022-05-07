@@ -84,7 +84,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title,
 
   return (
     <div className={classNames('ProductBox', className, { background: hasBg })}>
-      {sale && <div className="ProductBox-badge">{sale}%</div>}
+      {Boolean(sale) && <div className="ProductBox-badge">{sale}%</div>}
       {/* <div className={classNames('ProductBox-heart', { disabled: favoriteLoading })} onClick={handleClickFavorite}>
         <Icon name={EIconName.Heart} />
       </div> */}
@@ -103,7 +103,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title,
             {formatMoneyVND({ amount: price })}
             <sup>VNĐ</sup>
           </div>
-          {sale && (
+          {Boolean(sale) && (
             <div className="ProductBox-info-price-old">
               {formatMoneyVND({ amount: caculatorSalePrice(price, Number(sale)) })}
               <sup>VNĐ</sup>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-danger */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +8,6 @@ import ImageCertificate1 from '@/assets/images/image-certificate-1.png';
 import ImageCart from '@/assets/images/image-cart.png';
 import ImageCau from '@/assets/images/image-cau.png';
 import HeaderSkew from '@/components/HeaderSkew';
-import ImageProduct2 from '@/assets/images/image-product-2.jpeg';
 import { TRootState } from '@/redux/reducers';
 import { EProductControllerAction } from '@/redux/actions/product-controller/constants';
 import PageLoading from '@/components/PageLoading';
@@ -78,6 +78,13 @@ const Product: React.FC = () => {
   const favoriteLoading = likeProductLoading || unlikeProductLoading;
 
   const isEmpty = productsState?.records.length === 0;
+
+  const productContent =
+    (productState?.description || '') +
+    (productState?.element || '') +
+    (productState?.productElement?.map((item) => item.details).join(' ') || '') +
+    (productState?.productObject?.map((item) => item.details).join(' ') || '') +
+    (productState?.noteUseMedicine || '');
 
   const handleOpenDistributionProductModal = (): void => {
     setDistributionProductModalState({ visible: true, data: productState });
@@ -220,9 +227,10 @@ const Product: React.FC = () => {
             </div>
             <div className="Product-banner-item flex flex-col justify-center items-center">
               <div className="Product-banner-title">{productState?.name}</div>
-              {productState?.sale && (
+              {Boolean(productState?.sale) && (
                 <del className="Product-banner-old-price">
-                  {formatMoneyVND({ amount: caculatorSalePrice(productState.price, Number(productState.sale)) })} VND
+                  {formatMoneyVND({ amount: caculatorSalePrice(productState?.price || 0, Number(productState?.sale)) })}{' '}
+                  VND
                 </del>
               )}
               <div className="Product-banner-price">{formatMoneyVND({ amount: productState?.price || 0 })} VND</div>
@@ -246,7 +254,9 @@ const Product: React.FC = () => {
               </div>
               <div className="Product-basic-info-item flex items-center justify-center flex-col">
                 <div className="Product-basic-info-item-title">Tiêu chuẩn chất lượng</div>
-                <div className="Product-basic-info-item-subtitle">094 544 92 29</div>
+                <a href="tel: 0945449229" className="Product-basic-info-item-subtitle">
+                  094 544 92 29
+                </a>
                 <div className="Product-basic-info-item-description flex items-center justify-center">
                   <Icon name={EIconName.User} />
                   Tư vấn cho tôi
@@ -258,7 +268,13 @@ const Product: React.FC = () => {
                 </div>
                 <div className="Product-basic-info-item-description flex items-center justify-center">
                   <Icon name={EIconName.MapMarker} />
-                  <strong>Xem bản đồ</strong>
+                  <a
+                    href="https://www.google.com/maps/place/186+P.+T%C3%B4n+%C4%90%E1%BB%A9c+Th%E1%BA%AFng,+H%C3%A0ng+B%E1%BB%99t,+%C4%90%E1%BB%91ng+%C4%90a,+H%C3%A0+N%E1%BB%99i,+Vi%E1%BB%87t+Nam/@21.022749,105.8296673,17z/data=!3m1!4b1!4m5!3m4!1s0x3135ab9d1dbc67c3:0xf2434e641798c57e!8m2!3d21.022749!4d105.831856?hl=vi-VN"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <strong>Xem bản đồ</strong>
+                  </a>
                 </div>
                 <div className="Product-basic-info-item-description flex items-center justify-center gray">
                   186 Tôn Đức Thắng, Phường Quốc Tử Giám, Quận Đống Đa, Hà Nội
@@ -280,71 +296,14 @@ const Product: React.FC = () => {
               <Carousels {...carouselProps()}>
                 {[1, 2, 3, 4, 5].map((item) => (
                   <div key={item} className="Product-carousel-item">
-                    <img src={ImageProduct2} alt="" />
+                    <img src={productState?.image} alt="" />
                   </div>
                 ))}
               </Carousels>
             </div>
             <div className="Product-content">
               <div className="Product-content-title">Chi tiết sản phẩm</div>
-
-              <div className="Product-content-card">
-                <h3>Thông tin</h3>
-                <table>
-                  <tr>
-                    <td>Thành phần</td>
-                    <td />
-                  </tr>
-                  <tr>
-                    <td>L-Leucine</td>
-                    <td>106.9mq</td>
-                  </tr>
-                  <tr>
-                    <td>L-Leucine</td>
-                    <td>106.9mq</td>
-                  </tr>
-                  <tr>
-                    <td>L-Leucine</td>
-                    <td>106.9mq</td>
-                  </tr>
-                  <tr>
-                    <td>L-Leucine</td>
-                    <td>106.9mq</td>
-                  </tr>
-                  <tr>
-                    <td>Phụ liệu</td>
-                    <td>
-                      Phụ liệu: Calci Hydrophosphat khan, Bột Talc, Magnesi Stearat, Nipagin, Nipasol, Vỏ nang vừa đủ 1
-                      viên nang.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Quy cách đóng gói</td>
-                    <td>300 viên</td>
-                  </tr>
-                </table>
-
-                <h3>Công dụng</h3>
-                <p>
-                  Optimized eAA là thực phẩm bổ sung các axit amin cần thiết cho cơ thể trong tập luyện thể hình, thể
-                  dục thể thao, người cần tăng cường sức khoẻ. Axit amin thiết yếu sẽ giúp kích thích sản xuất năng
-                  lượng tế bào và thúc đẩy tái tạo tế bào, tạo ra các enzyme quan trọng cần thiết cho tiêu hoá khoẻ
-                  mạnh, ngăn ngừa sự dị hoá cơ bắp trong các giai đoạn căng thẳng về chất và tăng cường hệ miễn dịch của
-                  cơ thể
-                </p>
-
-                <h3>Cách dùng:</h3>
-                <p>Người lớn: 5-8 viên/ngày</p>
-                <p>Người luyện tập cường độ cao: 10-15 viên/ngày</p>
-                <p>Sử dụng vào sáng và tối hoặc trước và sau khi tập luyện</p>
-
-                <h3>Lưu ý</h3>
-                <p>Bảo quản: ở nhiệt độ dưới 30°C, tránh ánh nắng.</p>
-                <p>
-                  Chú ý: Thực phẩm này không phải là thuốc và không có tác dụng thay thế thuốc chữa bệnh. Không sử dụng
-                  cho người mẫn cảm với bất kỳ với thành phần nào của sản phẩm.
-                </p>
-              </div>
+              <div className="Product-content-card" dangerouslySetInnerHTML={{ __html: productContent }} />
             </div>
             <HeaderSkew title="Sản phẩm liên quan" />
             {isEmpty ? (

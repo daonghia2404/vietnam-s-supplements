@@ -69,6 +69,7 @@ const ProductSearch: React.FC = () => {
                 <div key={item.id} className="ProductSearch-list-item">
                   <ProductBox
                     {...item}
+                    type={item.type}
                     image={item.image}
                     title={item.name}
                     sale={Number(item.sale)}

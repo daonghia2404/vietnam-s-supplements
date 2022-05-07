@@ -7,8 +7,6 @@ import { TRootState } from '@/redux/reducers';
 import { TParamsGetProducts } from '@/services/api/product-controller/types';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
 import { getProductsAction } from '@/redux/actions';
-
-import './Category.scss';
 import { ECategoryControllerAction } from '@/redux/actions/category-controller/constants';
 import { EProductControllerAction } from '@/redux/actions/product-controller/constants';
 import PageLoading from '@/components/PageLoading';
@@ -17,6 +15,8 @@ import ProductBox from '@/components/ProductBox';
 import Pagination from '@/components/Pagination';
 import { Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
+
+import './Category.scss';
 
 const Category: React.FC = () => {
   const { id } = useParams();
@@ -62,7 +62,7 @@ const Category: React.FC = () => {
         <div className="Category-wrapper">
           <HeaderSkew title={categoryTitle} />
 
-          <ProductsCarousel />
+          <ProductsCarousel data={productsState?.records} />
 
           {isEmpty ? (
             <EmptyBox title="Không có dữ liệu sản phẩm" />
@@ -72,6 +72,7 @@ const Category: React.FC = () => {
                 <div key={item.id} className="Category-list-item">
                   <ProductBox
                     {...item}
+                    type={item.type}
                     image={item.image}
                     title={item.name}
                     sale={Number(item.sale)}

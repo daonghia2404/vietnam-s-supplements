@@ -8,7 +8,7 @@ import './NewDetail.scss';
 const NewDetail: React.FC = () => {
   return (
     <div className="NewDetail">
-      <BlogDetail type={ETypeBlogDetail.HANDBOOK} />
+      <BlogDetail type={ETypeBlogDetail.NEW} />
     </div>
   );
 };

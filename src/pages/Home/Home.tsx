@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HomeBanner from '@/containers/HomeBanner';
 import TradeMark from '@/containers/TradeMark';
 import ProductsCarousel from '@/containers/ProductsCarousel';
 import ReviewsCarousel from '@/containers/ReviewsCarousel';
 import QuanlityStandards from '@/containers/QualityStandards';
+import { TRootState } from '@/redux/reducers';
+import { getProductsAction } from '@/redux/actions';
+import { DEFAULT_PAGE } from '@/common/constants';
 
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
+  const categoryState = useSelector((state: TRootState) => state.categoryReducer.categorys);
+  const featureCategoryId = categoryState?.find(
+    (item) => item.name?.toLowerCase() === 'SẢN PHẨM NỔI BẬT'.toLowerCase(),
+  )?.id;
+
+  const productsState = useSelector((state: TRootState) => state.productReducer.products);
+
+  useEffect(() => {
+    if (featureCategoryId) {
+      dispatch(getProductsAction.request({ page: DEFAULT_PAGE, pageSize: 5, categoryId: featureCategoryId }));
+    }
+  }, [dispatch, featureCategoryId]);
+
   return (
     <div className="Home">
       <HomeBanner />
       <TradeMark />
-      <ProductsCarousel title="Sản phẩm" />
+      <ProductsCarousel title="Sản phẩm" data={productsState?.records} />
       <ReviewsCarousel />
       <QuanlityStandards />
     </div>
