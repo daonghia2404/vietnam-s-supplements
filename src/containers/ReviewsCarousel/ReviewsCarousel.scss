@@ -3,21 +3,26 @@
 .ReviewsCarousel {
   margin-bottom: 6rem;
 
+  &-main {
+    margin: 0 -1.5rem;
+  }
+
   &-carousel {
+    padding: 0 1.5rem;
+
     &-item {
       position: relative;
-      flex: 0 0 calc(50% - 1rem);
-      max-width: calc(50% - 1rem);
-
-      @media (max-width: 1024px) {
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin-bottom: 2rem;
-      }
 
       &-image {
+        height: 35rem;
+        display: flex;
+
         img {
           width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: top;
+          margin: auto;
         }
       }
 

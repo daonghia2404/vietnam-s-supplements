@@ -13,14 +13,23 @@
 
     .ProductBox {
       &-info {
-        &-title,
-        &-price-current {
+
+        &-title {
           color: $white;
+        }
+
+        &-price {
+
+          &-current,
+          &-old {
+            color: $white;
+          }
         }
 
         &-cta {
           color: $black;
           background: $white;
+
           &::before,
           &::after {
             background: $white;
