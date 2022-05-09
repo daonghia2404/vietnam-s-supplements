@@ -154,9 +154,12 @@ a {
     }
   }
 }
+.fb_iframe_widget iframe {
+  bottom: 18rem !important;
+}
 
 .fb_dialog .fb_dialog_content iframe {
-  bottom: 10rem;
+  bottom: 10rem !important;
   margin: 0 !important;
   top: unset !important;
 }
