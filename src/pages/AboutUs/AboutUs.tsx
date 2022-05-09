@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import HeaderSkew from '@/components/HeaderSkew';
+import { scrollToTop } from '@/utils/functions';
 
 import './AboutUs.scss';
 
 const AboutUs: React.FC = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   return (
     <div className="AboutUs style-content">
       <div className="AboutUs-wrapper">

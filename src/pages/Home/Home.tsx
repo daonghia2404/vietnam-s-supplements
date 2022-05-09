@@ -9,6 +9,7 @@ import QuanlityStandards from '@/containers/QualityStandards';
 import { TRootState } from '@/redux/reducers';
 import { getProductsAction } from '@/redux/actions';
 import { DEFAULT_PAGE } from '@/common/constants';
+import { scrollToTop } from '@/utils/functions';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,10 @@ const Home: React.FC = () => {
       dispatch(getProductsAction.request({ page: DEFAULT_PAGE, pageSize: 5, categoryId: featureCategoryId }));
     }
   }, [dispatch, featureCategoryId]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="Home">

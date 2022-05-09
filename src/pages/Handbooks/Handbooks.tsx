@@ -15,6 +15,7 @@ import EmptyBox from '@/components/EmptyBox';
 import { Paths } from '@/pages/routers';
 
 import './Handbooks.scss';
+import { scrollToTop } from '@/utils/functions';
 
 const Handbooks: React.FC = () => {
   const dispatch = useDispatch();
@@ -53,6 +54,10 @@ const Handbooks: React.FC = () => {
   useEffect(() => {
     getHandbooksData();
   }, [getHandbooksData]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="Handbooks">

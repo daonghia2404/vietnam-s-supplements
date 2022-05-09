@@ -5,6 +5,7 @@ import { showNotification } from '@/utils/functions';
 
 const KEY_STORAGE = 'karaCarts';
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const parseCartData = (data: any): any => {
   return {
     id: uuidv4(),

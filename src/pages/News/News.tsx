@@ -15,6 +15,7 @@ import EmptyBox from '@/components/EmptyBox';
 
 import './News.scss';
 import { Paths } from '@/pages/routers';
+import { scrollToTop } from '@/utils/functions';
 
 const News: React.FC = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ const News: React.FC = () => {
   useEffect(() => {
     getNewsData();
   }, [getNewsData]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="News style-content">

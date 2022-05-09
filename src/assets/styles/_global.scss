@@ -154,3 +154,16 @@ a {
     }
   }
 }
+
+/* This is for the circle position */
+.fb_dialog.fb_dialog_advanced {
+  bottom: 10rem;
+}
+
+/* The following are for the chat box, on display and on hide */
+iframe.fb_customer_chat_bounce_in_v2 {
+  bottom: 10rem;
+}
+iframe.fb_customer_chat_bounce_out_v2 {
+  bottom: 10rem;
+}

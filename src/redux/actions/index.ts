@@ -18,3 +18,4 @@ export * from '@/redux/actions/category-controller';
 export * from '@/redux/actions/cart-controller';
 export * from '@/redux/actions/voucher-controller';
 export * from '@/redux/actions/banner-controller';
+export * from '@/redux/actions/contact-controller';

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { Paths } from '@/pages/routers';
-import { renderUrlShareSocial } from '@/utils/functions';
+import { renderUrlShareSocial, scrollToTop } from '@/utils/functions';
 import HeaderSkew from '@/components/HeaderSkew';
 
 import './PolicyReturn.scss';
 
 const PolicyReturn: React.FC = () => {
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   return (
     <div className="PolicyReturn">
       <div className="PolicyReturn-wrapper style-content">

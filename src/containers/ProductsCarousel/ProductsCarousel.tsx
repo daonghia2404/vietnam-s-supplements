@@ -18,6 +18,10 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
   const lastBlock = splitData?.[splitData.length - 1];
   const middleBlock = splitData?.filter((_, index) => index !== 0 && index !== splitData.length - 1);
 
+  const handleNavigateProductDetail = (id: string): void => {
+    navigate(Paths.Product(id));
+  };
+
   return (
     <div className="ProductsCarousel">
       <div className="container">
@@ -43,11 +47,19 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
                   {middleBlock.map((item) => (
                     <div key={item.id}>
                       <div className="ProductsCarousel-carousel-item flex flex-wrap">
-                        <div className="ProductsCarousel-carousel-item-image">
+                        <div
+                          className="ProductsCarousel-carousel-item-image"
+                          onClick={(): void => handleNavigateProductDetail(item.id)}
+                        >
                           <img src={item.image} alt="" />
                         </div>
                         <div className="ProductsCarousel-carousel-item-info">
-                          <div className="ProductsCarousel-carousel-item-info-title">{item.name}</div>
+                          <div
+                            className="ProductsCarousel-carousel-item-info-title"
+                            onClick={(): void => handleNavigateProductDetail(item.id)}
+                          >
+                            {item.name}
+                          </div>
                           <div className="ProductsCarousel-carousel-item-info-subtitle">Đối tượng sử dụng:</div>
                           <div
                             className="ProductsCarousel-carousel-item-info-description"
@@ -62,9 +74,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
                           <div className="ProductsCarousel-carousel-item-info-btn flex justify-center">
                             <div
                               className="ProductsCarousel-carousel-item-info-cta"
-                              onClick={(): void => {
-                                navigate(Paths.Product(item.id));
-                              }}
+                              onClick={(): void => handleNavigateProductDetail(item.id)}
                             >
                               Mua ngay
                             </div>

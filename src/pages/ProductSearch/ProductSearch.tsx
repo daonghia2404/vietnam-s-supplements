@@ -13,7 +13,7 @@ import ProductBox from '@/components/ProductBox';
 import Pagination from '@/components/Pagination';
 import { Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
-import { getQueryParam } from '@/utils/functions';
+import { getQueryParam, scrollToTop } from '@/utils/functions';
 
 import './ProductSearch.scss';
 
@@ -47,6 +47,10 @@ const ProductSearch: React.FC = () => {
   useEffect(() => {
     getProductsByProductSearch();
   }, [getProductsByProductSearch]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="ProductSearch style-content">

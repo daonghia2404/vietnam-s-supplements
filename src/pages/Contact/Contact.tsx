@@ -1,17 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 
 import HeaderSkew from '@/components/HeaderSkew';
 import Icon, { EIconName } from '@/components/Icon';
-import { validationRules } from '@/utils/functions';
+import { scrollToTop, showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import TextArea from '@/components/TextArea';
+import { postContactAction } from '@/redux/actions';
+import { ETypeNotification } from '@/common/enums';
+import { TRootState } from '@/redux/reducers';
+import { EContactControllerAction } from '@/redux/actions/contact-controller/constants';
 
 import './Contact.scss';
 
 const Contact: React.FC = () => {
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
+
+  const postContactLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EContactControllerAction.POST_CONTACT],
+  );
+
+  const handleSubmit = (values: any): void => {
+    const body = {
+      fullname: values?.fullname,
+      phone: values?.phone,
+      email: values?.email,
+      description: values?.description,
+      title: values?.title,
+    };
+
+    dispatch(postContactAction.request(body, handlePostContactSuccess));
+  };
+
+  const handlePostContactSuccess = (): void => {
+    showNotification(
+      ETypeNotification.SUCCESS,
+      'Gửi biểu mẫu liên hệ thành công. Chúng tôi sẽ phản hồi với bạn trong thời gian sớm nhất',
+    );
+    form.resetFields();
+  };
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="Contact">
@@ -39,9 +73,9 @@ const Contact: React.FC = () => {
 
       <div className="Contact-title">Nếu bạn có bất kỳ thắc mắc nào hãy liên hệ với chúng tôi</div>
 
-      <Form form={form} layout="vertical">
+      <Form form={form} layout="vertical" onFinish={handleSubmit}>
         <div className="Contact-row two flex justify-between flex-wrap">
-          <Form.Item name="name" rules={[validationRules.required()]}>
+          <Form.Item name="fullname" rules={[validationRules.required()]}>
             <Input placeholder="Họ tên" />
           </Form.Item>
           <Form.Item name="phone" rules={[validationRules.required(), validationRules.onlyNumeric()]}>
@@ -57,13 +91,13 @@ const Contact: React.FC = () => {
           </Form.Item>
         </div>
         <div className="Contact-row">
-          <Form.Item name="content" rules={[validationRules.required()]}>
+          <Form.Item name="description" rules={[validationRules.required()]}>
             <TextArea placeholder="Nội dung" />
           </Form.Item>
         </div>
 
         <Form.Item>
-          <Button title="Gửi liên hệ" type="primary" htmlType="submit" disabled />
+          <Button title="Gửi liên hệ" type="primary" htmlType="submit" loading={postContactLoading} />
         </Form.Item>
       </Form>
     </div>

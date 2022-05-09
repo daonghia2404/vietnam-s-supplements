@@ -60,9 +60,9 @@ const WalletRecharge: React.FC = () => {
         ),
       );
   };
-  const handleOpenSuccessRechargeModal = (): void => {
-    setSuccessRechargeModalState({ visible: true });
-  };
+  // const handleOpenSuccessRechargeModal = (): void => {
+  //   setSuccessRechargeModalState({ visible: true });
+  // };
   const handleCloseSuccessRechargeModal = (): void => {
     setSuccessRechargeModalState({ visible: false });
   };

@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from 'antd';
 
 import HeaderSkew from '@/components/HeaderSkew';
-import ImageProduct from '@/assets/images/image-product.png';
-import Amount from '@/components/Amount';
 import Button from '@/components/Button';
-import Icon, { EIconName } from '@/components/Icon';
 import Checkbox from '@/components/Checkbox';
-
-import './Checkout.scss';
-import { validationRules } from '@/utils/functions';
+import { scrollToTop, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import TextArea from '@/components/TextArea';
 
+import './Checkout.scss';
+
 const Checkout: React.FC = () => {
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
   return (
     <div className="Checkout">
       <HeaderSkew title="Thanh toán" />

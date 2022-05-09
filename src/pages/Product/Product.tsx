@@ -25,7 +25,7 @@ import ProductBox from '@/components/ProductBox';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Carousels, { TCarouselsProps } from '@/components/Carousels';
 import { EDeviceType } from '@/redux/reducers/ui';
-import { caculatorSalePrice, formatMoneyVND, showNotification } from '@/utils/functions';
+import { caculatorSalePrice, formatMoneyVND, scrollToTop, showNotification } from '@/utils/functions';
 import { DEFAULT_PAGE } from '@/common/constants';
 import { Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
@@ -206,6 +206,10 @@ const Product: React.FC = () => {
   useEffect(() => {
     getProductData();
   }, [getProductData]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="Product">

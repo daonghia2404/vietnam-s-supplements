@@ -21,6 +21,7 @@
     .ant-picker-input {
       input {
         font-size: 1.6rem;
+
         &::placeholder {
           color: $boulder;
         }
@@ -34,6 +35,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+  }
+
+  .ant-picker-suffix {
+    flex: 0 0 16px;
+    max-width: 16px;
+    height: 16px;
+
+    .Icon {
+      width: 100%;
+      height: 100%;
     }
   }
 }

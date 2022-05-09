@@ -24,7 +24,7 @@
       }
 
       .ProductBox {
-        height: calc(100% - 0.6rem);
+        height: 100%;
       }
     }
   }
@@ -47,6 +47,10 @@
       &-image {
         display: flex;
         height: 43rem;
+
+        @media (max-width: 575px) {
+          height: auto;
+        }
 
         img {
           margin: auto;
@@ -95,6 +99,10 @@
           font-weight: lighter;
           @include ellipsis(3);
           height: 8rem;
+
+          @media (max-width: 991px) {
+            height: 6rem;
+          }
 
           * {
             font-size: 1.6rem !important;

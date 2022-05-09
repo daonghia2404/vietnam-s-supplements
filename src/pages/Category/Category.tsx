@@ -17,6 +17,7 @@ import { Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
 
 import './Category.scss';
+import { scrollToTop } from '@/utils/functions';
 
 const Category: React.FC = () => {
   const { id } = useParams();
@@ -53,6 +54,10 @@ const Category: React.FC = () => {
   useEffect(() => {
     getProductsByCategory();
   }, [getProductsByCategory]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="Category style-content">

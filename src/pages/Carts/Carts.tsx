@@ -19,6 +19,7 @@ import {
   caculatorSalePrice,
   formatISODateToDateTime,
   formatMoneyVND,
+  scrollToTop,
   showNotification,
   validationRules,
 } from '@/utils/functions';
@@ -203,6 +204,10 @@ const Carts: React.FC = () => {
   useEffect(() => {
     setCartsChecked(carts || []);
   }, [carts]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="Carts">
