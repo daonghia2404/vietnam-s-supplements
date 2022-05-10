@@ -10,7 +10,7 @@
   box-shadow: $button-shadow;
   background: $white;
 
-  &-logo {
+  &-image {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -18,9 +18,21 @@
     margin: auto;
     display: block;
 
-    img {
+    &-favicon {
+      width: 4rem;
+      margin-right: .5rem;
+
+      @media (max-width: 375px) {
+        width: 3rem;
+      }
+    }
+  
+    &-logo {
       width: 12rem;
-      height: 4rem;
+
+      @media (max-width: 375px) {
+        width: 10rem;
+      }
     }
   }
 

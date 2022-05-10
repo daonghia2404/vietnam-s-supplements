@@ -51,15 +51,15 @@ const Contact: React.FC = () => {
     <div className="Contact">
       <HeaderSkew title="Liên hệ" />
       <div className="Contact-title">Công ty TNHH {`Vietnam's`} Supplements</div>
-      <div className="Contact-address flex items-center">
+      <div className="Contact-address flex items-start">
         <Icon name={EIconName.MapMarker} />
         186 Tôn Đức Thắng, Quận Đống Đa, Hà Nội
       </div>
-      <div className="Contact-address flex items-center">
+      <div className="Contact-address flex items-start">
         <Icon name={EIconName.Phone} />
         0945449229
       </div>
-      <div className="Contact-address flex items-center">
+      <div className="Contact-address flex items-start">
         <Icon name={EIconName.Mail} />
         vnsupplements@gmail.com
       </div>

@@ -4,6 +4,7 @@ import { Form } from 'antd';
 import { useSelector } from 'react-redux';
 
 import Logo from '@/assets/images/logo.png';
+import Favicon from '@/assets/images/favicon.png';
 import { Paths } from '@/pages/routers';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
@@ -55,8 +56,9 @@ const Header: React.FC<THeaderProps> = ({ onClickMenuBars }) => {
       <div className="Header-item-icon" onClick={(): void => onClickMenuBars?.()} style={{ marginRight: 'auto' }}>
         <Icon name={EIconName.Bars} />
       </div>
-      <Link className="Header-logo" to={Paths.Home}>
-        <img src={Logo} alt="" />
+      <Link className="Header-image flex items-center" to={Paths.Home}>
+        <img className="Header-image-favicon" src={Favicon} alt="" />
+        <img className="Header-image-logo" src={Logo} alt="" />
       </Link>
       <div className="Header-item-icon" style={{ marginLeft: 'auto' }}>
         <DropdownCustom
