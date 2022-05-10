@@ -14,7 +14,7 @@ import LoadingSpin from '@/assets/icons/icon-loading-spin.svg';
 
 import './UploadAvatar.scss';
 
-const UploadAvatar: React.FC<TUploadAvatarProps> = ({ className, value, onChange }) => {
+const UploadAvatar: React.FC<TUploadAvatarProps> = ({ className, disabled, value, onChange }) => {
   const dispatch = useDispatch();
 
   const uploadLoading = useSelector((state: TRootState) => state.loadingReducer[EUploadControllerAction.UPLOAD]);
@@ -36,7 +36,7 @@ const UploadAvatar: React.FC<TUploadAvatarProps> = ({ className, value, onChange
 
   return (
     <div className={classNames('UploadAvatar', className)}>
-      <Upload disabled={uploadLoading} onChange={handleUpload}>
+      <Upload disabled={disabled || uploadLoading} onChange={handleUpload}>
         <div className="UploadAvatar-image flex">
           <img src={value || ImageAvatarDefault} alt="" />
 
@@ -46,9 +46,11 @@ const UploadAvatar: React.FC<TUploadAvatarProps> = ({ className, value, onChange
             </div>
           )}
         </div>
-        <div className="UploadAvatar-icon">
-          <Icon name={EIconName.Camera} color={EIconColor.WHITE} />
-        </div>
+        {!disabled && (
+          <div className="UploadAvatar-icon">
+            <Icon name={EIconName.Camera} color={EIconColor.WHITE} />
+          </div>
+        )}
       </Upload>
     </div>
   );

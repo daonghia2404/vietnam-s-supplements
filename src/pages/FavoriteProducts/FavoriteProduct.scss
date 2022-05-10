@@ -11,11 +11,6 @@
         flex: 0 0 calc(100% / 2 - 1rem);
         max-width: calc(100% / 2 - 1rem);
       }
-
-      @media (max-width: 575px) {
-        flex: 0 0 100%;
-        max-width: 100%;
-      }
     }
   }
 }

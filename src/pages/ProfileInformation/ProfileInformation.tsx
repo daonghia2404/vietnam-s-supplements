@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import HeaderSkew from '@/components/HeaderSkew';
 import UploadAvatar from '@/components/UploadAvatar';
 import UploadFilesList from '@/components/UploadFilesList';
-import { formatISODateToMomment, showNotification, validationRules } from '@/utils/functions';
+import { formatISODateToMomment, scrollToTop, showNotification, validationRules } from '@/utils/functions';
 import Input from '@/components/Input';
 import DatePicker from '@/components/DatePicker';
 import Select from '@/components/Select';
@@ -140,6 +140,10 @@ const ProfileInformation: React.FC = () => {
       getAddressWithExistedCityAndDistrict();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authInfoState, isDisabledCityField, isDisabledDistrictField]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div className="ProfileInformation style-container">

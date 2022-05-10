@@ -1,10 +1,11 @@
 import { TPaginateResponse } from '@/common/types';
 import { TCategoryResponse } from '@/services/api/category-controller/types';
+import { ESortField, ESortType } from '@/services/api/product-controller/enums';
 
 export type TParamsGetProductsFavorite = {
   page: number;
   pageSize: number;
-  categoryId: string | null;
+  categoryId?: string | null;
 };
 export type TGetProductsFavoriteResponse = TPaginateResponse & {
   records: TProductResponse[];
@@ -15,6 +16,9 @@ export type TParamsGetProducts = {
   page: number;
   pageSize: number;
   name?: string;
+  filter?: string;
+  sortField?: ESortField;
+  sortType?: ESortType;
 };
 
 export type TGetProductsResponse = TPaginateResponse & {
@@ -35,6 +39,7 @@ export type TProductResponse = {
   name: string;
   noteUseMedicine: string;
   numberUse: string;
+  costPrice?: number;
   point: number;
   price: number;
   productElement: TProductObject[];

@@ -64,8 +64,6 @@ const FavoriteProduct: React.FC = () => {
                   <div className="FavoriteProduct-main-item">
                     <ProductBox
                       {...item}
-                      type={item.type}
-                      image={item.image}
                       title={item.name}
                       sale={Number(item.sale)}
                       price={Number(item.price)}

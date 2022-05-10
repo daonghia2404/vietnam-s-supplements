@@ -47,7 +47,7 @@ export const dataMenu = ({ categorys }: TResponseData): TSidebarData[] => {
       ],
     },
     { key: 'contact', title: 'Liên Hệ', link: Paths.Contact, subItems: [] },
-    { key: 'calendar', title: 'Lịch Ăn Uống', link: `${LayoutPaths.Admin}${Paths.MealSchedule}`, subItems: [] },
+    // { key: 'calendar', title: 'Lịch Ăn Uống', link: `${LayoutPaths.Admin}${Paths.MealSchedule}`, subItems: [] },
     { key: 'rotation', title: 'Vòng Quay', link: `${LayoutPaths.Admin}${Paths.Wheels}`, subItems: [] },
     {
       key: 'auth',
@@ -91,13 +91,13 @@ export const dataProfileMenu = (authInfo?: TGetInfoResponse): TSidebarData[] => 
     subItems: [],
     icon: <Icon name={EIconName.History} />,
   },
-  {
-    key: 'exercise-package',
-    title: 'Bài tập đã mua',
-    link: `${LayoutPaths.Profile}${Paths.ExerciseBought}`,
-    subItems: [],
-    icon: <Icon name={EIconName.Gym} />,
-  },
+  // {
+  //   key: 'exercise-package',
+  //   title: 'Bài tập đã mua',
+  //   link: `${LayoutPaths.Profile}${Paths.ExerciseBought}`,
+  //   subItems: [],
+  //   icon: <Icon name={EIconName.Gym} />,
+  // },
   {
     key: 'history-rotation',
     title: 'Lịch sử vòng quay',

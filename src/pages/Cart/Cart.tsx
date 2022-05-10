@@ -58,7 +58,7 @@ const Cart: React.FC = () => {
     dispatch(
       getOrdersAction.request({
         ...getOrdersParamsRequest,
-        status: getOrdersParamsRequest?.status || undefined,
+        status: getOrdersParamsRequest?.status === EOrderStatus.NULL ? undefined : getOrdersParamsRequest?.status,
       }),
     );
   }, [dispatch, getOrdersParamsRequest]);

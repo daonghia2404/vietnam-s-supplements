@@ -40,11 +40,6 @@
         flex: 0 0 calc(100% / 2);
         max-width: calc(100% / 2);
       }
-
-      @media (max-width: 575px) {
-        flex: 0 0 100%;
-        max-width: 100%;
-      }
     }
   }
 

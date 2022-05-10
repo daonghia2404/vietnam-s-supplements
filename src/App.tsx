@@ -49,7 +49,7 @@ const App: React.FC = () => {
     <div className={classNames('App', { 'hide': !visibleSidebar }, deviceType)}>
       {deviceType === EDeviceType.MOBILE && (
         <div className="App-header">
-          <Header />
+          <Header onClickMenuBars={handleToggleVisibleSidebar} />
         </div>
       )}
 

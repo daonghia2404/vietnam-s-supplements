@@ -8,7 +8,7 @@ import Input from '@/components/Input';
 import Icon, { EIconName } from '@/components/Icon';
 import Button from '@/components/Button';
 import Checkbox from '@/components/Checkbox';
-import { showNotification, validationRules } from '@/utils/functions';
+import { scrollToTop, showNotification, validationRules } from '@/utils/functions';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import AuthHelpers from '@/services/helpers';
 import { getInfoAction, loginAction } from '@/redux/actions';
@@ -56,6 +56,10 @@ const Login: React.FC = () => {
       });
     }
   }, [form]);
+
+  useEffect(() => {
+    scrollToTop();
+  }, []);
 
   return (
     <div>

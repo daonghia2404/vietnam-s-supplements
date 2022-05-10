@@ -9,7 +9,14 @@ import './Pagination.scss';
 const Pagination: React.FC<TPaginationProps> = ({ page, pageSize, total = 0, className, onChange }) => {
   return (
     <div className={classNames('Pagination', className)}>
-      <AntdPagination current={page} pageSize={pageSize} total={total} hideOnSinglePage onChange={onChange} />
+      <AntdPagination
+        current={page}
+        pageSize={pageSize}
+        total={total}
+        hideOnSinglePage
+        showLessItems
+        onChange={onChange}
+      />
     </div>
   );
 };

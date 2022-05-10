@@ -8,7 +8,14 @@ import { EFormatDate } from '@/common/enums';
 import { TDatePickerProps } from './DatePicker.types';
 import './DatePicker.scss';
 
-const DatePicker: React.FC<TDatePickerProps> = ({ className, value, placeholder, onChange }) => {
+const DatePicker: React.FC<TDatePickerProps> = ({
+  className,
+  value,
+  placeholder,
+  disabled,
+  disabledDate,
+  onChange,
+}) => {
   return (
     <div className={classNames('DatePicker', className)}>
       <AntdDatePicker
@@ -16,7 +23,9 @@ const DatePicker: React.FC<TDatePickerProps> = ({ className, value, placeholder,
         format={EFormatDate.COMMON}
         value={value}
         placeholder={placeholder}
+        disabled={disabled}
         onChange={onChange}
+        disabledDate={disabledDate}
       />
     </div>
   );

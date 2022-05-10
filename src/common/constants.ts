@@ -1,4 +1,5 @@
 import { ESex } from '@/common/enums';
+import { ESortType } from '@/services/api/product-controller/enums';
 import { EHistoryPrizeStatus } from '@/services/api/wheel-controller/enums';
 
 /* eslint-disable no-useless-escape */
@@ -25,4 +26,9 @@ export const DEFAULT_PAGE_SIZE = 10;
 export const dataPrizeStatusOptions = [
   { value: EHistoryPrizeStatus.RECEIVED, label: 'Đã nhận thưởng', color: 'success' },
   { value: EHistoryPrizeStatus.NOT_RECEIVED, label: 'Chưa nhận thưởng', color: 'warning' },
+];
+
+export const filterProuductsOptions = [
+  { value: ESortType.ASC, label: 'Giá từ thấp đến cao' },
+  { value: ESortType.DESC, label: 'Giá từ cao đến thấp' },
 ];

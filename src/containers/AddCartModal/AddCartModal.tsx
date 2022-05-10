@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { Form } from 'antd';
 import { useSelector } from 'react-redux';
 
@@ -20,6 +20,8 @@ const AddCartModal: React.FC<TAddCartModalProps> = ({ visible, data, onClose, on
   const [isAddCalendar, setIsAddCalendar] = useState<boolean>(false);
   const isMedicianProduct = data?.type === '1';
 
+  const [beforeDate, setBeforeDate] = useState<Moment | null>(null);
+
   const addCartLoading = useSelector((state: TRootState) => state.loadingReducer[ECartControllerAction.ADD_CART]);
 
   const handleSubmit = (values: any): void => {
@@ -30,6 +32,10 @@ const AddCartModal: React.FC<TAddCartModalProps> = ({ visible, data, onClose, on
     };
 
     onSubmit?.(body);
+  };
+
+  const disabledDate = (current: Moment, setDate?: Moment | null): boolean => {
+    return current && current < moment(setDate).endOf('day');
   };
 
   useEffect(() => {
@@ -64,10 +70,14 @@ const AddCartModal: React.FC<TAddCartModalProps> = ({ visible, data, onClose, on
         {isAddCalendar && (
           <div className="AddCartModal-form-row two flex justify-between flex-wrap border-bottom">
             <Form.Item name="dateStartEat" rules={[validationRules.required()]}>
-              <DatePicker placeholder="Chọn ngày bắt đầu" />
+              <DatePicker placeholder="Chọn ngày bắt đầu" disabledDate={disabledDate} onChange={setBeforeDate} />
             </Form.Item>
             <Form.Item name="dateEndEat" rules={[validationRules.required()]}>
-              <DatePicker placeholder="Chọn ngày kết thúc" />
+              <DatePicker
+                placeholder="Chọn ngày kết thúc"
+                disabledDate={(current): boolean => disabledDate(current, beforeDate)}
+                disabled={!beforeDate}
+              />
             </Form.Item>
           </div>
         )}

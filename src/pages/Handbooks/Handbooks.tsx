@@ -67,7 +67,7 @@ const Handbooks: React.FC = () => {
         <div className="Handbooks-wrapper">
           <HeaderSkew title="Cẩm nang" />
 
-          <NewsCarousel data={handbooksCarouselData} />
+          {!isEmpty && <NewsCarousel data={handbooksCarouselData} />}
 
           <div className="Handbooks-title">Cẩm nang</div>
           {isEmpty ? (

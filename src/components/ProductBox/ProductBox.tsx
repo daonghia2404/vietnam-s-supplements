@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { navigate } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { caculatorSalePrice, formatMoneyVND, showNotification } from '@/utils/functions';
+import { formatMoneyVND, showNotification } from '@/utils/functions';
 import AuthHelpers from '@/services/helpers';
 import { ETypeNotification } from '@/common/enums';
 import { addCartAction, getCartAction, uiActions } from '@/redux/actions';
@@ -14,7 +14,18 @@ import { TRootState } from '@/redux/reducers';
 import { TProductBoxProps } from './ProductBox.types';
 import './ProductBox.scss';
 
-const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title, price, hasBg, link, id, type }) => {
+const ProductBox: React.FC<TProductBoxProps> = ({
+  className,
+  image,
+  sale,
+  title,
+  price,
+  hasBg,
+  link,
+  id,
+  costPrice,
+  type,
+}) => {
   const atk = AuthHelpers.getAccessToken();
   const dispatch = useDispatch();
 
@@ -84,7 +95,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title,
 
   return (
     <div className={classNames('ProductBox', className, { background: hasBg })}>
-      {Boolean(sale) && <div className="ProductBox-badge">{sale}%</div>}
+      {Boolean(sale) && <div className="ProductBox-badge">-{sale}%</div>}
       {/* <div className={classNames('ProductBox-heart', { disabled: favoriteLoading })} onClick={handleClickFavorite}>
         <Icon name={EIconName.Heart} />
       </div> */}
@@ -103,9 +114,9 @@ const ProductBox: React.FC<TProductBoxProps> = ({ className, image, sale, title,
             {formatMoneyVND({ amount: price })}
             <sup>VNĐ</sup>
           </div>
-          {Boolean(sale) && (
+          {Boolean(costPrice) && (
             <div className="ProductBox-info-price-old">
-              {formatMoneyVND({ amount: caculatorSalePrice(price, Number(sale)) })}
+              {formatMoneyVND({ amount: costPrice || 0 })}
               <sup>VNĐ</sup>
             </div>
           )}

@@ -23,6 +23,7 @@ import Button from '@/components/Button';
 
 import './Sidebar.scss';
 import { syncCartsLocalStorageAndCartsDatabase } from '@/utils/cart';
+import UploadAvatar from '@/components/UploadAvatar';
 
 const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const dispatch = useDispatch();
@@ -107,7 +108,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   };
 
   const handleSearchProduct = (values: any): void => {
-    navigate(`${Paths.ProductSearch}?keyword=${values.keyword}`);
+    navigate(`/${Paths.ProductSearch}?keyword=${values.keyword}`);
     setVisibleDropdownSearch(false);
   };
 
@@ -116,7 +117,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
       <div className="Sidebar-search">
         <Form form={form} className="flex items-start" onFinish={handleSearchProduct}>
           <Form.Item name="keyword" rules={[validationRules.required()]}>
-            <Input placeholder="Nhập tên sản phẩm" />
+            <Input placeholder="Nhập từ khoá tìm kiếm" />
           </Form.Item>
           <Form.Item>
             <Button iconName={EIconName.SearchSvg} type="primary" htmlType="submit" iconColor={EIconColor.WHITE} />
@@ -209,6 +210,19 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
         ) : (
           <div className="Sidebar-close" onClick={(): void => onClickMenuBars?.()}>
             <Icon name={EIconName.Close} color={EIconColor.BOULDER} />
+          </div>
+        )}
+
+        {isMobile && atk && userInfo && (
+          <div
+            className="Sidebar-account flex items-center"
+            onClick={(): void => {
+              navigate(`${LayoutPaths.Profile}${Paths.ProfileInformation}`);
+              onClickMenuBars?.();
+            }}
+          >
+            <UploadAvatar disabled value={userInfo?.avatar} />
+            {userInfo?.fullName}
           </div>
         )}
 

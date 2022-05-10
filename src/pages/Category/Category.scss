@@ -30,15 +30,29 @@
         flex: 0 0 calc(100% / 2);
         max-width: calc(100% / 2);
       }
-
-      @media (max-width: 575px) {
-        flex: 0 0 100%;
-        max-width: 100%;
-      }
     }
   }
 
   &-pagination {
     margin-top: 3rem;
+  }
+
+  &-filters {
+    .ant-form-item {
+      &:first-child {
+        flex: 1;
+      }
+
+      &:last-child {
+        flex: 0 0 30rem;
+        max-width: 30rem;
+        margin-left: 3rem;
+
+        @media (max-width: 575px) {
+          flex: 0;
+          margin-left: 1rem;
+        }
+      }
+    }
   }
 }

@@ -45,6 +45,7 @@
         font-size: 1.8rem;
         color: $big-stone;
         margin-bottom: 1rem;
+        @include ellipsis(5);
       }
 
       &-share {

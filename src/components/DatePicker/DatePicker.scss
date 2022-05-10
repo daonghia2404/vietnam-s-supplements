@@ -18,6 +18,10 @@
     border-radius: 1rem;
     height: 5.2rem;
 
+    &.ant-picker-disabled {
+      opacity: 0.6;
+    }
+
     .ant-picker-input {
       input {
         font-size: 1.6rem;

@@ -24,6 +24,7 @@
         padding: 0;
         box-shadow: $button-shadow;
         height: 7rem;
+        display: none;
 
         .Sidebar {
           &-item {
@@ -170,11 +171,11 @@
         }
 
         &:not(.disabled):hover {
-          color: $electric-violet;
+          color: $big-stone;
 
           svg {
-            fill: $electric-violet;
-            stroke: $electric-violet;
+            fill: $big-stone;
+            stroke: $big-stone;
           }
         }
 
@@ -205,7 +206,18 @@
     .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
     .ant-menu-light .ant-menu-submenu-active,
     .ant-menu-light .ant-menu-submenu-title:hover {
-      color: $electric-violet;
+      color: $big-stone;
+    }
+
+    .ant-menu-sub {
+      .Sidebar-menu-item {
+        color: $oslo-gray;
+      }
+
+      .Sidebar-menu-item:not(.ant-menu-item-disabled).active,
+      .Sidebar-menu-item:not(.ant-menu-item-disabled):hover {
+        color: $big-stone !important;
+      }
     }
 
     .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
@@ -258,7 +270,7 @@
 
       &-suffix {
         font-size: 1.6rem;
-        color: $electric-violet;
+        color: $big-stone;
         padding: .3rem .3rem 0 0;
       }
 
@@ -301,7 +313,7 @@
 
       &:not(.ant-menu-item-disabled).active,
       &:not(.ant-menu-item-disabled):hover {
-        color: $electric-violet !important;
+        color: $big-stone !important;
       }
     }
   }
@@ -366,6 +378,23 @@
           }
         }
       }
+    }
+  }
+
+  &-account {
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-bottom: 1px solid $iron;
+    padding-bottom: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: $common-transition;
+
+    .UploadAvatar {
+      margin: 0 1.5rem 0 0;
+      width: 6rem;
+      height: 6rem;
     }
   }
 }

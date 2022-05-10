@@ -28,107 +28,101 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
     navigate(Paths.Product(id));
   };
 
-  return (
+  return isShowCarousel ? (
     <div className="ProductsCarousel">
       <div className="container">
-        {isShowCarousel && (
-          <div className="ProductsCarousel-wrapper">
-            {title && <HeaderSkew title={title} center />}
+        <div className="ProductsCarousel-wrapper">
+          {title && <HeaderSkew title={title} center />}
 
-            {isMobile ? (
-              <div className="ProductsCarousel-carousel-mobile">
-                <Carousels autoplay={false} slidesToShow={2}>
-                  {data.map((item) => (
-                    <div className="ProductsCarousel-carousel-mobile-item">
-                      <ProductBox
-                        {...item}
-                        hasBg
-                        type={item.type}
-                        image={item.image}
-                        title={item.name}
-                        sale={Number(item.sale)}
-                        price={Number(item.price)}
-                        link={Paths.Product(item.id)}
-                      />
-                    </div>
-                  ))}
-                </Carousels>
+          {isMobile ? (
+            <div className="ProductsCarousel-carousel-mobile">
+              <Carousels autoplay={false} slidesToShow={2}>
+                {data.map((item) => (
+                  <div className="ProductsCarousel-carousel-mobile-item">
+                    <ProductBox
+                      {...item}
+                      hasBg
+                      title={item.name}
+                      sale={Number(item.sale)}
+                      price={Number(item.price)}
+                      link={Paths.Product(item.id)}
+                    />
+                  </div>
+                ))}
+              </Carousels>
+            </div>
+          ) : (
+            <div className="ProductsCarousel-main flex flex-wrap">
+              <div className="ProductsCarousel-main-item">
+                <ProductBox
+                  hasBg
+                  {...firstBlock}
+                  title={firstBlock.name}
+                  sale={Number(firstBlock.sale)}
+                  price={Number(firstBlock.price)}
+                  link={Paths.Product(firstBlock.id)}
+                />
               </div>
-            ) : (
-              <div className="ProductsCarousel-main flex flex-wrap">
-                <div className="ProductsCarousel-main-item">
-                  <ProductBox
-                    hasBg
-                    {...firstBlock}
-                    type={firstBlock.type}
-                    image={firstBlock.image}
-                    title={firstBlock.name}
-                    sale={Number(firstBlock.sale)}
-                    price={Number(firstBlock.price)}
-                    link={Paths.Product(firstBlock.id)}
-                  />
-                </div>
-                <div className="ProductsCarousel-main-item">
-                  <Carousels autoplay={false} dots={false}>
-                    {middleBlock.map((item) => (
-                      <div key={item.id}>
-                        <div className="ProductsCarousel-carousel-item flex flex-wrap">
+              <div className="ProductsCarousel-main-item">
+                <Carousels autoplay={false} dots={false}>
+                  {middleBlock.map((item) => (
+                    <div key={item.id}>
+                      <div className="ProductsCarousel-carousel-item flex flex-wrap">
+                        <div
+                          className="ProductsCarousel-carousel-item-image"
+                          onClick={(): void => handleNavigateProductDetail(item.id)}
+                        >
+                          <img src={item.image} alt="" />
+                        </div>
+                        <div className="ProductsCarousel-carousel-item-info">
                           <div
-                            className="ProductsCarousel-carousel-item-image"
+                            className="ProductsCarousel-carousel-item-info-title"
                             onClick={(): void => handleNavigateProductDetail(item.id)}
                           >
-                            <img src={item.image} alt="" />
+                            {item.name}
                           </div>
-                          <div className="ProductsCarousel-carousel-item-info">
+                          <div className="ProductsCarousel-carousel-item-info-subtitle">Đối tượng sử dụng:</div>
+                          <div
+                            className="ProductsCarousel-carousel-item-info-description"
+                            // eslint-disable-next-line react/no-danger
+                            dangerouslySetInnerHTML={{
+                              __html: item.productObject?.map((obj) => obj.details)?.join(' ') || '',
+                            }}
+                          />
+                          <div className="ProductsCarousel-carousel-item-info-price">
+                            {formatMoneyVND({ amount: item.price })} VNĐ
+                          </div>
+                          <div className="ProductsCarousel-carousel-item-info-btn flex justify-center">
                             <div
-                              className="ProductsCarousel-carousel-item-info-title"
+                              className="ProductsCarousel-carousel-item-info-cta"
                               onClick={(): void => handleNavigateProductDetail(item.id)}
                             >
-                              {item.name}
-                            </div>
-                            <div className="ProductsCarousel-carousel-item-info-subtitle">Đối tượng sử dụng:</div>
-                            <div
-                              className="ProductsCarousel-carousel-item-info-description"
-                              // eslint-disable-next-line react/no-danger
-                              dangerouslySetInnerHTML={{
-                                __html: item.productObject?.map((obj) => obj.details)?.join(' ') || '',
-                              }}
-                            />
-                            <div className="ProductsCarousel-carousel-item-info-price">
-                              {formatMoneyVND({ amount: item.price })} VNĐ
-                            </div>
-                            <div className="ProductsCarousel-carousel-item-info-btn flex justify-center">
-                              <div
-                                className="ProductsCarousel-carousel-item-info-cta"
-                                onClick={(): void => handleNavigateProductDetail(item.id)}
-                              >
-                                Mua ngay
-                              </div>
+                              Mua ngay
                             </div>
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </Carousels>
-                </div>
-                <div className="ProductsCarousel-main-item">
-                  <ProductBox
-                    hasBg
-                    {...lastBlock}
-                    type={lastBlock.type}
-                    image={lastBlock.image}
-                    title={lastBlock.name}
-                    sale={Number(lastBlock.sale)}
-                    price={Number(lastBlock.price)}
-                    link={Paths.Product(lastBlock.id)}
-                  />
-                </div>
+                    </div>
+                  ))}
+                </Carousels>
               </div>
-            )}
-          </div>
-        )}
+              <div className="ProductsCarousel-main-item">
+                <ProductBox
+                  hasBg
+                  {...lastBlock}
+                  title={lastBlock.name}
+                  sale={Number(lastBlock.sale)}
+                  price={Number(lastBlock.price)}
+                  link={Paths.Product(lastBlock.id)}
+                />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 

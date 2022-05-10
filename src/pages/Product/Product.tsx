@@ -25,7 +25,7 @@ import ProductBox from '@/components/ProductBox';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Carousels, { TCarouselsProps } from '@/components/Carousels';
 import { EDeviceType } from '@/redux/reducers/ui';
-import { caculatorSalePrice, formatMoneyVND, scrollToTop, showNotification } from '@/utils/functions';
+import { formatMoneyVND, scrollToTop, showNotification } from '@/utils/functions';
 import { DEFAULT_PAGE } from '@/common/constants';
 import { Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
@@ -231,10 +231,9 @@ const Product: React.FC = () => {
             </div>
             <div className="Product-banner-item flex flex-col justify-center items-center">
               <div className="Product-banner-title">{productState?.name}</div>
-              {Boolean(productState?.sale) && (
+              {Boolean(productState?.costPrice) && (
                 <del className="Product-banner-old-price">
-                  {formatMoneyVND({ amount: caculatorSalePrice(productState?.price || 0, Number(productState?.sale)) })}{' '}
-                  VND
+                  {formatMoneyVND({ amount: productState?.costPrice || 0 })} VND
                 </del>
               )}
               <div className="Product-banner-price">{formatMoneyVND({ amount: productState?.price || 0 })} VND</div>
@@ -318,8 +317,6 @@ const Product: React.FC = () => {
                   <div key={item.id} className="Product-list-item">
                     <ProductBox
                       {...item}
-                      type={item.type}
-                      image={item.image}
                       title={item.name}
                       sale={Number(item.sale)}
                       price={Number(item.price)}

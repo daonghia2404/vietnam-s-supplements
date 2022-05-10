@@ -5,6 +5,7 @@ export type TProductBoxProps = {
   title: string;
   price: number;
   sale?: number;
+  costPrice?: number;
   link?: string;
   type: string;
   hasBg?: boolean;

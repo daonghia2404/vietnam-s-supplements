@@ -10,8 +10,110 @@
   box-shadow: $button-shadow;
   background: $white;
 
-  img {
-    width: 12rem;
-    height: 4rem;
+  &-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: auto;
+    display: block;
+
+    img {
+      width: 12rem;
+      height: 4rem;
+    }
+  }
+
+  &-item {
+    &-icon {
+      cursor: pointer;
+      position: relative;
+      margin: 0;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      padding: 1rem;
+      transition: $common-transition;
+
+      &-badge {
+        background: $black;
+        color: $white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        text-align: center;
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        top: 0.5rem;
+        right: -1rem;
+
+        @media (max-width: 991px) {
+          top: 50%;
+          left: 50%;
+          transform: translate(25%, -100%);
+        }
+      }
+
+      &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      img,
+      svg {
+        transition: $common-transition;
+        max-width: 3rem;
+        margin: auto;
+        pointer-events: none;
+      }
+    }
+
+    &-icon {
+      &:hover {
+        background: $athens-gray;
+      }
+    }
+  }
+
+  &-search-wrapper {
+    .Header {
+      &-search {
+        padding: 2rem;
+
+        .ant-form-item {
+          margin-bottom: 0;
+
+          &:first-child {
+            flex: 1;
+          }
+        }
+
+        .Button {
+          .ant-btn {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            width: 5.2rem;
+            height: 5.2rem;
+            padding: 0;
+          }
+
+          &-icon {
+            .Icon {
+              width: 3rem;
+            }
+          }
+        }
+
+        .Input {
+          .ant-input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+        }
+      }
+    }
   }
 }

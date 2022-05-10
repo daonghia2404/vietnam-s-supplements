@@ -65,7 +65,7 @@ const News: React.FC = () => {
         <div className="News-wrapper">
           <HeaderSkew title="Tin tức" />
 
-          <NewsCarousel data={newsCarouselData} />
+          {!isEmpty && <NewsCarousel data={newsCarouselData} />}
 
           <div className="News-title">Tin tức</div>
           {isEmpty ? (
