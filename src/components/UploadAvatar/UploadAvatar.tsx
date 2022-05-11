@@ -11,6 +11,7 @@ import { TUploadResponse } from '@/services/api/upload-controller/types';
 import { TRootState } from '@/redux/reducers';
 import { EUploadControllerAction } from '@/redux/actions/upload-controller/constants';
 import LoadingSpin from '@/assets/icons/icon-loading-spin.svg';
+import { handleErrorImageUrl } from '@/utils/functions';
 
 import './UploadAvatar.scss';
 
@@ -38,7 +39,7 @@ const UploadAvatar: React.FC<TUploadAvatarProps> = ({ className, disabled, value
     <div className={classNames('UploadAvatar', className)}>
       <Upload disabled={disabled || uploadLoading} onChange={handleUpload}>
         <div className="UploadAvatar-image flex">
-          <img src={value || ImageAvatarDefault} alt="" />
+          <img src={value || ImageAvatarDefault} onError={handleErrorImageUrl} alt="" />
 
           {uploadLoading && (
             <div className="UploadAvatar-loading flex items-center justify-center">

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { navigate } from '@reach/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { formatMoneyVND, showNotification } from '@/utils/functions';
+import { formatMoneyVND, handleErrorImageUrl, showNotification } from '@/utils/functions';
 import AuthHelpers from '@/services/helpers';
 import { ETypeNotification } from '@/common/enums';
 import { addCartAction, getCartAction, uiActions } from '@/redux/actions';
@@ -100,7 +100,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({
         <Icon name={EIconName.Heart} />
       </div> */}
       <div className="ProductBox-image" onClick={handleNavigateProductDetail}>
-        <img src={image} alt="" />
+        <img src={image} onError={handleErrorImageUrl} alt="" />
       </div>
       <div className="ProductBox-info">
         <div className="ProductBox-info-title" onClick={handleNavigateProductDetail}>

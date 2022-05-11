@@ -8,6 +8,7 @@ import { EHandbookControllerAction } from '@/redux/actions/handbook-controller/c
 import { ENewControllerAction } from '@/redux/actions/new-controller/constants';
 import PageLoading from '@/components/PageLoading';
 import { getHandbookAction, getNewAction } from '@/redux/actions';
+import { handleErrorImageUrl } from '@/utils/functions';
 
 import { ETypeBlogDetail } from './BlogDetail.enums';
 import { TBlogDetailProps } from './BlogDetail.types';
@@ -55,7 +56,12 @@ const BlogDetail: React.FC<TBlogDetailProps> = ({ type }) => {
       {loading ? (
         <PageLoading />
       ) : (
-        <div className="BlogDetail-wrapper style-content" dangerouslySetInnerHTML={{ __html: data?.content || '' }} />
+        <div className="BlogDetail-wrapper">
+          <div className="BlogDetail-image">
+            <img src={data?.image} onError={handleErrorImageUrl} alt="" />
+          </div>
+          <div className="BlogDetail-content style-content" dangerouslySetInnerHTML={{ __html: data?.content || '' }} />
+        </div>
       )}
     </div>
   );

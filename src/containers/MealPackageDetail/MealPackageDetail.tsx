@@ -9,7 +9,7 @@ import { buyPackMealAction, createUserMealScheduleAction, getPackMealAction } fr
 import { TRootState } from '@/redux/reducers';
 import { EPackMealControllerAction } from '@/redux/actions/pack-meal-controller/constants';
 import PageLoading from '@/components/PageLoading';
-import { formatMoneyVND } from '@/utils/functions';
+import { formatMoneyVND, handleErrorImageUrl } from '@/utils/functions';
 import { EUserMealScheduleControllerAction } from '@/redux/actions/user-meal-schedule-controller/constants';
 import { LayoutPaths, Paths } from '@/pages/routers';
 
@@ -143,7 +143,7 @@ const MealPackageDetail: React.FC<TMealPackageDetailProps> = ({ dataGlobalStep, 
           )}
           <div className="MealPackageDetail-title">Thông tin gói</div>
           <div className="MealPackageDetail-image">
-            <img src={packMealState?.image} alt="" />
+            <img src={packMealState?.image} onError={handleErrorImageUrl} alt="" />
           </div>
 
           <div className="MealPackageDetail-header">

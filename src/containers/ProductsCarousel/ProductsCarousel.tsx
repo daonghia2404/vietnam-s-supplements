@@ -6,7 +6,7 @@ import HeaderSkew from '@/components/HeaderSkew';
 import ProductBox from '@/components/ProductBox';
 import Carousels from '@/components/Carousels';
 import { Paths } from '@/pages/routers';
-import { formatMoneyVND } from '@/utils/functions';
+import { formatMoneyVND, handleErrorImageUrl } from '@/utils/functions';
 import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
 
@@ -72,7 +72,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
                           className="ProductsCarousel-carousel-item-image"
                           onClick={(): void => handleNavigateProductDetail(item.id)}
                         >
-                          <img src={item.image} alt="" />
+                          <img src={item.image} onError={handleErrorImageUrl} alt="" />
                         </div>
                         <div className="ProductsCarousel-carousel-item-info">
                           <div

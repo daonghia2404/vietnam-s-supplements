@@ -16,6 +16,7 @@ import EmptyBox from '@/components/EmptyBox';
 import './News.scss';
 import { Paths } from '@/pages/routers';
 import { scrollToTop } from '@/utils/functions';
+import { ENewsCarouselType } from '@/containers/NewsCarousel/NewsCarousel.enums';
 
 const News: React.FC = () => {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ const News: React.FC = () => {
         <div className="News-wrapper">
           <HeaderSkew title="Tin tức" />
 
-          {!isEmpty && <NewsCarousel data={newsCarouselData} />}
+          {!isEmpty && <NewsCarousel type={ENewsCarouselType.NEWS} data={newsCarouselData} />}
 
           <div className="News-title">Tin tức</div>
           {isEmpty ? (

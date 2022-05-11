@@ -25,7 +25,7 @@ import ProductBox from '@/components/ProductBox';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import Carousels, { TCarouselsProps } from '@/components/Carousels';
 import { EDeviceType } from '@/redux/reducers/ui';
-import { formatMoneyVND, scrollToTop, showNotification } from '@/utils/functions';
+import { formatMoneyVND, handleErrorImageUrl, scrollToTop, showNotification } from '@/utils/functions';
 import { DEFAULT_PAGE } from '@/common/constants';
 import { Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
@@ -226,7 +226,7 @@ const Product: React.FC = () => {
             </div>
             <div className="Product-banner-item flex justify-center">
               <div className="Product-banner-image">
-                <img src={productState?.image} alt="" />
+                <img src={productState?.image} onError={handleErrorImageUrl} alt="" />
               </div>
             </div>
             <div className="Product-banner-item flex flex-col justify-center items-center">
@@ -299,7 +299,7 @@ const Product: React.FC = () => {
               <Carousels {...carouselProps()}>
                 {[1, 2, 3, 4, 5].map((item) => (
                   <div key={item} className="Product-carousel-item">
-                    <img src={productState?.image} alt="" />
+                    <img src={productState?.image} onError={handleErrorImageUrl} alt="" />
                   </div>
                 ))}
               </Carousels>

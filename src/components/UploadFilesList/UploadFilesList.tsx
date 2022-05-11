@@ -10,6 +10,7 @@ import { uploadAction } from '@/redux/actions';
 import { EUploadControllerAction } from '@/redux/actions/upload-controller/constants';
 import { TRootState } from '@/redux/reducers';
 import { TUploadResponse } from '@/services/api/upload-controller/types';
+import { handleErrorImageUrl } from '@/utils/functions';
 
 import './UploadFilesList.scss';
 
@@ -56,7 +57,7 @@ const UploadFilesList: React.FC<TUploadFilesListProps> = ({ className, label, va
                 <Icon name={EIconName.Close} />
               </div>
 
-              <img src={item} alt="" />
+              <img src={item} onError={handleErrorImageUrl} alt="" />
             </div>
           ))}
       </div>

@@ -9,7 +9,7 @@ import Pagination from '@/components/Pagination';
 import EmptyBox from '@/components/EmptyBox';
 import PageLoading from '@/components/PageLoading';
 import { ETypeNotification } from '@/common/enums';
-import { showNotification } from '@/utils/functions';
+import { handleErrorImageUrl, showNotification } from '@/utils/functions';
 import { TWheelResponse } from '@/services/api/wheel-controller/types';
 import Modal from '@/components/Modal';
 import { ETurnWheelControllerAction } from '@/redux/actions/turn-wheel-controller/constants';
@@ -90,7 +90,7 @@ const RankExchangePoints: React.FC = () => {
               {wheelsUserState.records.map((item) => (
                 <div key={item.id} className="RankExchangePoints-item flex">
                   <div className="RankExchangePoints-item-image">
-                    <img src={item.image} alt="" />
+                    <img src={item.image} onError={handleErrorImageUrl} alt="" />
                   </div>
                   <div className="RankExchangePoints-item-info">
                     <div className="RankExchangePoints-item-info-title">{item.title}</div>

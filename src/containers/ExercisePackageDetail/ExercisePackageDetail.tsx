@@ -14,13 +14,13 @@ import {
 import { TRootState } from '@/redux/reducers';
 import { EPackExerciseControllerAction } from '@/redux/actions/pack-exercise-controller/constants';
 import PageLoading from '@/components/PageLoading';
-import { formatMoneyVND } from '@/utils/functions';
+import { formatMoneyVND, handleErrorImageUrl } from '@/utils/functions';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import { ETypeExercisePackage } from '@/containers/ExercisePackage/ExercisePackage.enums';
+import { EPackPtOnlineControllerAction } from '@/redux/actions/pack-pt-online-controller/constants';
 
 import { TExercisePackageDetailProps } from './ExercisePackageDetail.types';
 import './ExercisePackageDetail.scss';
-import { EPackPtOnlineControllerAction } from '@/redux/actions/pack-pt-online-controller/constants';
 
 const ExercisePackageDetail: React.FC<TExercisePackageDetailProps> = ({ type, onBack }) => {
   const { id } = useParams();
@@ -156,7 +156,7 @@ const ExercisePackageDetail: React.FC<TExercisePackageDetailProps> = ({ type, on
           )}
           <div className="ExercisePackageDetail-title">Thông tin gói</div>
           <div className="ExercisePackageDetail-image">
-            <img src={packState?.image} alt="" />
+            <img src={packState?.image} onError={handleErrorImageUrl} alt="" />
           </div>
 
           <div className="ExercisePackageDetail-header">

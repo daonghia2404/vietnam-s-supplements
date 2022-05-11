@@ -10,7 +10,7 @@ import { cancelOrderAction, getAddressAction, getOrderAction } from '@/redux/act
 import { TRootState } from '@/redux/reducers';
 import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
 import PageLoading from '@/components/PageLoading';
-import { formatMoneyVND, showNotification } from '@/utils/functions';
+import { formatMoneyVND, handleErrorImageUrl, showNotification } from '@/utils/functions';
 import { dataPaymentMethodOptions } from '@/pages/Carts/Carts.data';
 import { cartFilterTabOptions } from '@/pages/Cart/Cart.data';
 import { EOrderStatus } from '@/services/api/order-controller/enums';
@@ -97,7 +97,7 @@ const CartDetail: React.FC = () => {
               {orderState?.cart?.items?.map((item) => (
                 <div key={item.id} className="CartDetail-main-list-item flex">
                   <div className="CartDetail-main-list-item-image">
-                    <img src={item.product.image} alt="" />
+                    <img src={item?.product?.image} onError={handleErrorImageUrl} alt="" />
                   </div>
                   <div className="CartDetail-main-list-item-info">
                     <div className="CartDetail-main-list-item-info-title">{item.product.name}</div>

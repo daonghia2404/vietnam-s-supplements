@@ -1,4 +1,5 @@
 /* eslint-disable no-useless-escape */
+import { SyntheticEvent } from 'react';
 import moment, { Moment } from 'moment';
 import { notification } from 'antd';
 import { Rule } from 'antd/lib/form';
@@ -6,6 +7,7 @@ import { Rule } from 'antd/lib/form';
 import { EFormatDate, ETypeNotification } from '@/common/enums';
 import { regex } from '@/common/constants';
 import env from '@/env';
+import ImageError from '@/assets/images/image-error.jpeg';
 
 export const removeAccents = (str: string): string => {
   let strConverted = str;
@@ -197,4 +199,10 @@ export const renderUrlShareSocial = (path: string, title: string): string => {
 
 export const caculatorSalePrice = (price: number, sale: number): number => {
   return price + (price * sale) / 100;
+};
+
+export const handleErrorImageUrl = (e: SyntheticEvent<HTMLImageElement, Event>): void => {
+  const { currentTarget } = e;
+  currentTarget.onerror = null; // prevents looping
+  currentTarget.src = ImageError;
 };

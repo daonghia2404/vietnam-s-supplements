@@ -1,8 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { TMealPackageBoxProps } from './MealPackageBox.types';
+import { handleErrorImageUrl } from '@/utils/functions';
 
+import { TMealPackageBoxProps } from './MealPackageBox.types';
 import './MealPackageBox.scss';
 
 const MealPackageBox: React.FC<TMealPackageBoxProps> = ({
@@ -18,7 +19,7 @@ const MealPackageBox: React.FC<TMealPackageBoxProps> = ({
   return (
     <div className={classNames('MealPackageBox flex', className)}>
       <div className="MealPackageBox-image" onClick={onClickDetail}>
-        <img src={image} alt="" />
+        <img src={image} onError={handleErrorImageUrl} alt="" />
       </div>
       <div className="MealPackageBox-info">
         <div className="MealPackageBox-info-title" onClick={onClickDetail}>

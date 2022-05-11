@@ -1,24 +1,34 @@
 import React from 'react';
+import { navigate } from '@reach/router';
 
 import Carousels from '@/components/Carousels';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
+import { handleErrorImageUrl, renderUrlShareSocial } from '@/utils/functions';
+import { ENewsCarouselType } from '@/containers/NewsCarousel/NewsCarousel.enums';
+import { Paths } from '@/pages/routers';
 
 import { TNewsCarouselProps } from './NewsCarousel.types';
 import './NewsCarousel.scss';
-import { renderUrlShareSocial } from '@/utils/functions';
 
-const NewsCarousel: React.FC<TNewsCarouselProps> = ({ data = [] }) => {
+const NewsCarousel: React.FC<TNewsCarouselProps> = ({ data = [], type }) => {
+  const handleNavigateDetail = (id: string): void => {
+    if (type === ENewsCarouselType.HANDBOOKS) navigate(Paths.HandbookDetail(id));
+    if (type === ENewsCarouselType.NEWS) navigate(Paths.NewDetail(id));
+  };
+
   return (
     <div className="NewsCarousel">
       <Carousels autoplay dots={false}>
         {data.map((item) => (
           <div key={item.id}>
             <div className="NewsCarousel-item flex flex-wrap items-center">
-              <div className="NewsCarousel-item-image">
-                <img src={item.image} alt="" />
+              <div className="NewsCarousel-item-image" onClick={(): void => handleNavigateDetail(item.id)}>
+                <img src={item.image} onError={handleErrorImageUrl} alt="" />
               </div>
               <div className="NewsCarousel-item-info">
-                <div className="NewsCarousel-item-info-title">{item.title}</div>
+                <div className="NewsCarousel-item-info-title" onClick={(): void => handleNavigateDetail(item.id)}>
+                  {item.title}
+                </div>
                 <div
                   className="NewsCarousel-item-info-description"
                   // eslint-disable-next-line react/no-danger

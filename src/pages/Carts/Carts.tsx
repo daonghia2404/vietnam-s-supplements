@@ -19,6 +19,7 @@ import {
   caculatorSalePrice,
   formatISODateToDateTime,
   formatMoneyVND,
+  handleErrorImageUrl,
   scrollToTop,
   showNotification,
   validationRules,
@@ -33,8 +34,6 @@ import {
   patchCartAction,
   uiActions,
 } from '@/redux/actions';
-
-import './Carts.scss';
 import Select, { TSelectOption } from '@/components/Select';
 import Input from '@/components/Input';
 import Radio from '@/components/Radio';
@@ -43,6 +42,8 @@ import { TParamsGetVouchers } from '@/services/api/voucher-controller/types';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/constants';
 import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
 import { handleChangeAmountCartLocalStorage, handleDeleteCartLocalStorage } from '@/utils/cart';
+
+import './Carts.scss';
 
 const Carts: React.FC = () => {
   const dispatch = useDispatch();
@@ -241,7 +242,7 @@ const Carts: React.FC = () => {
                         />
                       </div> */}
                       <div className="Carts-orders-item-image">
-                        <img src={item.product.image} alt="" />
+                        <img src={item?.product?.image} onError={handleErrorImageUrl} alt="" />
                       </div>
                       <div className="Carts-orders-item-info">
                         <div className="Carts-orders-item-title">{item.product.name}</div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { handleErrorImageUrl } from '@/utils/functions';
 
 import { TExercisePackageBoxProps } from './ExercisePackageBox.types';
 import Icon, { EIconName } from '@/components/Icon';
@@ -18,7 +19,7 @@ const ExercisePackageBox: React.FC<TExercisePackageBoxProps> = ({
   return (
     <div className={classNames('ExercisePackageBox flex', className)}>
       <div className="ExercisePackageBox-image" onClick={onClickDetail}>
-        <img src={image} alt="" />
+        <img src={image} onError={handleErrorImageUrl} alt="" />
       </div>
       <div className="ExercisePackageBox-info">
         <div className="ExercisePackageBox-info-title flex justify-between" onClick={onClickDetail}>

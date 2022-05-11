@@ -16,6 +16,7 @@ import { Paths } from '@/pages/routers';
 
 import './Handbooks.scss';
 import { scrollToTop } from '@/utils/functions';
+import { ENewsCarouselType } from '@/containers/NewsCarousel/NewsCarousel.enums';
 
 const Handbooks: React.FC = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ const Handbooks: React.FC = () => {
         <div className="Handbooks-wrapper">
           <HeaderSkew title="Cẩm nang" />
 
-          {!isEmpty && <NewsCarousel data={handbooksCarouselData} />}
+          {!isEmpty && <NewsCarousel type={ENewsCarouselType.HANDBOOKS} data={handbooksCarouselData} />}
 
           <div className="Handbooks-title">Cẩm nang</div>
           {isEmpty ? (

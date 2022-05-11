@@ -8,6 +8,7 @@ import ImageReview3 from '@/assets/images/image-review-3.png';
 import ImageReview4 from '@/assets/images/image-review-4.png';
 import ImageReview5 from '@/assets/images/image-review-5.jpeg';
 import Carousels from '@/components/Carousels';
+import { handleErrorImageUrl } from '@/utils/functions';
 import { TRootState } from '@/redux/reducers';
 
 import './ReviewsCarousel.scss';
@@ -64,7 +65,7 @@ const ReviewsCarousel: React.FC = () => {
                 <div key={index} className="ReviewsCarousel-carousel flex justify-between flex-wrap">
                   <div className="ReviewsCarousel-carousel-item">
                     <div className="ReviewsCarousel-carousel-item-image">
-                      <img src={item.image} alt="" />
+                      <img src={item.image} onError={handleErrorImageUrl} alt="" />
                     </div>
                     <div className="ReviewsCarousel-carousel-item-info">
                       <div className="ReviewsCarousel-carousel-item-info-header">
