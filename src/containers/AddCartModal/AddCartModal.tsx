@@ -58,14 +58,14 @@ const AddCartModal: React.FC<TAddCartModalProps> = ({ visible, data, onClose, on
     >
       <div className="Modal-body-title">Thêm vào giỏ hàng</div>
       <Form form={form} className="AddCartModal-form" layout="vertical" onFinish={handleSubmit}>
-        {isMedicianProduct && (
+        {/* {isMedicianProduct && (
           <div className="AddCartModal-form-row flex items-center justify-between">
             <div className="AddCartModal-form-row-label">Thêm vào lịch ăn uống:</div>
             <Form.Item name="addCalendar">
               <Checkbox onChange={setIsAddCalendar} />
             </Form.Item>
           </div>
-        )}
+        )} */}
 
         {isAddCalendar && (
           <div className="AddCartModal-form-row two flex justify-between flex-wrap border-bottom">
