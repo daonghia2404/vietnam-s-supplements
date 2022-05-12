@@ -59,7 +59,7 @@ const News: React.FC = () => {
   }, []);
 
   return (
-    <div className="News style-content">
+    <div className="News">
       {getNewsLoading ? (
         <PageLoading />
       ) : (
