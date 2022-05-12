@@ -17,6 +17,7 @@ export const Carousels: React.FC<TCarouselsProps> = ({
   slidesPerRow = 1,
   responsive = [],
   autoplay,
+  onDragging,
   children,
 }) => {
   const renderPrevArrow = (): React.ReactElement => {
@@ -39,6 +40,8 @@ export const Carousels: React.FC<TCarouselsProps> = ({
     nextArrow: renderNextArrow(),
     prevArrow: renderPrevArrow(),
     responsive,
+    beforeChange: (): void => onDragging?.(true),
+    afterChange: (): void => onDragging?.(false),
   };
   return (
     <div className={classNames('Carousels')}>

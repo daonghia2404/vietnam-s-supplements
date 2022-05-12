@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { navigate } from '@reach/router';
 
 import Carousels from '@/components/Carousels';
@@ -11,14 +11,18 @@ import { TNewsCarouselProps } from './NewsCarousel.types';
 import './NewsCarousel.scss';
 
 const NewsCarousel: React.FC<TNewsCarouselProps> = ({ data = [], type }) => {
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
   const handleNavigateDetail = (id: string): void => {
-    if (type === ENewsCarouselType.HANDBOOKS) navigate(Paths.HandbookDetail(id));
-    if (type === ENewsCarouselType.NEWS) navigate(Paths.NewDetail(id));
+    if (!isDragging) {
+      if (type === ENewsCarouselType.HANDBOOKS) navigate(Paths.HandbookDetail(id));
+      if (type === ENewsCarouselType.NEWS) navigate(Paths.NewDetail(id));
+    }
   };
 
   return (
     <div className="NewsCarousel">
-      <Carousels autoplay dots={false}>
+      <Carousels autoplay dots={false} onDragging={setIsDragging}>
         {data.map((item) => (
           <div key={item.id}>
             <div className="NewsCarousel-item flex flex-wrap items-center">
@@ -30,7 +34,7 @@ const NewsCarousel: React.FC<TNewsCarouselProps> = ({ data = [], type }) => {
                   {item.title}
                 </div>
                 <div
-                  className="NewsCarousel-item-info-description"
+                  className="NewsCarousel-item-info-description style-content"
                   // eslint-disable-next-line react/no-danger
                   dangerouslySetInnerHTML={{ __html: item.description || '' }}
                 />

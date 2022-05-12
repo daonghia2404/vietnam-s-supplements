@@ -22,7 +22,7 @@ const NewBlock: React.FC<TNewBlockProps> = ({ url, image, title, description }) 
           {title}
         </div>
         {/* eslint-disable-next-line react/no-danger */}
-        <div className="NewBlock-description" dangerouslySetInnerHTML={{ __html: description }} />
+        <div className="NewBlock-description style-content" dangerouslySetInnerHTML={{ __html: description }} />
         <a href={renderUrlShareSocial(url || '', title)} className="NewBlock-share flex items-center">
           <Icon name={EIconName.Share} color={EIconColor.INTERNATIONAL_KLEIN_BLUE} />
           Chia sẻ

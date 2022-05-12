@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { navigate } from '@reach/router';
 import { useSelector } from 'react-redux';
 
@@ -9,11 +9,14 @@ import { Paths } from '@/pages/routers';
 import { formatMoneyVND, handleErrorImageUrl } from '@/utils/functions';
 import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
+import { TProductResponse } from '@/services/api/product-controller/types';
 
 import { TProductsCarouselProps } from './ProductsCarousel.types';
 import './ProductsCarousel.scss';
 
 const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }) => {
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+
   const window = useSelector((state: TRootState) => state.uiReducer.device.type);
 
   const isMobile = window === EDeviceType.MOBILE;
@@ -24,8 +27,17 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
   const lastBlock = splitData?.[splitData.length - 1];
   const middleBlock = splitData?.filter((_, index) => index !== 0 && index !== splitData.length - 1);
 
+  const productObjectDescription = (item: TProductResponse): string => {
+    return (
+      item.productObject
+        ?.map((obj) => obj.details)
+        ?.join(' ')
+        ?.trim() || ''
+    );
+  };
+
   const handleNavigateProductDetail = (id: string): void => {
-    navigate(Paths.Product(id));
+    if (!isDragging) navigate(Paths.Product(id));
   };
 
   return isShowCarousel ? (
@@ -36,7 +48,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
 
           {isMobile ? (
             <div className="ProductsCarousel-carousel-mobile">
-              <Carousels autoplay={false} slidesToShow={2}>
+              <Carousels autoplay={false} slidesToShow={2} onDragging={setIsDragging}>
                 {data.map((item) => (
                   <div className="ProductsCarousel-carousel-mobile-item">
                     <ProductBox
@@ -45,7 +57,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
                       title={item.name}
                       sale={Number(item.sale)}
                       price={Number(item.price)}
-                      link={Paths.Product(item.id)}
+                      link={!isDragging ? Paths.Product(item.id) : ''}
                     />
                   </div>
                 ))}
@@ -64,7 +76,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
                 />
               </div>
               <div className="ProductsCarousel-main-item">
-                <Carousels autoplay={false} dots={false}>
+                <Carousels autoplay={false} dots={false} onDragging={setIsDragging}>
                   {middleBlock.map((item) => (
                     <div key={item.id}>
                       <div className="ProductsCarousel-carousel-item flex flex-wrap">
@@ -72,7 +84,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
                           className="ProductsCarousel-carousel-item-image"
                           onClick={(): void => handleNavigateProductDetail(item.id)}
                         >
-                          <img src={item.image} onError={handleErrorImageUrl} alt="" />
+                          <img src={item.imageMkt || item.image} onError={handleErrorImageUrl} alt="" />
                         </div>
                         <div className="ProductsCarousel-carousel-item-info">
                           <div
@@ -81,14 +93,17 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
                           >
                             {item.name}
                           </div>
-                          <div className="ProductsCarousel-carousel-item-info-subtitle">Đối tượng sử dụng:</div>
+                          <div className="ProductsCarousel-carousel-item-info-subtitle">
+                            {productObjectDescription(item) ? 'Đối tượng sử dụng:' : ''}
+                          </div>
                           <div
-                            className="ProductsCarousel-carousel-item-info-description"
+                            className="ProductsCarousel-carousel-item-info-description style-content"
                             // eslint-disable-next-line react/no-danger
                             dangerouslySetInnerHTML={{
-                              __html: item.productObject?.map((obj) => obj.details)?.join(' ') || '',
+                              __html: productObjectDescription(item),
                             }}
                           />
+
                           <div className="ProductsCarousel-carousel-item-info-price">
                             {formatMoneyVND({ amount: item.price })} VNĐ
                           </div>

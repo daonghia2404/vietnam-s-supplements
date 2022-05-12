@@ -25,11 +25,13 @@ const ProductBox: React.FC<TProductBoxProps> = ({
   id,
   costPrice,
   type,
+  onClickDetail,
 }) => {
   const atk = AuthHelpers.getAccessToken();
   const dispatch = useDispatch();
 
   const cartsStorage = useSelector((state: TRootState) => state.uiReducer.cartsStorage) || [];
+  const isSamePriceAndCostPrice = costPrice === price;
 
   const [addCartModalState, setAddCartModalState] = useState<{
     visible: boolean;
@@ -81,6 +83,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({
 
   const handleNavigateProductDetail = (): void => {
     if (link) navigate(link);
+    onClickDetail?.();
   };
 
   const handleAddCartSuccess = (): void => {
@@ -114,7 +117,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({
             {formatMoneyVND({ amount: price })}
             <sup>VNĐ</sup>
           </div>
-          {Boolean(costPrice) && (
+          {Boolean(costPrice) && !isSamePriceAndCostPrice && (
             <div className="ProductBox-info-price-old">
               {formatMoneyVND({ amount: costPrice || 0 })}
               <sup>VNĐ</sup>

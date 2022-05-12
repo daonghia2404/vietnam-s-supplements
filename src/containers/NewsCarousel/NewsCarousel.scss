@@ -56,7 +56,17 @@
         font-size: 1.8rem;
         color: $big-stone;
         margin-bottom: 1rem;
+        height: 14rem;
         @include ellipsis(5);
+
+        * {
+          font-size: 1.8rem !important;
+          margin: 0 !important;
+        }
+    
+        img {
+          display: none !important;
+        }
       }
 
       &-share {

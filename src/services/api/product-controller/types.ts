@@ -34,6 +34,7 @@ export type TProductResponse = {
   element: string;
   id: string;
   image: string;
+  imageMkt?: string;
   imageCertificateUrl: string;
   isUseMedicineAfterEat: string;
   name: string;

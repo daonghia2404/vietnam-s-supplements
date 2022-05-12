@@ -7,4 +7,5 @@ export type TCarouselsProps = {
   autoplay?: boolean;
   slidesPerRow?: number;
   responsive?: Array<any>;
+  onDragging?: (dragging: boolean) => void;
 };

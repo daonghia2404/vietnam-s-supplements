@@ -78,6 +78,7 @@ const Product: React.FC = () => {
   const favoriteLoading = likeProductLoading || unlikeProductLoading;
 
   const isEmpty = productsState?.records.length === 0;
+  const isSamePriceAndCostPrice = productState?.costPrice === productState?.price;
 
   const productContent =
     (productState?.description || '') +
@@ -231,7 +232,7 @@ const Product: React.FC = () => {
             </div>
             <div className="Product-banner-item flex flex-col justify-center items-center">
               <div className="Product-banner-title">{productState?.name}</div>
-              {Boolean(productState?.costPrice) && (
+              {Boolean(productState?.costPrice) && !isSamePriceAndCostPrice && (
                 <del className="Product-banner-old-price">
                   {formatMoneyVND({ amount: productState?.costPrice || 0 })} VND
                 </del>
@@ -306,7 +307,10 @@ const Product: React.FC = () => {
             </div>
             <div className="Product-content">
               <div className="Product-content-title">Chi tiết sản phẩm</div>
-              <div className="Product-content-card" dangerouslySetInnerHTML={{ __html: productContent }} />
+              <div
+                className="Product-content-card style-editable style-content"
+                dangerouslySetInnerHTML={{ __html: productContent }}
+              />
             </div>
             <HeaderSkew title="Sản phẩm liên quan" />
             {isEmpty ? (
