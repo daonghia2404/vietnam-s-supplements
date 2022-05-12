@@ -4,12 +4,12 @@ import classNames from 'classnames';
 
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
 import { getTotalPage, searchString } from '@/utils/functions';
-
-import { TSelectProps } from './Select.types';
-import './Select.scss';
 import { useDebounce } from '@/utils/hooks';
 import { TIMEOUT_DEBOUNCE } from '@/common/enums';
 import WrapperLazyLoad from '@/components/WrapperLazyLoad';
+
+import { TSelectProps } from './Select.types';
+import './Select.scss';
 
 const Select: React.FC<TSelectProps> = ({
   placeholder,

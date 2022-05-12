@@ -19,7 +19,6 @@
         }
 
         &-price {
-
           &-current,
           &-old {
             color: $white;
@@ -103,6 +102,7 @@
       margin: 0 auto 3.5rem;
 
       @media (max-width: 575px) {
+        min-height: 5rem;
         flex-direction: column-reverse;
         align-items: center !important;
       }

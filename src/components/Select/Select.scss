@@ -49,6 +49,19 @@
       }
     }
 
+    .ant-select-arrow {
+      flex: 0 0 16px;
+      max-width: 16px;
+      height: 16px;
+      margin-top: 0;
+      transform: translateY(-50%);
+
+      .Icon {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
     .ant-select-clear {
       width: 2rem;
       height: 2rem;

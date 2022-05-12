@@ -138,6 +138,7 @@ const Carts: React.FC = () => {
       showNotification(ETypeNotification.ERROR, 'Bạn không đủ tiền để thực hiện');
     } else {
       showNotification(ETypeNotification.SUCCESS, 'Tạo đơn hàng thành công');
+      getCartsData();
       navigate(`${LayoutPaths.Profile}${Paths.Cart}`);
     }
   };
