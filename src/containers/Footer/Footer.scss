@@ -18,6 +18,11 @@
       @media (max-width: 1024px) {
         flex: 0 0 100%;
         max-width: 100%;
+
+        &:not(:last-child) {
+          padding-bottom: 1rem;
+          border-bottom: 1px solid $pickled-bluewood;
+        }
       }
     }
 
