@@ -94,6 +94,7 @@
       z-index: 2;
       height: 100vh;
       overflow: auto;
+      transition: transform $common-transition;
     }
 
     &-favicon {
