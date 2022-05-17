@@ -73,3 +73,6 @@ export type TUnlikeProductResponse = unknown;
 export type TIsFavoriteProductResponse = {
   message: boolean;
 };
+
+export type TParamsGetProductsSpecial = unknown;
+export type TGetProductsSpecialResponse = TProductResponse[];

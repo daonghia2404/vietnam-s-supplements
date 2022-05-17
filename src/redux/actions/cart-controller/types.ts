@@ -3,6 +3,8 @@ import {
   TAddCartResponse,
   TBodyAddCart,
   TBodyPatchCart,
+  TCreateCartBody,
+  TCreateCartResponse,
   TDeleteCartResponse,
   TGetCartResponse,
   TPatchCartResponse,
@@ -36,6 +38,21 @@ export type TAddCartSuccess = {
 };
 
 export type TAddCartFailed = { type: ECartControllerAction.ADD_CART_FAILED; payload: { error: unknown } };
+
+export type TCreateCartRequest = {
+  type: ECartControllerAction.CREATE_CART_REQUEST;
+  payload: {
+    body: TCreateCartBody;
+    cb?: (response: TCreateCartResponse) => void;
+  };
+};
+
+export type TCreateCartSuccess = {
+  type: ECartControllerAction.CREATE_CART_SUCCESS;
+  payload: { response: TCreateCartResponse };
+};
+
+export type TCreateCartFailed = { type: ECartControllerAction.CREATE_CART_FAILED; payload: { error: unknown } };
 
 export type TPatchCartRequest = {
   type: ECartControllerAction.PATCH_CART_REQUEST;

@@ -5,6 +5,8 @@ import {
   TAddCartResponse,
   TBodyAddCart,
   TBodyPatchCart,
+  TCreateCartBody,
+  TCreateCartResponse,
   TDeleteCartResponse,
   TGetCartResponse,
   TPatchCartResponse,
@@ -22,6 +24,9 @@ import {
   TGetCartFailed,
   TGetCartRequest,
   TGetCartSuccess,
+  TCreateCartFailed,
+  TCreateCartRequest,
+  TCreateCartSuccess,
 } from '@/redux/actions/cart-controller/types';
 
 export const getCartAction = {
@@ -62,6 +67,27 @@ export const addCartAction = {
     ECartControllerAction.ADD_CART_FAILED,
     (resolve) =>
       (error: unknown): TAddCartFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const createCartAction = {
+  request: createActionCreator(
+    ECartControllerAction.CREATE_CART_REQUEST,
+    (resolve) =>
+      (body: TCreateCartBody, cb?: (response: TCreateCartResponse) => void): TCreateCartRequest =>
+        resolve({ body, cb }),
+  ),
+  success: createActionCreator(
+    ECartControllerAction.CREATE_CART_SUCCESS,
+    (resolve) =>
+      (response: TCreateCartResponse): TCreateCartSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    ECartControllerAction.CREATE_CART_FAILED,
+    (resolve) =>
+      (error: unknown): TCreateCartFailed =>
         resolve({ error }),
   ),
 };

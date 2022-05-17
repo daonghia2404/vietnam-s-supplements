@@ -4,12 +4,14 @@ import { ActionType } from 'deox';
 import Instance from '@/services/api/order-controller';
 import {
   cancelOrderAction,
+  checkoutOrderAction,
   createOrderAction,
   getOrderAction,
   getOrdersAction,
 } from '@/redux/actions/order-controller';
 import {
   TCancelOrderResponse,
+  TCheckoutOrderResponse,
   TCreateOrderResponse,
   TGetOrderResponse,
   TGetOrdersResponse,
@@ -50,6 +52,18 @@ export function* createOrderSaga(action: ActionType<typeof createOrderAction.req
   }
 }
 
+export function* checkoutOrderSaga(action: ActionType<typeof checkoutOrderAction.request>): Generator {
+  const { body, cb } = action.payload;
+  try {
+    const response = (yield call(Instance.checkoutOrder, body)) as TCheckoutOrderResponse;
+
+    yield put(checkoutOrderAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(checkoutOrderAction.failure(err));
+  }
+}
+
 export function* cancelOrderSaga(action: ActionType<typeof cancelOrderAction.request>): Generator {
   const { id, cb } = action.payload;
   try {
@@ -66,5 +80,6 @@ export default function* root(): Generator {
   yield all([takeLatest(getOrdersAction.request.type, getOrdersSaga)]);
   yield all([takeLatest(getOrderAction.request.type, getOrderSaga)]);
   yield all([takeLatest(createOrderAction.request.type, createOrderSaga)]);
+  yield all([takeLatest(checkoutOrderAction.request.type, checkoutOrderSaga)]);
   yield all([takeLatest(cancelOrderAction.request.type, cancelOrderSaga)]);
 }

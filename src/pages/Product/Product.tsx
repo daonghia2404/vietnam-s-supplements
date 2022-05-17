@@ -176,8 +176,8 @@ const Product: React.FC = () => {
         parseCartData({
           ...values,
           product: {
-            id,
             ...productState,
+            id,
           },
         }),
       );

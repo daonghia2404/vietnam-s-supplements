@@ -6,11 +6,18 @@ import {
   TPatchCartResponse,
   TDeleteCartResponse,
   TBodyPatchCart,
+  TCreateCartResponse,
+  TCreateCartBody,
 } from '@/services/api/cart-controller/types';
 
 class Controller {
   getCart = async (): Promise<TGetCartResponse> => {
     const response = await Service.get('/cart');
+    return response.data;
+  };
+
+  createCart = async (body: TCreateCartBody): Promise<TCreateCartResponse> => {
+    const response = await Service.post('/cart', body);
     return response.data;
   };
 

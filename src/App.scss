@@ -1,6 +1,8 @@
 @import './assets/styles/global';
 
 .App {
+  $width-sidebar: 39rem;
+
   &.mobile {
     .App {
       &-sidebar {
@@ -55,7 +57,7 @@
 
   &-sidebar {
     position: fixed;
-    width: 37.5rem;
+    width: $width-sidebar;
     z-index: 2147483647;
     background: $white;
     transition: $common-transition;
@@ -63,8 +65,8 @@
 
   &-body {
     position: relative;
-    width: calc(100% - 37.5rem);
-    margin-left: 37.5rem;
+    width: calc(100% - $width-sidebar);
+    margin-left: $width-sidebar;
     min-height: 100vh;
     background: $alabaster;
     transition: $common-transition;

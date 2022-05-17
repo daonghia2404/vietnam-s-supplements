@@ -58,3 +58,23 @@ export type TCartOrder = {
 };
 
 export type TCancelOrderResponse = unknown;
+
+export type TCheckoutOrderBody = {
+  cartId: string;
+  typePayment: string;
+  referCode?: string;
+  address: string;
+  phoneReceiver: string;
+  nameReceiver: string;
+  district: string;
+  city: string;
+  phone: string;
+  nameUser: string;
+  email: string;
+  addressReceiver: string;
+  districtReceiver: string;
+  cityReceiver: string;
+  note: string;
+};
+
+export type TCheckoutOrderResponse = unknown;

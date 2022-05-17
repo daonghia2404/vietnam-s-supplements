@@ -67,8 +67,8 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
             <div className="ProductsCarousel-main flex flex-wrap">
               <div className="ProductsCarousel-main-item">
                 <ProductBox
-                  hasBg
                   {...firstBlock}
+                  hasBg
                   title={firstBlock.name}
                   sale={Number(firstBlock.sale)}
                   price={Number(firstBlock.price)}
@@ -123,8 +123,8 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
               </div>
               <div className="ProductsCarousel-main-item">
                 <ProductBox
-                  hasBg
                   {...lastBlock}
+                  hasBg
                   title={lastBlock.name}
                   sale={Number(lastBlock.sale)}
                   price={Number(lastBlock.price)}

@@ -7,6 +7,7 @@ import {
   getProductsAction,
   getProductsFavoriteAction,
   getProductsSearchAction,
+  getProductsSpecialAction,
   isFavoriteProductAction,
   likeProductAction,
   unlikeProductAction,
@@ -15,6 +16,7 @@ import {
   TGetProductResponse,
   TGetProductsFavoriteResponse,
   TGetProductsResponse,
+  TGetProductsSpecialResponse,
   TIsFavoriteProductResponse,
   TLikeProductResponse,
   TUnlikeProductResponse,
@@ -41,6 +43,17 @@ export function* getProductsSaga(action: ActionType<typeof getProductsAction.req
     cb?.(response);
   } catch (err) {
     yield put(getProductsAction.failure(err));
+  }
+}
+export function* getProductsSpecialSaga(action: ActionType<typeof getProductsSpecialAction.request>): Generator {
+  const { params, cb } = action.payload;
+  try {
+    const response = (yield call(Instance.getProductsSpecial, params)) as TGetProductsSpecialResponse;
+
+    yield put(getProductsSpecialAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getProductsSpecialAction.failure(err));
   }
 }
 export function* getProductsSearchSaga(action: ActionType<typeof getProductsSearchAction.request>): Generator {
@@ -101,6 +114,7 @@ export function* isFavoriteProductSaga(action: ActionType<typeof isFavoriteProdu
 export default function* root(): Generator {
   yield all([takeLatest(getProductsFavoriteAction.request.type, getProductsFavoriteSaga)]);
   yield all([takeLatest(getProductsAction.request.type, getProductsSaga)]);
+  yield all([takeLatest(getProductsSpecialAction.request.type, getProductsSpecialSaga)]);
   yield all([takeLatest(getProductsSearchAction.request.type, getProductsSearchSaga)]);
   yield all([takeLatest(getProductAction.request.type, getProductSaga)]);
   yield all([takeLatest(likeProductAction.request.type, likeProductSaga)]);

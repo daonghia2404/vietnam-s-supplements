@@ -8,6 +8,8 @@ import {
   TLikeProductResponse,
   TUnlikeProductResponse,
   TIsFavoriteProductResponse,
+  TParamsGetProductsSpecial,
+  TGetProductsSpecialResponse,
 } from '@/services/api/product-controller/types';
 
 export type TGetProductsFavoriteRequest = {
@@ -43,6 +45,24 @@ export type TGetProductsSuccess = {
 
 export type TGetProductsFailed = {
   type: EProductControllerAction.GET_PRODUCTS_FAILED;
+  payload: { error: unknown };
+};
+
+export type TGetProductsSpecialRequest = {
+  type: EProductControllerAction.GET_PRODUCTS_SPECIAL_REQUEST;
+  payload: {
+    params: TParamsGetProductsSpecial;
+    cb?: (response: TGetProductsSpecialResponse) => void;
+  };
+};
+
+export type TGetProductsSpecialSuccess = {
+  type: EProductControllerAction.GET_PRODUCTS_SPECIAL_SUCCESS;
+  payload: { response: TGetProductsSpecialResponse };
+};
+
+export type TGetProductsSpecialFailed = {
+  type: EProductControllerAction.GET_PRODUCTS_SPECIAL_FAILED;
   payload: { error: unknown };
 };
 

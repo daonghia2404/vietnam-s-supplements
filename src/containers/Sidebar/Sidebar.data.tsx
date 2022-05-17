@@ -24,6 +24,7 @@ export const dataMenu = ({ categorys }: TResponseData): TSidebarData[] => {
       key: 'products',
       title: 'Sản Phẩm VNSUPPLEMENT',
       subItems: subItemsProduct,
+      link: Paths.Categorys,
     },
     { key: 'news', title: 'Tin Tức', link: Paths.News, subItems: [] },
     {

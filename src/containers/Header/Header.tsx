@@ -33,7 +33,11 @@ const Header: React.FC<THeaderProps> = ({ onClickMenuBars }) => {
   };
 
   const handleNavigateCarts = (): void => {
-    navigate(Paths.Carts);
+    if (atk) {
+      navigate(Paths.Carts);
+    } else {
+      navigate(Paths.CartsNotLogin);
+    }
   };
 
   const renderDropdownSearchProduct = (): React.ReactElement => {

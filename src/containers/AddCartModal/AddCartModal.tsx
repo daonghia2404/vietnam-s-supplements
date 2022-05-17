@@ -4,13 +4,13 @@ import { Form } from 'antd';
 import { useSelector } from 'react-redux';
 
 import Modal from '@/components/Modal';
-import Checkbox from '@/components/Checkbox';
 import DatePicker from '@/components/DatePicker';
 import Amount from '@/components/Amount';
 import Button from '@/components/Button';
 import { ECartControllerAction } from '@/redux/actions/cart-controller/constants';
 import { TRootState } from '@/redux/reducers';
 import { validationRules } from '@/utils/functions';
+import Checkbox from '@/components/Checkbox';
 
 import { TAddCartModalProps } from './AddCartModal.types';
 import './AddCartModal.scss';
@@ -58,28 +58,32 @@ const AddCartModal: React.FC<TAddCartModalProps> = ({ visible, data, onClose, on
     >
       <div className="Modal-body-title">Thêm vào giỏ hàng</div>
       <Form form={form} className="AddCartModal-form" layout="vertical" onFinish={handleSubmit}>
-        {/* {isMedicianProduct && (
-          <div className="AddCartModal-form-row flex items-center justify-between">
-            <div className="AddCartModal-form-row-label">Thêm vào lịch ăn uống:</div>
-            <Form.Item name="addCalendar">
-              <Checkbox onChange={setIsAddCalendar} />
-            </Form.Item>
-          </div>
-        )} */}
+        {false && (
+          <>
+            {isMedicianProduct && (
+              <div className="AddCartModal-form-row flex items-center justify-between">
+                <div className="AddCartModal-form-row-label">Thêm vào lịch ăn uống:</div>
+                <Form.Item name="addCalendar">
+                  <Checkbox onChange={setIsAddCalendar} />
+                </Form.Item>
+              </div>
+            )}
 
-        {isAddCalendar && (
-          <div className="AddCartModal-form-row two flex justify-between flex-wrap border-bottom">
-            <Form.Item name="dateStartEat" rules={[validationRules.required()]}>
-              <DatePicker placeholder="Chọn ngày bắt đầu" disabledDate={disabledDate} onChange={setBeforeDate} />
-            </Form.Item>
-            <Form.Item name="dateEndEat" rules={[validationRules.required()]}>
-              <DatePicker
-                placeholder="Chọn ngày kết thúc"
-                disabledDate={(current): boolean => disabledDate(current, beforeDate)}
-                disabled={!beforeDate}
-              />
-            </Form.Item>
-          </div>
+            {isMedicianProduct && isAddCalendar && (
+              <div className="AddCartModal-form-row two flex justify-between flex-wrap border-bottom">
+                <Form.Item name="dateStartEat" rules={[validationRules.required()]}>
+                  <DatePicker placeholder="Chọn ngày bắt đầu" disabledDate={disabledDate} onChange={setBeforeDate} />
+                </Form.Item>
+                <Form.Item name="dateEndEat" rules={[validationRules.required()]}>
+                  <DatePicker
+                    placeholder="Chọn ngày kết thúc"
+                    disabledDate={(current): boolean => disabledDate(current, beforeDate)}
+                    disabled={!beforeDate}
+                  />
+                </Form.Item>
+              </div>
+            )}
+          </>
         )}
 
         <div className="AddCartModal-form-row flex justify-between items-center">

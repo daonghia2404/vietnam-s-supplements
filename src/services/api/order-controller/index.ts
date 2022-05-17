@@ -6,6 +6,8 @@ import {
   TCreateOrderBody,
   TCreateOrderResponse,
   TCancelOrderResponse,
+  TCheckoutOrderBody,
+  TCheckoutOrderResponse,
 } from '@/services/api/order-controller/types';
 
 class Controller {
@@ -21,6 +23,11 @@ class Controller {
 
   createOrder = async (body: TCreateOrderBody): Promise<TCreateOrderResponse> => {
     const response = await Service.post(`/order/create-oder`, body);
+    return response.data;
+  };
+
+  checkoutOrder = async (body: TCheckoutOrderBody): Promise<TCheckoutOrderResponse> => {
+    const response = await Service.post(`/order`, body);
     return response.data;
   };
 

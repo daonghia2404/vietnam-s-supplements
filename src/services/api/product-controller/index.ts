@@ -8,6 +8,8 @@ import {
   TLikeProductResponse,
   TUnlikeProductResponse,
   TIsFavoriteProductResponse,
+  TGetProductsSpecialResponse,
+  TParamsGetProductsSpecial,
 } from '@/services/api/product-controller/types';
 
 class Controller {
@@ -18,6 +20,11 @@ class Controller {
 
   getProducts = async (params: TParamsGetProducts): Promise<TGetProductsResponse> => {
     const response = await Service.get('/product', { params });
+    return response.data;
+  };
+
+  getProductsSpecial = async (params: TParamsGetProductsSpecial): Promise<TGetProductsSpecialResponse> => {
+    const response = await Service.get('/product/special', { params });
     return response.data;
   };
 

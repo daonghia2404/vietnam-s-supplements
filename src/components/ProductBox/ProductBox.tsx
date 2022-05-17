@@ -26,6 +26,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({
   costPrice,
   type,
   onClickDetail,
+  ...rest
 }) => {
   const atk = AuthHelpers.getAccessToken();
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ const ProductBox: React.FC<TProductBoxProps> = ({
         parseCartData({
           ...values,
           product: {
+            ...rest,
             id,
             name: title,
             price,

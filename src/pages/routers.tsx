@@ -76,8 +76,10 @@ const News = lazy(() => retryLoadComponent(() => import('@/pages/News')));
 const HandbookDetail = lazy(() => retryLoadComponent(() => import('@/pages/HandbookDetail')));
 const NewDetail = lazy(() => retryLoadComponent(() => import('@/pages/NewDetail')));
 const Category = lazy(() => retryLoadComponent(() => import('@/pages/Category')));
+const Categorys = lazy(() => retryLoadComponent(() => import('@/pages/Categorys')));
 const Product = lazy(() => retryLoadComponent(() => import('@/pages/Product')));
 const Carts = lazy(() => retryLoadComponent(() => import('@/pages/Carts')));
+const CartsNotLogin = lazy(() => retryLoadComponent(() => import('@/pages/CartsNotLogin')));
 const Checkout = lazy(() => retryLoadComponent(() => import('@/pages/Checkout')));
 const ProductSearch = lazy(() => retryLoadComponent(() => import('@/pages/ProductSearch')));
 
@@ -152,9 +154,11 @@ export const Paths = {
   News: '/tin-tuc',
   HandbookDetail: (id?: string): string => `/cam-nang/${id || ':id'}`,
   NewDetail: (id?: string): string => `/tin-tuc/${id || ':id'}`,
+  Categorys: `/danh-muc`,
   Category: (id?: string): string => `/danh-muc/${id || ':id'}`,
   Product: (id?: string): string => `/san-pham/${id || ':id'}`,
   Carts: ModulePaths.Carts,
+  CartsNotLogin: `/kiem-tra-gio-hang`,
   Checkout: `/thanh-toan`,
   ProductSearch: `tim-kiem-san-pham`,
 
@@ -217,9 +221,11 @@ export const Pages = {
   News,
   HandbookDetail,
   NewDetail,
+  Categorys,
   Category,
   Product,
   Carts,
+  CartsNotLogin,
   Checkout,
   ProductSearch,
 

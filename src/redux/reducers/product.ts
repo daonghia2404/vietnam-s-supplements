@@ -5,18 +5,21 @@ import {
   getProductsAction,
   getProductsFavoriteAction,
   getProductsSearchAction,
+  getProductsSpecialAction,
   isFavoriteProductAction,
 } from '@/redux/actions';
 import {
   TGetProductResponse,
   TGetProductsFavoriteResponse,
   TGetProductsResponse,
+  TGetProductsSpecialResponse,
   TIsFavoriteProductResponse,
 } from '@/services/api/product-controller/types';
 
 export interface IUIState {
   productsFavorite?: TGetProductsFavoriteResponse;
   products?: TGetProductsResponse;
+  productsSpecial?: TGetProductsSpecialResponse;
   productsSearch?: TGetProductsResponse;
   product?: TGetProductResponse;
   isFavoriteProduct?: TIsFavoriteProductResponse;
@@ -38,6 +41,13 @@ const reducer = createReducer(initialState, (handleAction) => [
     return {
       ...state,
       products: response,
+    };
+  }),
+  handleAction(getProductsSpecialAction.success, (state, { payload }) => {
+    const { response } = payload;
+    return {
+      ...state,
+      productsSpecial: response,
     };
   }),
   handleAction(getProductsSearchAction.success, (state, { payload }) => {

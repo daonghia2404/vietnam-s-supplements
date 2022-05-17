@@ -81,3 +81,22 @@ export type TCreatePaymentFailed = {
   type: EPaymentControllerAction.CREATE_PAYMENT_FAILED;
   payload: { error: unknown };
 };
+
+export type TCreatePaymentOrderRequest = {
+  type: EPaymentControllerAction.CREATE_PAYMENT_ORDER_REQUEST;
+  payload: {
+    body: TBodyCreatePayment;
+    cb?: (response: TCreatePaymentResponse) => void;
+    failedCb?: () => void;
+  };
+};
+
+export type TCreatePaymentOrderSuccess = {
+  type: EPaymentControllerAction.CREATE_PAYMENT_ORDER_SUCCESS;
+  payload: { response: TCreatePaymentResponse };
+};
+
+export type TCreatePaymentOrderFailed = {
+  type: EPaymentControllerAction.CREATE_PAYMENT_ORDER_FAILED;
+  payload: { error: unknown };
+};

@@ -86,7 +86,7 @@ const Category: React.FC = () => {
   }, []);
 
   return (
-    <div className="Category style-content">
+    <div className="Category">
       {loading ? (
         <PageLoading />
       ) : (

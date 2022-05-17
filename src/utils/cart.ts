@@ -3,7 +3,7 @@ import { ETypeNotification } from '@/common/enums';
 import { TCartResponse } from '@/services/api/cart-controller/types';
 import { showNotification } from '@/utils/functions';
 
-const KEY_STORAGE = 'karaCarts';
+const KEY_STORAGE = 'vnsupplementsCarts';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const parseCartData = (data: any): any => {

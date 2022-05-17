@@ -16,7 +16,6 @@ import EmptyBox from '@/components/EmptyBox';
 import { LayoutPaths, Paths } from '@/pages/routers';
 import { TCartResponse } from '@/services/api/cart-controller/types';
 import {
-  caculatorSalePrice,
   formatISODateToDateTime,
   formatMoneyVND,
   handleErrorImageUrl,
@@ -211,6 +210,12 @@ const Carts: React.FC = () => {
     scrollToTop();
   }, []);
 
+  useEffect(() => {
+    form.setFieldsValue({
+      typePayment: dataPaymentMethodOptions?.[0],
+    });
+  }, [form]);
+
   return (
     <div className="Carts">
       <HeaderSkew title="Giỏ hàng" />
@@ -228,58 +233,61 @@ const Carts: React.FC = () => {
             <div className="Carts-wrapper flex justify-between flex-wrap">
               <div className="Carts-wrapper-item">
                 <div className="Carts-orders">
-                  {carts?.map((item) => (
-                    <div key={item.id} className="Carts-orders-item flex items-start justify-between">
-                      <div
-                        className={classNames('Carts-orders-item-remove', { loading: deleteCartLoading })}
-                        onClick={(): void => handleRemoveCart(item)}
-                      >
-                        <Icon name={EIconName.Close} />
-                      </div>
-                      {/* <div className="Carts-orders-item-check">
-                        <Checkbox
-                          value={cartsChecked.map((cart) => cart.id).includes(item.id)}
-                          onChange={(checked): void => handleCheckCart(checked, item)}
-                        />
-                      </div> */}
-                      <div className="Carts-orders-item-image">
-                        <img src={item?.product?.image} onError={handleErrorImageUrl} alt="" />
-                      </div>
-                      <div className="Carts-orders-item-info">
-                        <div className="Carts-orders-item-title">{item.product.name}</div>
-                        {item.dateStartEat && item.dateEndEat && (
-                          <div className="Carts-orders-item-date">
-                            Từ {formatISODateToDateTime(item.dateStartEat, EFormatDate.COMMON)} - đến{' '}
-                            {formatISODateToDateTime(item.dateEndEat, EFormatDate.COMMON)}
-                          </div>
-                        )}
-
-                        <div className="Carts-orders-item-price">
-                          {formatMoneyVND({ amount: item.product.price, showSuffix: true })}{' '}
-                          {item.product.sale && (
-                            <del>
-                              {formatMoneyVND({
-                                amount: caculatorSalePrice(item.product.price, Number(item.product.sale)),
-                                showSuffix: true,
-                              })}
-                            </del>
-                          )}
+                  {carts?.map((item) => {
+                    const isSamePriceAndCostPrice = item?.product?.costPrice === item?.product?.price;
+                    return (
+                      <div key={item.id} className="Carts-orders-item flex items-start justify-between">
+                        <div
+                          className={classNames('Carts-orders-item-remove', { loading: deleteCartLoading })}
+                          onClick={(): void => handleRemoveCart(item)}
+                        >
+                          <Icon name={EIconName.Close} />
                         </div>
-                        <div className="Carts-orders-item-amount flex justify-between">
-                          Số lượng:
-                          <Amount
-                            value={item.amount}
-                            disabled={patchCartLoading}
-                            onChange={(value): void => handleChangeAmount(value, item)}
+                        {/* <div className="Carts-orders-item-check">
+                          <Checkbox
+                            value={cartsChecked.map((cart) => cart.id).includes(item.id)}
+                            onChange={(checked): void => handleCheckCart(checked, item)}
                           />
+                        </div> */}
+                        <div className="Carts-orders-item-image">
+                          <img src={item?.product?.image} onError={handleErrorImageUrl} alt="" />
                         </div>
+                        <div className="Carts-orders-item-info">
+                          <div className="Carts-orders-item-title">{item.product.name}</div>
+                          {item.dateStartEat && item.dateEndEat && (
+                            <div className="Carts-orders-item-date">
+                              Từ {formatISODateToDateTime(item.dateStartEat, EFormatDate.COMMON)} - đến{' '}
+                              {formatISODateToDateTime(item.dateEndEat, EFormatDate.COMMON)}
+                            </div>
+                          )}
+
+                          <div className="Carts-orders-item-price">
+                            {formatMoneyVND({ amount: item.product.price, showSuffix: true })}{' '}
+                            {Boolean(item?.product?.costPrice) && !isSamePriceAndCostPrice && (
+                              <del>
+                                {formatMoneyVND({
+                                  amount: item?.product?.costPrice || 0,
+                                  showSuffix: true,
+                                })}
+                              </del>
+                            )}
+                          </div>
+                          <div className="Carts-orders-item-amount flex justify-between">
+                            Số lượng:
+                            <Amount
+                              value={item.amount}
+                              disabled={patchCartLoading}
+                              onChange={(value): void => handleChangeAmount(value, item)}
+                            />
+                          </div>
+                        </div>
+                        {/* <div className="Carts-orders-item-price">
+                          Tổng tiền
+                          <strong>{formatMoneyVND({ amount: item?.product?.price || 0 })} VND</strong>
+                        </div> */}
                       </div>
-                      {/* <div className="Carts-orders-item-price">
-                        Tổng tiền
-                        <strong>{formatMoneyVND({ amount: item?.product?.price || 0 })} VND</strong>
-                      </div> */}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
               <div className="Carts-wrapper-item">

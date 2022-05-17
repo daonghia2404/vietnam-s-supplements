@@ -14,6 +14,9 @@ import {
   TReturnPaymentFailed,
   TReturnPaymentRequest,
   TReturnPaymentSuccess,
+  TCreatePaymentOrderFailed,
+  TCreatePaymentOrderRequest,
+  TCreatePaymentOrderSuccess,
 } from '@/redux/actions/payment-controller/types';
 import {
   TParamsGetPaymentHistorys,
@@ -112,6 +115,31 @@ export const createPaymentAction = {
     EPaymentControllerAction.CREATE_PAYMENT_FAILED,
     (resolve) =>
       (error: unknown): TCreatePaymentFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const createPaymentOrderAction = {
+  request: createActionCreator(
+    EPaymentControllerAction.CREATE_PAYMENT_ORDER_REQUEST,
+    (resolve) =>
+      (
+        body: TBodyCreatePayment,
+        cb?: (response: TCreatePaymentResponse) => void,
+        failedCb?: () => void,
+      ): TCreatePaymentOrderRequest =>
+        resolve({ body, cb, failedCb }),
+  ),
+  success: createActionCreator(
+    EPaymentControllerAction.CREATE_PAYMENT_ORDER_SUCCESS,
+    (resolve) =>
+      (response: TCreatePaymentResponse): TCreatePaymentOrderSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EPaymentControllerAction.CREATE_PAYMENT_ORDER_FAILED,
+    (resolve) =>
+      (error: unknown): TCreatePaymentOrderFailed =>
         resolve({ error }),
   ),
 };

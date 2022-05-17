@@ -71,10 +71,12 @@ const App: React.FC = () => {
             <PublicRoute path={Paths.Handbooks} component={Pages.Handbooks} />
             <PublicRoute path={Paths.News} component={Pages.News} />
             <PublicRoute path={Paths.Carts} component={Pages.Carts} />
+            <PublicRoute path={Paths.CartsNotLogin} component={Pages.CartsNotLogin} />
             <PublicRoute path={Paths.Checkout} component={Pages.Checkout} />
             <PublicRoute path={Paths.ProductSearch} component={Pages.ProductSearch} />
             <PublicRoute path={Paths.HandbookDetail()} component={Pages.HandbookDetail} />
             <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
+            <PublicRoute path={Paths.Categorys} component={Pages.Categorys} />
             <PublicRoute path={Paths.Category()} component={Pages.Category} />
             <PublicRoute path={Paths.Product()} component={Pages.Product} />
             <Redirect noThrow from={Paths.Rest} to={`${LayoutPaths.Guest}${Paths.Home}`} />

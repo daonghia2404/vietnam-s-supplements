@@ -7,6 +7,7 @@ import {
   getPaymentHistorysAction,
   createPaymentAction,
   returnPaymentAction,
+  createPaymentOrderAction,
 } from '@/redux/actions/payment-controller';
 import {
   TCreatePaymentResponse,
@@ -60,8 +61,22 @@ export function* createPaymentSaga(action: ActionType<typeof createPaymentAction
   }
 }
 
+export function* createPaymentOrderSaga(action: ActionType<typeof createPaymentOrderAction.request>): Generator {
+  const { body, cb, failedCb } = action.payload;
+  try {
+    const response = (yield call(Instance.createPayment, body)) as TCreatePaymentResponse;
+
+    yield put(createPaymentOrderAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    failedCb?.();
+    yield put(createPaymentOrderAction.failure(err));
+  }
+}
+
 export default function* root(): Generator {
   yield all([takeLatest(getPaymentHistorysAction.request.type, getPaymentHistorysSaga)]);
   yield all([takeLatest(getPaymentHistoryAction.request.type, getPaymentHistorySaga)]);
   yield all([takeLatest(createPaymentAction.request.type, createPaymentSaga)]);
+  yield all([takeLatest(createPaymentOrderAction.request.type, createPaymentOrderSaga)]);
 }

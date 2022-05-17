@@ -104,7 +104,11 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   };
 
   const handleNavigateCarts = (): void => {
-    navigate(Paths.Carts);
+    if (atk) {
+      navigate(Paths.Carts);
+    } else {
+      navigate(Paths.CartsNotLogin);
+    }
   };
 
   const handleSearchProduct = (values: any): void => {
@@ -244,6 +248,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
                     key={item.key}
                     title={item.title}
                     disabled={item.disabled}
+                    onTitleClick={(): void => handleClickMenu(item)}
                   >
                     {item.subItems.map((subItem) => (
                       <Menu.Item

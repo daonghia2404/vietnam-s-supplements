@@ -31,3 +31,16 @@ export type TBodyPatchCart = {
 };
 export type TPatchCartResponse = unknown;
 export type TDeleteCartResponse = unknown;
+
+export type TCreateCartBody = {
+  cart: {
+    cart: {
+      product: TProductResponse;
+      amount: number;
+    }[];
+  };
+};
+export type TCreateCartResponse = {
+  id: string;
+  totalprice: number;
+};
