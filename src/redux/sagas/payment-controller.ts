@@ -64,7 +64,7 @@ export function* createPaymentSaga(action: ActionType<typeof createPaymentAction
 export function* createPaymentOrderSaga(action: ActionType<typeof createPaymentOrderAction.request>): Generator {
   const { body, cb, failedCb } = action.payload;
   try {
-    const response = (yield call(Instance.createPayment, body)) as TCreatePaymentResponse;
+    const response = (yield call(Instance.createPaymentOrder, body)) as TCreatePaymentResponse;
 
     yield put(createPaymentOrderAction.success(response));
     cb?.(response);

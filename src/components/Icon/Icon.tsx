@@ -41,6 +41,7 @@ import CloudDownload from './CloudDownload';
 import Minus from './Minus';
 import SearchSvg from './SearchSvg';
 import Tiktok from './Tiktok';
+import BookMark from './BookMark';
 
 const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
   const renderIcon = (): React.ReactElement => {
@@ -117,6 +118,8 @@ const Icon: React.FC<TIconProps> = ({ name, className, color, onClick }) => {
         return <SearchSvg color={color} />;
       case EIconName.Tiktok:
         return <Tiktok color={color} />;
+      case EIconName.BookMark:
+        return <BookMark color={color} />;
       default:
         return <></>;
     }

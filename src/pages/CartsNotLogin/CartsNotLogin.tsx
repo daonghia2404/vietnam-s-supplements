@@ -122,40 +122,36 @@ const Carts: React.FC = () => {
     if (isCheckoutStep) {
       const typePayment = values.typePayment?.value;
 
-      const body = {
-        cartId: isCheckoutStep?.id,
-        typePayment,
-        address: values?.address,
-        addressReceiver: values?.address,
-        referCode: values?.referCode || '',
-        district: values?.district?.value,
-        districtReceiver: values?.district?.label,
-        city: values?.city?.value,
-        cityReceiver: values?.city?.label,
-        phone: values?.phone,
-        phoneReceiver: values?.phone,
-        nameUser: values?.name,
-        nameReceiver: values?.name,
-        email: values?.email,
-        note: values?.note,
-      };
-
       if (typePayment === EOrderPayment.SHIP_COD) {
+        const body = {
+          cartId: isCheckoutStep?.id,
+          typePayment,
+          address: values?.address,
+          addressReceiver: values?.address,
+          referCode: values?.referCode || '',
+          district: values?.district?.value,
+          districtReceiver: values?.district?.label,
+          city: values?.city?.value,
+          cityReceiver: values?.city?.label,
+          phone: values?.phone,
+          phoneReceiver: values?.phone,
+          nameUser: values?.name,
+          nameReceiver: values?.name,
+          email: values?.email,
+          note: values?.note,
+        };
         dispatch(checkoutOrderAction.request(body, handleCheckoutOrderSuccess));
       }
 
       if (typePayment === EOrderPayment.WALLET) {
-        dispatch(
-          createPaymentOrderAction.request(
-            {
-              amount: String(isCheckoutStep.totalprice),
-              bankCode: undefined,
-              extraData: undefined,
-              paymentMethod: undefined,
-            },
-            handleCreatePaymentSuccess,
-          ),
-        );
+        const body: any = {
+          id: isCheckoutStep?.id,
+          amount: String(isCheckoutStep.totalprice),
+          bankCode: undefined,
+          extraData: undefined,
+          paymentMethod: undefined,
+        };
+        dispatch(createPaymentOrderAction.request(body, handleCreatePaymentSuccess));
       }
     } else {
       const body = {
@@ -252,7 +248,7 @@ const Carts: React.FC = () => {
                   </div>
 
                   <div className="Checkout-form-row">
-                    <Form.Item name="email" rules={[validationRules.required(), validationRules.email()]}>
+                    <Form.Item name="email" rules={[validationRules.email()]}>
                       <Input placeholder="Nhập email" size="large" />
                     </Form.Item>
                   </div>

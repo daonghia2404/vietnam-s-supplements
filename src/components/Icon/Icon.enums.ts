@@ -35,6 +35,7 @@ export enum EIconName {
   Minus = 'Minus',
   SearchSvg = 'SearchSvg',
   Tiktok = 'Tiktok',
+  BookMark = 'BookMark',
 }
 
 export enum EIconColor {

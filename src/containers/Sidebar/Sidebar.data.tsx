@@ -5,16 +5,23 @@ import { TSidebarData } from '@/containers/Sidebar/Sidebar.types';
 import { TGetInfoResponse } from '@/services/api/auth-controller/types';
 import { formatMoneyVND } from '@/utils/functions';
 import { TCategoryResponse } from '@/services/api/category-controller/types';
+import { TProductResponse } from '@/services/api/product-controller/types';
 
 type TResponseData = {
   categorys: TCategoryResponse[];
+  productsSpecial: TProductResponse[];
 };
 
-export const dataMenu = ({ categorys }: TResponseData): TSidebarData[] => {
-  const subItemsProduct = categorys.map((item) => ({
+export const dataMenu = ({ categorys, productsSpecial }: TResponseData): TSidebarData[] => {
+  const subItemsCategories = categorys.map((item) => ({
     key: item.id,
     title: item.name,
     link: Paths.Category(item.id),
+  }));
+  const subItemsProducts = productsSpecial.map((item) => ({
+    key: item.id,
+    title: item.name,
+    link: Paths.Product(item.id),
   }));
 
   return [
@@ -23,7 +30,7 @@ export const dataMenu = ({ categorys }: TResponseData): TSidebarData[] => {
     {
       key: 'products',
       title: 'Sản Phẩm VNSUPPLEMENT',
-      subItems: subItemsProduct,
+      subItems: [...subItemsProducts, ...subItemsCategories],
       link: Paths.Categorys,
     },
     { key: 'news', title: 'Tin Tức', link: Paths.News, subItems: [] },

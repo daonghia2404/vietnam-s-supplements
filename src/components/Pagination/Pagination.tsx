@@ -13,6 +13,8 @@ const Pagination: React.FC<TPaginationProps> = ({ page, pageSize, total = 0, cla
         current={page}
         pageSize={pageSize}
         total={total}
+        showQuickJumper={false}
+        showSizeChanger={false}
         hideOnSinglePage
         showLessItems
         onChange={onChange}

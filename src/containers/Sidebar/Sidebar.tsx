@@ -14,16 +14,23 @@ import { TRootState } from '@/redux/reducers';
 import { EDeviceType } from '@/redux/reducers/ui';
 import AuthHelpers from '@/services/helpers';
 import Modal from '@/components/Modal';
-import { addCartAction, getCartAction, getCategorysAction, getInfoAction, uiActions } from '@/redux/actions';
+import {
+  addCartAction,
+  getCartAction,
+  getCategorysAction,
+  getInfoAction,
+  getProductsSpecialAction,
+  uiActions,
+} from '@/redux/actions';
 import { DEFAULT_PAGE } from '@/common/constants';
 import { validationRules } from '@/utils/functions';
 import DropdownCustom from '@/components/DropdownCustom';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
-
-import './Sidebar.scss';
 import { syncCartsLocalStorageAndCartsDatabase } from '@/utils/cart';
 import UploadAvatar from '@/components/UploadAvatar';
+
+import './Sidebar.scss';
 
 const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const dispatch = useDispatch();
@@ -42,6 +49,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
 
   const authState = useSelector((state: TRootState) => state.authReducer.user);
   const categorysState = useSelector((state: TRootState) => state.categoryReducer.categorys);
+  const productsSpecialState = useSelector((state: TRootState) => state.productReducer.productsSpecial);
 
   const cartState = useSelector((state: TRootState) => state.cartReducer.cart?.cart) || [];
   const cartStorageState = useSelector((state: TRootState) => state.uiReducer.cartsStorage) || [];
@@ -56,7 +64,8 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
 
   const renderDataMenu = (): TSidebarData[] => {
     if (isShowProfileMenu) return dataProfileMenu(authState);
-    if (isShowNormalMenu) return dataMenu({ categorys: categorysState || [] });
+    if (isShowNormalMenu)
+      return dataMenu({ categorys: categorysState || [], productsSpecial: productsSpecialState || [] });
     return [];
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -154,9 +163,17 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
     dispatch(getCategorysAction.request(params));
   }, [dispatch]);
 
+  const getProductsSpecial = useCallback(() => {
+    dispatch(getProductsSpecialAction.request({}));
+  }, [dispatch]);
+
   useEffect(() => {
     getCategoriesData();
   }, [getCategoriesData]);
+
+  useEffect(() => {
+    getProductsSpecial();
+  }, [getProductsSpecial]);
 
   useEffect(() => {
     getCartData();
@@ -201,9 +218,9 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
           <Icon name={EIconName.Cart} />
           <div className="Sidebar-item-icon-badge">{atk ? cartState?.length || 0 : cartStorageState?.length || 0}</div>
         </div>
-        <Link to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} className="Sidebar-item-icon">
+        {/* <Link to={`${LayoutPaths.Profile}${Paths.ProfileInformation}`} className="Sidebar-item-icon">
           <Icon name={EIconName.UserSquare} color={EIconColor.SCARPA_FLOW} />
-        </Link>
+        </Link> */}
       </div>
 
       <div className="Sidebar-item">
