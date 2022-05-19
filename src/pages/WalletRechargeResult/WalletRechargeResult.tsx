@@ -8,9 +8,9 @@ import { LayoutPaths, Paths } from '@/pages/routers';
 import { copyText, formatMoneyVND, getQueryParam, showNotification } from '@/utils/functions';
 import { dataAppotapayErrorCode } from '@/services/api/payment-controller/data';
 import { ETypeNotification } from '@/common/enums';
+import Button from '@/components/Button';
 
 import './WalletRechargeResult.scss';
-import Button from '@/components/Button';
 
 const WalletRechargeResult: React.FC = () => {
   const amount = getQueryParam('amount');
@@ -27,7 +27,7 @@ const WalletRechargeResult: React.FC = () => {
   const isPaymentSuccess = statusPayment?.code === dataAppotapayErrorCode[0].code;
 
   const handleNavigateWallet = (): void => {
-    navigate(`${LayoutPaths.Profile}${Paths.Wallet}`);
+    navigate(`${LayoutPaths.Guest}${Paths.Home}`);
   };
 
   const handleCopyCode = (text: string | null): void => {

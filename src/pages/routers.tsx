@@ -137,6 +137,8 @@ export const Paths = {
 
   HistoryRotation: '/lich-su-vong-quay',
 
+  PaymentResult: '/ket-qua-thanh-toan',
+
   Wallet: ModulePaths.Wallet,
   WalletRecharge: `${ModulePaths.Wallet}/nap-tien`,
   WalletDetail: (id?: string): string => `${ModulePaths.Wallet}/chi-tiet/${id || ':id'}`,
