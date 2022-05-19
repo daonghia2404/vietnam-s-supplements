@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import HeaderSkew from '@/components/HeaderSkew';
 import Icon, { EIconColor, EIconName } from '@/components/Icon';
-import { LayoutPaths, Paths } from '@/pages/routers';
+import { Paths } from '@/pages/routers';
 import { copyText, formatMoneyVND, getQueryParam, showNotification } from '@/utils/functions';
 import { dataAppotapayErrorCode } from '@/services/api/payment-controller/data';
 import { ETypeNotification } from '@/common/enums';
@@ -27,7 +27,7 @@ const WalletRechargeResult: React.FC = () => {
   const isPaymentSuccess = statusPayment?.code === dataAppotapayErrorCode[0].code;
 
   const handleNavigateWallet = (): void => {
-    navigate(`${LayoutPaths.Guest}${Paths.Home}`);
+    navigate(Paths.Home);
   };
 
   const handleCopyCode = (text: string | null): void => {
