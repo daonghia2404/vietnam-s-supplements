@@ -115,44 +115,48 @@ const Carts: React.FC = () => {
   };
 
   const handleClickContinueShopping = (): void => {
-    navigate(Paths.Home);
+    navigate(Paths.Categorys);
   };
 
   const handleSubmitCart = (values: any): void => {
     if (isCheckoutStep) {
       const typePayment = values.typePayment?.value;
 
-      if (typePayment === EOrderPayment.SHIP_COD) {
-        const body = {
-          cartId: isCheckoutStep?.id,
-          typePayment,
-          address: values?.address,
-          addressReceiver: values?.address,
-          referCode: values?.referCode || '',
-          district: values?.district?.value,
-          districtReceiver: values?.district?.label,
-          city: values?.city?.value,
-          cityReceiver: values?.city?.label,
-          phone: values?.phone,
-          phoneReceiver: values?.phone,
-          nameUser: values?.name,
-          nameReceiver: values?.name,
-          email: values?.email,
-          note: values?.note,
-        };
-        dispatch(checkoutOrderAction.request(body, handleCheckoutOrderSuccess));
-      }
+      const body = {
+        cartId: isCheckoutStep?.id,
+        typePayment,
+        address: values?.address,
+        addressReceiver: values?.address,
+        referCode: values?.referCode || '',
+        district: values?.district?.value,
+        districtReceiver: values?.district?.label,
+        city: values?.city?.value,
+        cityReceiver: values?.city?.label,
+        phone: values?.phone,
+        phoneReceiver: values?.phone,
+        nameUser: values?.name,
+        nameReceiver: values?.name,
+        email: values?.email || '',
+        note: values?.note,
+      };
+      dispatch(
+        checkoutOrderAction.request(body, (response): void => {
+          if (typePayment === EOrderPayment.SHIP_COD) {
+            handleCheckoutOrderSuccess();
+          }
 
-      if (typePayment === EOrderPayment.WALLET) {
-        const body: any = {
-          orderId: isCheckoutStep?.id,
-          amount: String(isCheckoutStep.totalprice),
-          bankCode: undefined,
-          extraData: undefined,
-          paymentMethod: undefined,
-        };
-        dispatch(createPaymentOrderAction.request(body, handleCreatePaymentSuccess));
-      }
+          if (typePayment === EOrderPayment.WALLET) {
+            const paymentBody: any = {
+              orderId: response.id,
+              amount: String(isCheckoutStep.totalprice),
+              bankCode: undefined,
+              extraData: undefined,
+              paymentMethod: undefined,
+            };
+            dispatch(createPaymentOrderAction.request(paymentBody, handleCreatePaymentSuccess));
+          }
+        }),
+      );
     } else {
       const body = {
         cart: carts.map((item) => ({

@@ -109,7 +109,7 @@ const Carts: React.FC = () => {
   };
 
   const handleClickContinueShopping = (): void => {
-    navigate(Paths.Home);
+    navigate(Paths.Categorys);
   };
 
   const handleSubmitCart = (values: any): void => {

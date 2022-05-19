@@ -56,7 +56,7 @@ export const dataMenu = ({ categorys, productsSpecial }: TResponseData): TSideba
     },
     { key: 'contact', title: 'Liên Hệ', link: Paths.Contact, subItems: [] },
     // { key: 'calendar', title: 'Lịch Ăn Uống', link: `${LayoutPaths.Admin}${Paths.MealSchedule}`, subItems: [] },
-    { key: 'rotation', title: 'Vòng Quay', link: `${LayoutPaths.Admin}${Paths.Wheels}`, subItems: [] },
+    // { key: 'rotation', title: 'Vòng Quay', link: `${LayoutPaths.Admin}${Paths.Wheels}`, subItems: [] },
     // {
     //   key: 'auth',
     //   title: 'Đăng nhập - Đăng ký',

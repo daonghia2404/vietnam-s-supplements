@@ -77,4 +77,4 @@ export type TCheckoutOrderBody = {
   note: string;
 };
 
-export type TCheckoutOrderResponse = unknown;
+export type TCheckoutOrderResponse = TOrderResponse;
