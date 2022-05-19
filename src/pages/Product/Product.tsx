@@ -219,12 +219,15 @@ const Product: React.FC = () => {
       ) : (
         <div className="Product-wrapper">
           <div className="Product-banner flex flex-wrap">
-            <div
-              className={classNames('Product-banner-favorite', { disabled: favoriteLoading })}
-              onClick={handleClickFavoriteProduct}
-            >
-              <Icon name={EIconName.Heart} color={isFavoriteProductState ? EIconColor.RED : EIconColor.BLACK} />
-            </div>
+            {atk && (
+              <div
+                className={classNames('Product-banner-favorite', { disabled: favoriteLoading })}
+                onClick={handleClickFavoriteProduct}
+              >
+                <Icon name={EIconName.Heart} color={isFavoriteProductState ? EIconColor.RED : EIconColor.BLACK} />
+              </div>
+            )}
+
             <div className="Product-banner-item flex justify-center">
               <div className="Product-banner-image">
                 <img src={productState?.image} onError={handleErrorImageUrl} alt="" />

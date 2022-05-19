@@ -145,7 +145,7 @@ const Carts: React.FC = () => {
 
       if (typePayment === EOrderPayment.WALLET) {
         const body: any = {
-          id: isCheckoutStep?.id,
+          orderId: isCheckoutStep?.id,
           amount: String(isCheckoutStep.totalprice),
           bankCode: undefined,
           extraData: undefined,
@@ -155,12 +155,10 @@ const Carts: React.FC = () => {
       }
     } else {
       const body = {
-        cart: {
-          cart: carts.map((item) => ({
-            product: item.product,
-            amount: item.amount,
-          })),
-        },
+        cart: carts.map((item) => ({
+          product: item.product,
+          amount: item.amount,
+        })),
       };
       dispatch(createCartAction.request(body, handleCreateOrderSuccess));
     }

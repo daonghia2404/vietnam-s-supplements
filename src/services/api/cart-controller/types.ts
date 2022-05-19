@@ -34,11 +34,9 @@ export type TDeleteCartResponse = unknown;
 
 export type TCreateCartBody = {
   cart: {
-    cart: {
-      product: TProductResponse;
-      amount: number;
-    }[];
-  };
+    product: TProductResponse;
+    amount: number;
+  }[];
 };
 export type TCreateCartResponse = {
   id: string;

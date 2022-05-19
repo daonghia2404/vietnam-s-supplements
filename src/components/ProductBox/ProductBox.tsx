@@ -101,9 +101,6 @@ const ProductBox: React.FC<TProductBoxProps> = ({
   return (
     <div className={classNames('ProductBox', className, { background: hasBg })}>
       {Boolean(sale) && <div className="ProductBox-badge">-{sale}%</div>}
-      {/* <div className={classNames('ProductBox-heart', { disabled: favoriteLoading })} onClick={handleClickFavorite}>
-        <Icon name={EIconName.Heart} />
-      </div> */}
       <div className="ProductBox-image" onClick={handleNavigateProductDetail}>
         <img src={image} onError={handleErrorImageUrl} alt="" />
       </div>
