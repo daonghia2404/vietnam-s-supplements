@@ -18,7 +18,7 @@ const Home: React.FC = () => {
     (item) => item.name?.toLowerCase() === 'SẢN PHẨM NỔI BẬT'.toLowerCase(),
   )?.id;
 
-  const productsState = useSelector((state: TRootState) => state.productReducer.products);
+  const productsState = useSelector((state: TRootState) => state.productReducer.productsSpecial);
 
   useEffect(() => {
     if (featureCategoryId) {
@@ -34,7 +34,7 @@ const Home: React.FC = () => {
     <div className="Home">
       <HomeBanner />
       <TradeMark />
-      <ProductsCarousel title="Sản phẩm" data={productsState?.records} />
+      <ProductsCarousel title="Sản phẩm" data={productsState} />
       <ReviewsCarousel />
       <QuanlityStandards />
     </div>

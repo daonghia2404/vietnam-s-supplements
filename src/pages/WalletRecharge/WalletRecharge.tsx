@@ -96,7 +96,7 @@ const WalletRecharge: React.FC = () => {
 
   const handleCreatePaymentSuccess = (response: TCreatePaymentResponse): void => {
     handleCloseConfirmRechargeModal();
-    window.open(response.paymentUrl, 'blank');
+    window.open(response.paymentUrl, '_blank');
     // handleOpenSuccessRechargeModal();
   };
 

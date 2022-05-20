@@ -48,7 +48,7 @@ const ProductsCarousel: React.FC<TProductsCarouselProps> = ({ data = [], title }
 
           {isMobile ? (
             <div className="ProductsCarousel-carousel-mobile">
-              <Carousels autoplay={false} slidesToShow={2} onDragging={setIsDragging}>
+              <Carousels autoplay={false} dots={false} slidesToShow={2} onDragging={setIsDragging}>
                 {data.map((item) => (
                   <div className="ProductsCarousel-carousel-mobile-item">
                     <ProductBox

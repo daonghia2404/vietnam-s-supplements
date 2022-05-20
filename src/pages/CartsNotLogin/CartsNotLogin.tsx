@@ -31,18 +31,18 @@ import {
 } from '@/redux/actions';
 import Radio from '@/components/Radio';
 import { dataPaymentMethodOptions } from '@/pages/Carts/Carts.data';
-import { handleChangeAmountCartLocalStorage, handleDeleteCartLocalStorage } from '@/utils/cart';
+import { handleChangeAmountCartLocalStorage, handleDeleteCartLocalStorage, setCartsLocalStorage } from '@/utils/cart';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import TextArea from '@/components/TextArea';
 import '@/pages/Checkout/Checkout.scss';
 import { TParamsGetAddress } from '@/services/api/address-controller/types';
 import { EOrderPayment } from '@/services/api/order-controller/enums';
-
-import './CartsNotLogin.scss';
 import { TCreatePaymentResponse } from '@/services/api/payment-controller/types';
 import { EPaymentControllerAction } from '@/redux/actions/payment-controller/constants';
 import { EOrderControllerAction } from '@/redux/actions/order-controller/constants';
+
+import './CartsNotLogin.scss';
 
 const Carts: React.FC = () => {
   const dispatch = useDispatch();
@@ -59,6 +59,7 @@ const Carts: React.FC = () => {
 
   const isDisabledCityField = addressState.city.length === 0;
   const isDisabledDistrictField = addressState.district.length === 0;
+  const isDisabledCommuneField = addressState.commune.length === 0;
 
   const cartsStorage = useSelector((state: TRootState) => state.uiReducer.cartsStorage) || [];
   const carts = cartsStorage;
@@ -132,6 +133,8 @@ const Carts: React.FC = () => {
         districtReceiver: values?.district?.label,
         city: values?.city?.value,
         cityReceiver: values?.city?.label,
+        commune: values?.commune?.value,
+        communeReceiver: values?.commune?.label,
         phone: values?.phone,
         phoneReceiver: values?.phone,
         nameUser: values?.name,
@@ -173,11 +176,12 @@ const Carts: React.FC = () => {
   };
 
   const handleCreatePaymentSuccess = (response: TCreatePaymentResponse): void => {
-    window.open(response.paymentUrl, 'blank');
+    window.open(response.paymentUrl, '_blank');
   };
 
   const handleCheckoutOrderSuccess = (): void => {
     showNotification(ETypeNotification.SUCCESS, 'Tạo đơn hàng thành công');
+    setCartsLocalStorage([]);
     navigate(Paths.Home);
   };
 
@@ -272,6 +276,16 @@ const Carts: React.FC = () => {
                         onChange={(option): void =>
                           handleChangeAddress(getAddressParamsRequest.cityCode, option?.value)
                         }
+                      />
+                    </Form.Item>
+                  </div>
+
+                  <div className="Checkout-form-row">
+                    <Form.Item name="commune" rules={[validationRules.required()]}>
+                      <Select
+                        placeholder="Xã / phường"
+                        options={addressState.commune}
+                        disabled={isDisabledCommuneField}
                       />
                     </Form.Item>
                   </div>

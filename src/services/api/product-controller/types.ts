@@ -76,3 +76,15 @@ export type TIsFavoriteProductResponse = {
 
 export type TParamsGetProductsSpecial = unknown;
 export type TGetProductsSpecialResponse = TProductResponse[];
+
+export type TGetProductsAllResponse = {
+  category: TCategoryResponse;
+  products: TProductResponse[];
+}[];
+
+export type TParamsGetProductsAll = {
+  name?: string;
+  filter?: string;
+  sortField?: ESortField;
+  sortType?: ESortType;
+};

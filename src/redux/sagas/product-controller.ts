@@ -5,6 +5,7 @@ import Instance from '@/services/api/product-controller';
 import {
   getProductAction,
   getProductsAction,
+  getProductsAllAction,
   getProductsFavoriteAction,
   getProductsSearchAction,
   getProductsSpecialAction,
@@ -14,6 +15,7 @@ import {
 } from '@/redux/actions';
 import {
   TGetProductResponse,
+  TGetProductsAllResponse,
   TGetProductsFavoriteResponse,
   TGetProductsResponse,
   TGetProductsSpecialResponse,
@@ -43,6 +45,17 @@ export function* getProductsSaga(action: ActionType<typeof getProductsAction.req
     cb?.(response);
   } catch (err) {
     yield put(getProductsAction.failure(err));
+  }
+}
+export function* getProductsAllSaga(action: ActionType<typeof getProductsAllAction.request>): Generator {
+  const { params, cb } = action.payload;
+  try {
+    const response = (yield call(Instance.getProductsAll, params)) as TGetProductsAllResponse;
+
+    yield put(getProductsAllAction.success(response));
+    cb?.(response);
+  } catch (err) {
+    yield put(getProductsAllAction.failure(err));
   }
 }
 export function* getProductsSpecialSaga(action: ActionType<typeof getProductsSpecialAction.request>): Generator {
@@ -114,6 +127,7 @@ export function* isFavoriteProductSaga(action: ActionType<typeof isFavoriteProdu
 export default function* root(): Generator {
   yield all([takeLatest(getProductsFavoriteAction.request.type, getProductsFavoriteSaga)]);
   yield all([takeLatest(getProductsAction.request.type, getProductsSaga)]);
+  yield all([takeLatest(getProductsAllAction.request.type, getProductsAllSaga)]);
   yield all([takeLatest(getProductsSpecialAction.request.type, getProductsSpecialSaga)]);
   yield all([takeLatest(getProductsSearchAction.request.type, getProductsSearchSaga)]);
   yield all([takeLatest(getProductAction.request.type, getProductSaga)]);

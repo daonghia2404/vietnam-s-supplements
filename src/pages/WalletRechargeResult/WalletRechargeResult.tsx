@@ -9,6 +9,7 @@ import { copyText, formatMoneyVND, getQueryParam, showNotification } from '@/uti
 import { dataAppotapayErrorCode } from '@/services/api/payment-controller/data';
 import { ETypeNotification } from '@/common/enums';
 import Button from '@/components/Button';
+import { setCartsLocalStorage } from '@/utils/cart';
 
 import './WalletRechargeResult.scss';
 
@@ -38,7 +39,11 @@ const WalletRechargeResult: React.FC = () => {
   };
 
   useEffect(() => {
-    if (!orderId || !appotapayTransId || !transactionTs) handleNavigateWallet();
+    if (!orderId || !appotapayTransId || !transactionTs) {
+      handleNavigateWallet();
+    } else {
+      setCartsLocalStorage([]);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

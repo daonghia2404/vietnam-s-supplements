@@ -26,6 +26,9 @@ import {
   TGetProductsSpecialFailed,
   TGetProductsSpecialRequest,
   TGetProductsSpecialSuccess,
+  TGetProductsAllFailed,
+  TGetProductsAllRequest,
+  TGetProductsAllSuccess,
 } from '@/redux/actions/product-controller/types';
 import {
   TParamsGetProductsFavorite,
@@ -38,6 +41,8 @@ import {
   TIsFavoriteProductResponse,
   TGetProductsSpecialResponse,
   TParamsGetProductsSpecial,
+  TGetProductsAllResponse,
+  TParamsGetProductsAll,
 } from '@/services/api/product-controller/types';
 
 export const getProductsFavoriteAction = {
@@ -81,6 +86,27 @@ export const getProductsAction = {
     EProductControllerAction.GET_PRODUCTS_FAILED,
     (resolve) =>
       (error: unknown): TGetProductsFailed =>
+        resolve({ error }),
+  ),
+};
+
+export const getProductsAllAction = {
+  request: createActionCreator(
+    EProductControllerAction.GET_PRODUCTS_ALL_REQUEST,
+    (resolve) =>
+      (params: TParamsGetProductsAll, cb?: (response: TGetProductsAllResponse) => void): TGetProductsAllRequest =>
+        resolve({ params, cb }),
+  ),
+  success: createActionCreator(
+    EProductControllerAction.GET_PRODUCTS_ALL_SUCCESS,
+    (resolve) =>
+      (response: TGetProductsAllResponse): TGetProductsAllSuccess =>
+        resolve({ response }),
+  ),
+  failure: createActionCreator(
+    EProductControllerAction.GET_PRODUCTS_ALL_FAILED,
+    (resolve) =>
+      (error: unknown): TGetProductsAllFailed =>
         resolve({ error }),
   ),
 };

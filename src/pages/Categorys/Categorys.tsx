@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form } from 'antd';
+import { navigate } from '@reach/router';
 
 import HeaderSkew from '@/components/HeaderSkew';
 import { TRootState } from '@/redux/reducers';
-import { getProductsAction } from '@/redux/actions';
-import { ECategoryControllerAction } from '@/redux/actions/category-controller/constants';
+import { getProductsAllAction, getProductsSpecialAction } from '@/redux/actions';
 import { EProductControllerAction } from '@/redux/actions/product-controller/constants';
 import PageLoading from '@/components/PageLoading';
 import ProductsCarousel from '@/containers/ProductsCarousel';
@@ -13,12 +13,11 @@ import ProductBox from '@/components/ProductBox';
 import { Paths } from '@/pages/routers';
 import EmptyBox from '@/components/EmptyBox';
 import { scrollToTop } from '@/utils/functions';
-import { TParamsGetProducts } from '@/services/api/product-controller/types';
+import { TParamsGetProductsAll } from '@/services/api/product-controller/types';
 import { DEFAULT_PAGE, filterProuductsOptions } from '@/common/constants';
 import { ESortField } from '@/services/api/product-controller/enums';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
-import Pagination from '@/components/Pagination';
 
 import './Categorys.scss';
 
@@ -26,32 +25,28 @@ const Categorys: React.FC = () => {
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();
-  const [getProductsParamsRequest, setGetProductsParamsRequest] = useState<TParamsGetProducts>({
-    page: DEFAULT_PAGE,
-    pageSize: 50,
-  });
-  const productsState = useSelector((state: TRootState) => state.productReducer.products);
-  const getCategoryssLoading = useSelector(
-    (state: TRootState) => state.loadingReducer[ECategoryControllerAction.GET_CATEGORYS],
-  );
-  const getProductsLoading = useSelector(
-    (state: TRootState) => state.loadingReducer[EProductControllerAction.GET_PRODUCTS],
-  );
-  const isEmpty = productsState?.records?.length === 0;
+  const [getProductsParamsRequest, setGetProductsParamsRequest] = useState<TParamsGetProductsAll>({});
 
-  const loading = getCategoryssLoading || getProductsLoading;
+  const productsAllState = useSelector((state: TRootState) => state.productReducer.productsAll);
+  const productsSpecialState = useSelector((state: TRootState) => state.productReducer.productsSpecial);
 
-  const handlePageChange = (page: number, pageSize?: number): void => {
-    setGetProductsParamsRequest({
-      ...getProductsParamsRequest,
-      page,
-      pageSize: pageSize || getProductsParamsRequest.pageSize,
-    });
-  };
+  const getProductsSpecialLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EProductControllerAction.GET_PRODUCTS_SPECIAL],
+  );
+  const getProductsAllLoading = useSelector(
+    (state: TRootState) => state.loadingReducer[EProductControllerAction.GET_PRODUCTS_ALL],
+  );
+  const isEmpty = productsAllState?.length === 0;
+
+  const loading = getProductsSpecialLoading || getProductsAllLoading;
+
+  const getProductsAll = useCallback(() => {
+    dispatch(getProductsAllAction.request(getProductsParamsRequest));
+  }, [dispatch, getProductsParamsRequest]);
 
   const getProductsSpecial = useCallback(() => {
-    dispatch(getProductsAction.request(getProductsParamsRequest));
-  }, [dispatch, getProductsParamsRequest]);
+    dispatch(getProductsSpecialAction.request({}));
+  }, [dispatch]);
 
   const handleSearchProduct = (): void => {
     const values = form.getFieldsValue();
@@ -73,6 +68,10 @@ const Categorys: React.FC = () => {
   };
 
   useEffect(() => {
+    getProductsAll();
+  }, [getProductsAll]);
+
+  useEffect(() => {
     getProductsSpecial();
   }, [getProductsSpecial]);
 
@@ -88,7 +87,7 @@ const Categorys: React.FC = () => {
         <div className="Categorys-wrapper">
           <HeaderSkew title="Danh mục sản phẩm" />
 
-          <ProductsCarousel data={productsState?.records} />
+          <ProductsCarousel data={productsSpecialState} />
 
           <Form form={form} className="Categorys-filters flex justify-between items-center">
             <Form.Item name="name">
@@ -102,29 +101,35 @@ const Categorys: React.FC = () => {
           {isEmpty ? (
             <EmptyBox title="Không có dữ liệu sản phẩm" />
           ) : (
-            <div className="Categorys-list flex flex-wrap">
-              {productsState?.records?.map((item) => (
-                <div key={item.id} className="Categorys-list-item">
-                  <ProductBox
-                    {...item}
-                    title={item.name}
-                    sale={Number(item.sale)}
-                    price={Number(item.price)}
-                    link={Paths.Product(item.id)}
-                  />
-                </div>
-              ))}
+            <div className="Categorys-wrapper-main">
+              {productsAllState
+                ?.filter((group) => group?.products?.length > 0)
+                ?.map((group) => (
+                  <>
+                    <HeaderSkew
+                      title={group?.category?.name}
+                      center
+                      onClick={(): void => {
+                        navigate(Paths.Category(group.category.id));
+                      }}
+                    />
+                    <div className="Categorys-list flex flex-wrap">
+                      {group?.products?.map((item) => (
+                        <div key={item.id} className="Categorys-list-item">
+                          <ProductBox
+                            {...item}
+                            title={item.name}
+                            sale={Number(item.sale)}
+                            price={Number(item.price)}
+                            link={Paths.Product(item.id)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ))}
             </div>
           )}
-
-          <div className="Categorys-pagination flex justify-center">
-            <Pagination
-              page={getProductsParamsRequest.page}
-              pageSize={getProductsParamsRequest.pageSize}
-              total={productsState?.total}
-              onChange={handlePageChange}
-            />
-          </div>
         </div>
       )}
     </div>
