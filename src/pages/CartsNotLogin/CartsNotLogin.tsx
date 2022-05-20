@@ -31,7 +31,7 @@ import {
 } from '@/redux/actions';
 import Radio from '@/components/Radio';
 import { dataPaymentMethodOptions } from '@/pages/Carts/Carts.data';
-import { handleChangeAmountCartLocalStorage, handleDeleteCartLocalStorage, setCartsLocalStorage } from '@/utils/cart';
+import { handleChangeAmountCartLocalStorage, handleDeleteCartLocalStorage } from '@/utils/cart';
 import Input from '@/components/Input';
 import Select from '@/components/Select';
 import TextArea from '@/components/TextArea';
@@ -181,7 +181,7 @@ const Carts: React.FC = () => {
 
   const handleCheckoutOrderSuccess = (): void => {
     showNotification(ETypeNotification.SUCCESS, 'Tạo đơn hàng thành công');
-    setCartsLocalStorage([]);
+    dispatch(uiActions.setCartsStorage([]));
     navigate(Paths.Home);
   };
 
