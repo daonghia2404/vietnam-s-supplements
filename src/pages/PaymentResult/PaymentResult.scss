@@ -1,0 +1,58 @@
+@import '../../assets/styles/global';
+
+.PaymentResult {
+  &-back {
+    margin-top: 7rem;
+
+    .Button {
+      width: 100%;
+      max-width: 50rem;
+      margin: auto;
+    }
+  }
+
+  &-group {
+    padding: 2rem 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $iron;
+    }
+  }
+
+  &-text {
+    font-size: 1.6rem;
+    line-height: 2;
+
+    &.success {
+      color: $japanese-laurel;
+    }
+
+    &.warning {
+      color: $buddha-gold;
+    }
+
+    &.error {
+      color: $red;
+    }
+
+    &.bold {
+      font-weight: 600;
+    }
+
+    &.gray {
+      color: $boulder;
+    }
+
+    &.hightlight {
+      color: $international-klein-blue;
+    }
+
+    &.copy {
+      cursor: pointer;
+
+      .Icon {
+        margin-right: .5rem;
+      }
+    }
+  }
+}

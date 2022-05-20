@@ -21,7 +21,15 @@ export type TPaymentHistoryResponse = {
   transactionTs: string;
 };
 
-export type TGetPaymentHistoryResponse = unknown;
+export type TGetPaymentHistoryResponse = {
+  appotapayTransId: string;
+  createdAt: string;
+  errorCode: string;
+  extraData: string;
+  money: number;
+  status: string;
+  transactionTs: string;
+};
 
 export type TBodyCreatePayment = {
   amount: string;

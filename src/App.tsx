@@ -74,7 +74,7 @@ const App: React.FC = () => {
             <PublicRoute path={Paths.CartsNotLogin} component={Pages.CartsNotLogin} />
             <PublicRoute path={Paths.Checkout} component={Pages.Checkout} />
             <PublicRoute path={Paths.ProductSearch} component={Pages.ProductSearch} />
-            <PublicRoute path={Paths.PaymentResult} component={Pages.WalletRechargeResult} />
+            <PublicRoute path={Paths.PaymentResult()} component={Pages.PaymentResult} />
             <PublicRoute path={Paths.HandbookDetail()} component={Pages.HandbookDetail} />
             <PublicRoute path={Paths.NewDetail()} component={Pages.NewDetail} />
             <PublicRoute path={Paths.Categorys} component={Pages.Categorys} />

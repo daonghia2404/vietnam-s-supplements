@@ -59,6 +59,7 @@ const Wallet = lazy(() => retryLoadComponent(() => import('@/pages/Wallet')));
 const WalletDetail = lazy(() => retryLoadComponent(() => import('@/pages/WalletDetail')));
 const WalletRecharge = lazy(() => retryLoadComponent(() => import('@/pages/WalletRecharge')));
 const WalletRechargeResult = lazy(() => retryLoadComponent(() => import('@/pages/WalletRechargeResult')));
+const PaymentResult = lazy(() => retryLoadComponent(() => import('@/pages/PaymentResult')));
 
 const ListPage = lazy(() => retryLoadComponent(() => import('@/pages/ListPage')));
 
@@ -137,7 +138,7 @@ export const Paths = {
 
   HistoryRotation: '/lich-su-vong-quay',
 
-  PaymentResult: '/ket-qua-thanh-toan',
+  PaymentResult: (id?: string): string => `/appotapay/history/${id || ':id'}`,
 
   Wallet: ModulePaths.Wallet,
   WalletRecharge: `${ModulePaths.Wallet}/nap-tien`,
@@ -210,6 +211,7 @@ export const Pages = {
   WalletRecharge,
   WalletDetail,
   WalletRechargeResult,
+  PaymentResult,
 
   Home,
   AboutUs,
