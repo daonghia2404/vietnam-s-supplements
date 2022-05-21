@@ -9,10 +9,9 @@ import { Paths } from '@/pages/routers';
 import { copyText, formatMoneyVND, showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
 import Button from '@/components/Button';
-import { setCartsLocalStorage } from '@/utils/cart';
 
 import './PaymentResult.scss';
-import { getPaymentHistoryAction } from '@/redux/actions';
+import { getPaymentHistoryAction, uiActions } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EPaymentControllerAction } from '@/redux/actions/payment-controller/constants';
 import PageLoading from '@/components/PageLoading';
@@ -45,7 +44,7 @@ const PaymentResult: React.FC = () => {
       dispatch(
         getPaymentHistoryAction.request(id, (response): void => {
           if (response.status === '1') {
-            setCartsLocalStorage([]);
+            dispatch(uiActions.setCartsStorage([]));
           }
         }),
       );
