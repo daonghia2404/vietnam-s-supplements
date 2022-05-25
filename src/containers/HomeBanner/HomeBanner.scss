@@ -2,8 +2,17 @@
 
 .HomeBanner {
   &-item {
+    height: 52rem;
+
+    @media (max-width: 575px) {
+      height: 42rem;
+    }
+
     img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
   }
 }

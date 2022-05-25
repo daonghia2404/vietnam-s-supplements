@@ -3,7 +3,7 @@ import { TGetBannersResponse, TGetBannerResponse } from '@/services/api/banner-c
 
 class Controller {
   getBanners = async (): Promise<TGetBannersResponse> => {
-    const response = await Service.get('/banner');
+    const response = await Service.get('/banner', { params: { type: 'web' } });
     return response.data;
   };
 

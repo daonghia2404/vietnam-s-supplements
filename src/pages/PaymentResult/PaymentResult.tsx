@@ -9,12 +9,12 @@ import { Paths } from '@/pages/routers';
 import { copyText, formatMoneyVND, showNotification } from '@/utils/functions';
 import { ETypeNotification } from '@/common/enums';
 import Button from '@/components/Button';
-
-import './PaymentResult.scss';
 import { getPaymentHistoryAction, uiActions } from '@/redux/actions';
 import { TRootState } from '@/redux/reducers';
 import { EPaymentControllerAction } from '@/redux/actions/payment-controller/constants';
 import PageLoading from '@/components/PageLoading';
+
+import './PaymentResult.scss';
 
 const PaymentResult: React.FC = () => {
   const { id } = useParams();

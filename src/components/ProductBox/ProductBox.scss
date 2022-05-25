@@ -19,7 +19,10 @@
         }
 
         &-price {
-          &-current,
+          &-current {
+            color: $red;
+          }
+
           &-old {
             color: $white;
           }

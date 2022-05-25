@@ -187,7 +187,7 @@ const Carts: React.FC = () => {
 
   const caculatorTotalPrice = (): number => {
     const total = cartsChecked.reduce((result, item) => {
-      const newResult = result + Number(item.product?.costPrice || item.product?.price) * item.amount;
+      const newResult = result + Number(item.product?.price || item.product?.costPrice) * item.amount;
 
       return newResult;
     }, 0);

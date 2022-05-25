@@ -1,23 +1,21 @@
-import { TPaginateResponse } from '@/common/types';
-
 export type TParamsGetBanners = {
   page: number;
   pageSize: number;
 };
 
 export type TBannerResponse = {
-  active: boolean;
-  content: string;
-  createdAt: string;
   description: string;
-  id: number;
-  image: string;
-  title: string;
-  updatedAt: string;
+  id: string;
+  imageUrls: {
+    description: string;
+    id: string;
+    imageUrl: string;
+  }[];
+  isDelete: boolean;
+  label: string;
+  type: string;
 };
 
-export type TGetBannersResponse = TPaginateResponse & {
-  records: TBannerResponse[];
-};
+export type TGetBannersResponse = TBannerResponse[];
 
 export type TGetBannerResponse = TBannerResponse;

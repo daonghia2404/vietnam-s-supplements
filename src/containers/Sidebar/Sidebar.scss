@@ -256,6 +256,10 @@
       height: auto !important;
       border-bottom: 1px solid $gallery;
 
+      @media (max-width: 575px) {
+        font-size: 1.6rem;
+      }
+
       .ant-menu-title-content {
         white-space: pre-wrap;
       }
