@@ -1,0 +1,2 @@
+(this["webpackJsonpvietnam-supplements"]=this["webpackJsonpvietnam-supplements"]||[]).push([[62],{374:function(e,s,t){"use strict";t.r(s);t(0);var n=t(1),i=function(){return Object(n.jsx)("div",{children:"Dashboard"})};s.default=i}}]);
+//# sourceMappingURL=62.0714fcb6.chunk.js.map

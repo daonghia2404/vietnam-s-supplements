@@ -1,0 +1,2 @@
+(this["webpackJsonpvietnam-supplements"]=this["webpackJsonpvietnam-supplements"]||[]).push([[58],{359:function(e,t,n){"use strict";n.r(t);n(0);var s=n(30),c=n(393),i=n(444),a=n(402),l=(n(475),n(1)),p=function(){return Object(l.jsxs)("div",{className:"Exercise style-container",children:[Object(l.jsx)(c.a,{title:"G\xf3i PT Online"}),Object(l.jsx)("div",{className:"Exercise-main",children:Object(l.jsx)(i.a,{type:a.a.PT_ONLINE,onBack:function(){Object(s.e)(-1)}})})]})};t.default=p},475:function(e,t,n){}}]);
+//# sourceMappingURL=58.df5493c5.chunk.js.map
