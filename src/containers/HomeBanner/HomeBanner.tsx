@@ -24,9 +24,9 @@ const HomeBanner: React.FC = () => {
   return (
     <div className="HomeBanner">
       <Carousels autoplay dots={false} arrows={false}>
-        {bannersData?.map((item) => (
+        {bannersData?.[0]?.imageUrls?.map((item) => (
           <div key={item.id} className="HomeBanner-item">
-            <img src={item?.imageUrls[0]?.imageUrl} onError={handleErrorImageUrl} alt="" />
+            <img src={item?.imageUrl} onError={handleErrorImageUrl} alt="" />
           </div>
         ))}
       </Carousels>
