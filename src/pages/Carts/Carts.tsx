@@ -72,11 +72,6 @@ const Carts: React.FC = () => {
   });
   const [voucherOptions, setVoucherOptions] = useState<TSelectOption[]>([]);
 
-  // const handleCheckCart = (checked: boolean, data: TCartResponse): void => {
-  //   if (checked) setCartsChecked([...cartsChecked, data]);
-  //   else setCartsChecked(cartsChecked.filter((cart) => cart.id !== data.id));
-  // };
-
   const handleChangeAmount = (amount: number, data: TCartResponse): void => {
     if (atk) {
       if (!patchCartLoading) {
