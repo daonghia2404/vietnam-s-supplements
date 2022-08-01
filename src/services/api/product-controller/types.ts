@@ -75,7 +75,7 @@ export type TIsFavoriteProductResponse = {
 };
 
 export type TParamsGetProductsSpecial = unknown;
-export type TGetProductsSpecialResponse = TProductResponse[];
+export type TGetProductsSpecialResponse = { [key: number | string]: TProductResponse };
 
 export type TGetProductsAllResponse = {
   category: TCategoryResponse;

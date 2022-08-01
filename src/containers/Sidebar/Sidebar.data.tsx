@@ -9,16 +9,20 @@ import { TProductResponse } from '@/services/api/product-controller/types';
 
 type TResponseData = {
   categorys: TCategoryResponse[];
-  productsSpecial: TProductResponse[];
+  productsSpecial: { [key: number | string]: TProductResponse };
 };
 
 export const dataMenu = ({ categorys, productsSpecial }: TResponseData): TSidebarData[] => {
+  const productsSpecialArray = Object.entries(productsSpecial)
+    .slice(0, -1)
+    .map(([, data]) => data);
+
   const subItemsCategories = categorys.map((item) => ({
     key: item.id,
     title: item.name,
     link: Paths.Category(item.id),
   }));
-  const subItemsProducts = productsSpecial.map((item) => ({
+  const subItemsProducts = productsSpecialArray?.map((item) => ({
     key: item.id,
     title: item.name,
     link: Paths.Product(item.id),

@@ -65,7 +65,7 @@ const Sidebar: React.FC<TSidebarProps> = ({ isMobile, onClickMenuBars }) => {
   const renderDataMenu = (): TSidebarData[] => {
     if (isShowProfileMenu) return dataProfileMenu(authState);
     if (isShowNormalMenu)
-      return dataMenu({ categorys: categorysState || [], productsSpecial: productsSpecialState || [] });
+      return dataMenu({ categorys: categorysState || [], productsSpecial: productsSpecialState || {} });
     return [];
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

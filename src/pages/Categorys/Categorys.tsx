@@ -29,6 +29,9 @@ const Categorys: React.FC = () => {
 
   const productsAllState = useSelector((state: TRootState) => state.productReducer.productsAll);
   const productsSpecialState = useSelector((state: TRootState) => state.productReducer.productsSpecial);
+  const productsSpecialArray = Object.entries(productsSpecialState || {})
+    .slice(0, -1)
+    .map(([, data]) => data);
 
   const getProductsSpecialLoading = useSelector(
     (state: TRootState) => state.loadingReducer[EProductControllerAction.GET_PRODUCTS_SPECIAL],
@@ -87,7 +90,7 @@ const Categorys: React.FC = () => {
         <div className="Categorys-wrapper">
           <HeaderSkew title="Danh mục sản phẩm" />
 
-          <ProductsCarousel data={productsSpecialState} />
+          <ProductsCarousel data={productsSpecialArray} />
 
           <Form form={form} className="Categorys-filters flex justify-between items-center">
             <Form.Item name="name">
